@@ -4,6 +4,7 @@ import Button, { ButtonCreateMeeting, ButtonCancel } from './button'
 import { BigDivider, EmptyDivider } from './divider'
 
 import Input, { DateInput } from './input'
+import TextLabel from './text-label'
 
 const sBlock = {
   padding: '16px 16px 20px',
@@ -38,7 +39,9 @@ class BookRoom extends Component {
         </div>
         <BigDivider />
 
-        Рекомендованные переговорки
+        <div style={sBlock}>
+          <TextLabel>Рекомендованные переговорки</TextLabel>
+        </div>
 
         Выберите переговорку
 

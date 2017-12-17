@@ -2,6 +2,7 @@ import { h }  from 'preact'
 import { connect } from 'preact-fela'
 import { mergeDeepLeft } from 'ramda'
 import CalendarIcon from '../assets/calendar.svg'
+import TextLabel from './text-label'
 
 const inputRule = state => ({
   width: '100%',
@@ -19,21 +20,14 @@ const inputRule = state => ({
   }
 })
 
-const labelRule = state => ({
-  fontSize: '13px',
-  fontWeight: 'bold',
-  paddingBottom: '4px'
-})
-
 const Input = connect({
-  inputRule,
-  labelRule
+  inputRule
 })(({
   placeholder, value, styles, label
 }) => {
   return (
     <div>
-      {label && <div className={styles.labelRule}>{label}</div>}
+      {label && <TextLabel>{label}</TextLabel>}
       <input className={styles.inputRule} placeholder={placeholder} value={value} />
     </div>
   )
@@ -56,12 +50,11 @@ const dateInputRule = state => mergeDeepLeft(inputRule(state), {
 
 export const DateInput = connect({
   inputRule: dateInputRule,
-  labelRule
 })(({
   placeholder, value, styles, label
 }) => (
   <div>
-    {label && <div className={styles.labelRule}>{label}</div>}
+    {label && <TextLabel>{label}</TextLabel>}
     <input className={styles.inputRule} type='date'
       value={value}
       placeholder={placeholder}
