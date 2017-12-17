@@ -15,6 +15,7 @@ import { createRenderer } from 'fela'
 
 import Button from './components/button'
 import Navigation from './components/navigation'
+import DateSwitcher from './components/date-switcher'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -60,14 +61,21 @@ const App = () => (
       <FelaProvider renderer={renderer}>
         <ThemeProvider theme={theme}>
           <div>
-            {<Navigation />}
+            <Navigation />
             <Router history={createHashHistory()}>
               <Main path='/' />
+              <BookingPage path='/booking' />
             </Router>
           </div>
         </ThemeProvider>
       </FelaProvider>
     </Provider>
+  </div>
+)
+
+const BookingPage = () => (
+  <div>
+    <DateSwitcher />
   </div>
 )
 
