@@ -16,6 +16,7 @@ import { createRenderer } from 'fela'
 import Button from './components/button'
 import Navigation from './components/navigation'
 import DateSwitcher from './components/date-switcher'
+import RoomsTimetable from './components/rooms-timetable'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -76,6 +77,7 @@ const App = () => (
 const BookingPage = () => (
   <div>
     <DateSwitcher />
+    <RoomsTimetable />
   </div>
 )
 

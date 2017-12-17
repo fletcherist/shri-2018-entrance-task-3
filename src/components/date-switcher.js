@@ -6,14 +6,14 @@ import Divider from './divider'
 /* styles */
 const s = {
   container: {
-    padding: '12px 16px',
+    padding: '12px 16px'
   },
   wrapper: {
     display: 'flex',
     // justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    maxWidth: '100%',
+    maxWidth: '100%'
   },
   label: {
     flexGrow: 1,
