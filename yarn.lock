@@ -1390,6 +1390,12 @@ crypto-browserify@^3.11.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
+css-in-js-utils@2.0.0, css-in-js-utils@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/css-in-js-utils/-/css-in-js-utils-2.0.0.tgz#5af1dd70f4b06b331f48d22a3d86e0786c0b9435"
+  dependencies:
+    hyphenate-style-name "^1.0.2"
+
 d@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/d/-/d-1.0.0.tgz#754bb5bfe55451da69a58b94d45f4c5b0462d58f"
@@ -1841,6 +1847,35 @@ faye-websocket@~0.10.0:
   dependencies:
     websocket-driver ">=0.5.1"
 
+fela-bindings@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/fela-bindings/-/fela-bindings-1.2.0.tgz#f81733dad7c300a37db61e3bdc4c965bb062d8b8"
+  dependencies:
+    fela-dom "^7.0.0"
+    lodash "^4.17.4"
+
+fela-dom@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/fela-dom/-/fela-dom-7.0.0.tgz#58b49d038efc7a6f50e3050901fc588f32f2ed34"
+  dependencies:
+    fela-utils "^8.0.0"
+    lodash "^4.17.4"
+
+fela-utils@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/fela-utils/-/fela-utils-8.0.0.tgz#99768cbc3ef1a2d45ecc2e21dc9bfe697322451e"
+  dependencies:
+    css-in-js-utils "^2.0.0"
+    lodash "^4.17.4"
+
+fela@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/fela/-/fela-6.1.0.tgz#c21f32bca8e68732072b5e50caabfda2fa3a119c"
+  dependencies:
+    css-in-js-utils "2.0.0"
+    fela-utils "^8.0.0"
+    lodash "^4.17.4"
+
 figures@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-2.0.0.tgz#3ab1a2d2a62c8bfb431a0c94cb797a2fce27c962"
@@ -2157,6 +2192,10 @@ http-signature@~1.1.0:
 https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
+
+hyphenate-style-name@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.2.tgz#31160a36930adaf1fc04c6074f7eb41465d4ec4b"
 
 iconv-lite@0.4.13:
   version "0.4.13"
@@ -2931,6 +2970,13 @@ pkg-dir@^2.0.0:
 pluralize@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
+
+preact-fela@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/preact-fela/-/preact-fela-6.1.1.tgz#4166a7b32b5c4c403a017e27f53230f5b7eba99b"
+  dependencies:
+    fela-bindings "^1.2.0"
+    fela-dom "^7.0.0"
 
 preact-redux@^2.0.3:
   version "2.0.3"
