@@ -5,6 +5,7 @@ import { BigDivider, EmptyDivider } from './divider'
 
 import Input, { DateInput } from './input'
 import TextLabel from './text-label'
+import RecommendedRoom from './recommended-room'
 
 const sBlock = {
   padding: '16px 16px 20px',
@@ -41,6 +42,24 @@ class BookRoom extends Component {
 
         <div style={sBlock}>
           <TextLabel>Рекомендованные переговорки</TextLabel>
+          <RecommendedRoom
+            floor='4'
+            timeStart='16:00'
+            timeEnd='16:30'
+            name='Готем'
+          />
+          <RecommendedRoom
+            floor='4'
+            timeStart='16:00'
+            timeEnd='16:30'
+            name='Готем'
+          />
+          <RecommendedRoom
+            floor='4'
+            timeStart='16:00'
+            timeEnd='16:30'
+            name='Готем'
+          />
         </div>
 
         Выберите переговорку
