@@ -13,16 +13,25 @@ const ArrayFrom8AM = (() => {
 const sTime = {
   container: {
     display: 'flex',
-    overflow: 'scroll'
+    overflow: 'scroll',
   },
   element: {
     minWidth: '49px',
-    marginRight: '17px',
+    marginLeft: '28px',
     padding: '9px 0px 10px 0',
     textAlign: 'center',
     fontSize: '11px',
     color: '#858E98',
-    letterSpacing: '0.4px'
+    letterSpacing: '0.4px',
+    // borderBottom: '1px solid #E9ECEF'
+  },
+  line: {
+    borderLeft: '1px solid rgba(19,100,205,0.10)',
+    // position: 'absolute',
+    height: '500px',
+    // overflow: 'scroll',
+    marginLeft: '-24px'
+
   }
 }
 
@@ -34,7 +43,9 @@ const sRoomName = {
   fontSize: '11px',
   color: '#858E98',
   display: 'block',
-  position: 'absolute'
+  position: 'absolute',
+  letterSpacing: '0.4px'
+  // minWidth: '80px'
 }
 
 const RoomName = ({children}) => (
@@ -47,29 +58,81 @@ const RoomNameBlock = (props) => (
   </div>
 )
 
+// background: #D5DFE9;
+
 const sEvents = {
   height: '58px',
-
+  minWidth: '300px',
+  backgroundColor: 'rgba(213,223,233,.7)',
 }
 
+const Floor = ({ level }) => (
+  <div style={{
+    fontSize: '11px',
+    color: '#858E98',
+    letterSpacing: '0.4px',
+    padding: '16px 16px 8px',
+    background: 'rgba(233,236,239,.6)',
+    zIndex: '-1'
+  }}><b>{level} ЭТАЖ</b></div>
+)
+
 class RoomsTimetable extends Component {
+  constructor() {
+    super()
+    this.handleScroll = this.handleScroll.bind(this)
+    this.handleRoomsScroll = this.handleRoomsScroll.bind(this)
+  }
+  handleScroll(event) {
+    console.log(event)
+    // console.log(this.container.scrollLeft)
+    window.requestAnimationFrame(() => {
+      this.blocks.style.transform = `translate(${-this.container.scrollLeft}px, 0px)`
+    })
+    // console.log(this.blocks.scrollLeft)
+  }
+
+  handleRoomsScroll(event) {
+    console.log('rooms', event)
+    event.preventDefault()
+    return false
+  }
   render() {
     return (
-      <div>
-        <div style={sTime.container}>
+      <div style={{position: 'relative'}}>
+        {/*<div style={{position: 'absolute', marginTop: '32px'}}>
+          <Floor level={7} />
+          <div style={sEvents}>
+            <RoomNameBlock>Ржавый Фред</RoomNameBlock>
+          </div>
+          <div style={sEvents}>
+            <RoomNameBlock>Прачечная</RoomNameBlock>
+          </div>
+          <Floor level={6} />
+          <div style={sEvents}>
+            <RoomNameBlock>Ржавый Фред</RoomNameBlock>
+          </div>
+          <div style={sEvents}>
+            <RoomNameBlock>Прачечная</RoomNameBlock>
+          </div>
+        </div>*/}
+        <div style={{overflow: 'scroll', maxWidth: '100%'}}>
+          <div style={{overflow: 'scroll',position: 'absolute', zIndex: '-1'}}
+            ref={(ref) => this.blocks = ref} onScroll={this.handleRoomsScroll}>
+            <div style={{width: '1000px', background: 'rgba(0, 0, 0, .5)'}}>qwerty</div>
+            <div style={{width: '100px', background: 'rgba(0, 0, 0, .5)'}}>qwerty</div>
+            <div style={{width: '100px', background: 'rgba(0, 0, 0, .5)'}}>qwerty</div>
+          </div>
+        </div>
+        <div style={sTime.container} onScroll={this.handleScroll}
+          ref={(ref) => this.container = ref}>
           {ArrayFrom8AM.map(hour => (
-            <div style={sTime.element}>{hour}</div>
+            <div>
+              <div style={sTime.element}>{hour}</div>
+              <div style={sTime.line}></div>
+            </div>
           ))}
         </div>
-        <div>7 ЭТАЖ</div>
-        <div style={sEvents}>
-          <RoomNameBlock>Ржавый Фред</RoomNameBlock>
-        </div>
-        <div style={sEvents}>
-          <RoomNameBlock>Прачечная</RoomNameBlock>
-        </div>
-
-        <Divider />
       </div>
     )
   }
