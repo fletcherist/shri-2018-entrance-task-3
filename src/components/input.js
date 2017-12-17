@@ -24,40 +24,48 @@ const labelRule = state => ({
   fontWeight: 'bold',
   paddingBottom: '4px'
 })
+
 const Input = connect({
   inputRule,
   labelRule
 })(({
   placeholder, value, styles, label
 }) => {
-  console.log('styles', styles)
   return (
     <div>
       {label && <div className={styles.labelRule}>{label}</div>}
-      <input className={styles.inputRule} placeholder={placeholder} />
+      <input className={styles.inputRule} placeholder={placeholder} value={value} />
     </div>
   )
 })
 
 const dateInputRule = state => mergeDeepLeft(inputRule(state), {
   padding: '0px',
+  color: '#858E98',
   ':after': {
     content: ' ',
     height: '50px',
     width: '50px',
     position: 'absolute',
     backgroundColor: 'blue'
+  },
+  '::-webkit-inner-spin-button': {
+    display: 'none'
   }
 })
 
 export const DateInput = connect({
-  inputRule: dateInputRule
+  inputRule: dateInputRule,
+  labelRule
 })(({
   placeholder, value, styles, label
 }) => (
   <div>
     {label && <div className={styles.labelRule}>{label}</div>}
-    <input className={styles.inputRule} placeholder={placeholder} />
+    <input className={styles.inputRule} type='date'
+      value={value}
+      placeholder={placeholder}
+      max='3000-12-31' />
   </div>
 ))
 

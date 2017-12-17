@@ -63,7 +63,7 @@ const RoomNameBlock = (props) => (
 const sEvents = {
   height: '58px',
   minWidth: '300px',
-  backgroundColor: 'rgba(213,223,233,.7)',
+  backgroundColor: 'rgba(213,223,233,.7)'
 }
 
 const Floor = ({ level }) => (

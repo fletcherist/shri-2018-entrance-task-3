@@ -1,7 +1,7 @@
 import { h, Component } from 'preact'
 import { connect } from 'preact-fela'
 import Button, { ButtonCreateMeeting, ButtonCancel } from './button'
-import { BigDivider } from './divider'
+import { BigDivider, EmptyDivider } from './divider'
 
 import Input, { DateInput } from './input'
 
@@ -12,6 +12,10 @@ const sBlock = {
 }
 
 class BookRoom extends Component {
+  handleChange(event) {
+    console.log(event)
+  }
+
   render() {
     return (
       <div>
@@ -19,13 +23,14 @@ class BookRoom extends Component {
           <h1>Новая встреча</h1>
 
           <Input label='Тема' placeholder='О чём будете говорить?' />
-
-          Дата и время
-          <DateInput />
-          <input placeholder='О чём будете говорить?' type="date" />
-          <input value='16:00' />
-          <input value='16:30' />
-          <input value='16:30' />
+          <EmptyDivider />
+          <DateInput label='Дата и время' value='2017-12-17' onChange={this.handleChange} />
+          {<EmptyDivider height={8} />}
+          <div style={{display:'flex', alignItems: 'center'}}>
+            <Input />
+            <div style={{padding: '4px'}}>—</div>
+            <Input />
+          </div>
         </div>
         <BigDivider />
         <div style={sBlock}>
@@ -37,7 +42,7 @@ class BookRoom extends Component {
 
         Выберите переговорку
 
-        <ButtonCreateMeeting disabled/>
+        <ButtonCreateMeeting disabled />
       </div>
     )
   }
