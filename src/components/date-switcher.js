@@ -1,7 +1,8 @@
-import { h } from 'preact'
+import { h, Component } from 'preact'
 import { connect } from 'preact-fela'
 import ArrowIcon from '../assets/arrow.svg'
 import Divider from './divider'
+import Pikaday from 'pikaday'
 
 /* styles */
 const s = {
@@ -61,19 +62,48 @@ const RightIcon = ({styles}) => (
 const LeftIconWrapped = connect({iconStyle, iconWrapperStyle})(LeftIcon)
 const RightIconWrapped = connect({iconStyle, iconWrapperStyle})(RightIcon)
 
-const DateSwitcher = ({styles}) => (
-  <div>
-    <div style={s.container}>
-      <div style={s.wrapper}>
-        <div style={s.icon}><LeftIconWrapped /></div>
-        <div style={s.label}>
-          14 дек · Сегодня
+class DateSwitcher extends Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+    this.state = {
+      isDatepickerOpened: false
+    }
+  }
+  componentDidMount() {
+    this.picker = new Pikaday({
+      field: this.datepicker,
+      onSelect: function() {
+        console.log(this.getMoment())
+      }
+    })
+    console.log(this.picker)
+  }
+  handleClick(event) {
+    console.log(this.state.isDatepickerOpened)
+    this.setState({
+      isDatepickerOpened: !this.state.isDatepickerOpened
+    }, () => {
+      if (this.state.isDatepickerOpened) this.picker.show()
+      else setTimeout(() => { this.picker.hide() }, 0)
+    })
+  }
+  render({styles}) {
+    return (
+      <div>
+        <div style={s.container}>
+          <div style={s.wrapper}>
+            <div style={s.icon}><LeftIconWrapped /></div>
+            <div style={s.label} onClick={this.handleClick} ref={ref => this.datepicker = ref}>
+              14 дек · Сегодня
+            </div>
+            <RightIconWrapped />
+          </div>
         </div>
-        <RightIconWrapped />
+        <Divider />
       </div>
-    </div>
-    <Divider />
-  </div>
-)
+    )
+  }
+}
 
 export default DateSwitcher
