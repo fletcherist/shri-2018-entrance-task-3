@@ -35,6 +35,7 @@ const Input = connect({
 
 const dateInputRule = state => mergeDeepLeft(inputRule(state), {
   padding: '0px',
+  fontFamily: 'HelveticaNeue',
   color: '#858E98',
   ':after': {
     content: ' ',

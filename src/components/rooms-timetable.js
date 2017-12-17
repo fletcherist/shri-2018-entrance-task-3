@@ -14,6 +14,8 @@ const sTime = {
   container: {
     display: 'flex',
     overflow: 'scroll',
+    // transform: 'translate(180px, 0)'
+    paddingLeft: '180px'
   },
   element: {
     minWidth: '49px',
@@ -22,7 +24,7 @@ const sTime = {
     textAlign: 'center',
     fontSize: '11px',
     color: '#858E98',
-    letterSpacing: '0.4px',
+    letterSpacing: '0.4px'
     // borderBottom: '1px solid #E9ECEF'
   },
   line: {
@@ -63,7 +65,6 @@ const RoomNameBlock = (props) => (
 const sEvents = {
   height: '58px',
   minWidth: '300px',
-  backgroundColor: 'rgba(213,223,233,.7)'
 }
 
 const Floor = ({ level }) => (
@@ -72,16 +73,37 @@ const Floor = ({ level }) => (
     color: '#858E98',
     letterSpacing: '0.4px',
     padding: '16px 16px 8px',
-    background: 'rgba(233,236,239,.6)',
     zIndex: '-1'
   }}><b>{level} ЭТАЖ</b></div>
 )
 
 const TimetableEvent = () => (
-  <div style={{display: 'flex'}}>
+  <div style={{display: 'flex', marginLeft: '180px'}}>
     <div style={{width: '20px', height: '58px', background: 'rgba(213,223,233,1)'}}></div>
     <div style={{width: '100px', height: '58px', background: 'rgba(213,223,233,0)'}}></div>
     <div style={{width: '200px', height: '58px', background: 'rgba(213,223,233,1)'}}></div>
+  </div>
+)
+
+const Room = ({ name, capacity }) => (
+  <div style={{
+    padding: '12px 16px 12px 25px',
+    backgroundColor: 'transparent',
+    lineHeight: '17px'
+  }}>
+    <div style={{
+      width: '140px',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      fontSize: '15px',
+      fontFamily: 'HelveticaNeue-Medium'
+    }}>
+      {name}
+    </div>
+    <div style={{
+      fontSize: '13px'
+    }}>3—6 человек</div>
   </div>
 )
 
@@ -91,9 +113,16 @@ class RoomsTimetable extends Component {
     this.handleScroll = this.handleScroll.bind(this)
   }
   handleScroll(event) {
-    window.requestAnimationFrame(() => {
-      this.blocks.style.transform = `translate(${-this.container.scrollLeft}px, 0px)`
-    })
+    console.log(this.container.scrollLeft)
+    // if (this.container.scrollLeft < 180) {
+      // this.container.style.transform = `translate(${180 - this.container.scrollLeft}px, 0px)`
+      // return event.preventDefault()
+      // this.blocks.style.transform = `translate(${-this.container.scrollLeft}px, 0px)`
+    // } else {
+      window.requestAnimationFrame(() => {
+        this.blocks.style.transform = `translate(${-this.container.scrollLeft}px, 0px)`
+      })
+    // }
   }
   render() {
     return (
@@ -114,13 +143,15 @@ class RoomsTimetable extends Component {
             <RoomNameBlock>Прачечная</RoomNameBlock>
           </div>
         </div>*/}
-        <div style={{overflow: 'scroll',position: 'absolute', zIndex: '-1'}}
+        <div style={{position: 'absolute', zIndex: '-1', top: '30px'}}
           ref={(ref) => this.blocks = ref}>
-          <TimetableEvent />
           <div style={{display: 'flex'}}>
-            <div style={{width: '200px', height: '58px', background: 'rgba(213,223,233,1)'}}></div>
-            <div style={{width: '100px', height: '58px', background: 'rgba(213,223,233,0)'}}></div>
-            <div style={{width: '200px', height: '58px', background: 'rgba(213,223,233,1)'}}></div>
+            <Room name='Ржавый Фред' />
+            <TimetableEvent />
+          </div>
+          <div style={{display: 'flex'}}>
+            <Room name='Оранжевый Тюльпан' />
+            <TimetableEvent />
           </div>
         </div>
         <div style={sTime.container} onScroll={this.handleScroll}

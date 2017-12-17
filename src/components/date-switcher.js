@@ -71,13 +71,13 @@ class DateSwitcher extends Component {
     }
   }
   componentDidMount() {
-    this.picker = new Pikaday({
-      field: this.datepicker,
-      onSelect: function() {
-        console.log(this.getMoment())
-      }
-    })
-    console.log(this.picker)
+    // this.picker = new Pikaday({
+    //   field: this.datepicker,
+    //   onSelect: function() {
+    //     console.log(this.getMoment())
+    //   }
+    // })
+    // console.log(this.picker)
   }
   handleClick(event) {
     console.log(this.state.isDatepickerOpened)
