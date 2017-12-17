@@ -13,10 +13,11 @@ import {
 } from 'preact-fela'
 import { createRenderer } from 'fela'
 
-import Button from './components/button'
+import Button, { ButtonCreateMeeting, ButtonCancel } from './components/button'
 import Navigation from './components/navigation'
 import DateSwitcher from './components/date-switcher'
 import RoomsTimetable from './components/rooms-timetable'
+import BookRoom from './components/book-room'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -48,14 +49,6 @@ const theme = {
   boxShadow: 'box-shadow: 0 1px 8px 0 rgba(0,44,92,0.28)',
 }
 
-const ButtonCreateMeeting = (props) => (
-  <Button type='create' {...props}>Создать встречу</Button>
-)
-
-const ButtonCancel = (props) => (
-  <Button type='cancel' {...props}>Отменить</Button>
-)
-
 const App = () => (
   <div>
     <Provider store={store}>
@@ -65,7 +58,8 @@ const App = () => (
             <Navigation />
             <Router history={createHashHistory()}>
               <Main path='/' />
-              <BookingPage path='/booking' />
+              <BookingPage path='/timetable' />
+              <CreatePage path='/create' />
             </Router>
           </div>
         </ThemeProvider>
@@ -81,10 +75,21 @@ const BookingPage = () => (
   </div>
 )
 
+const CreatePage = () => (
+  <div>
+    <BookRoom />
+  </div>
+)
+
 const Main = () => (
   <div>
     <ButtonCreateMeeting />
     <ButtonCancel />
+    <div>
+      <a href='#/create'>create</a>
+      <br/>
+      <a href='#/timetable'>timetable</a>
+    </div>
   </div>
 )
 

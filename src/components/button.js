@@ -42,6 +42,14 @@ const Button = ({disabled, children, styles, type}) => {
   )
 }
 
-export default connect({
-  rule: rule
-})(Button)
+const ButtonWrapped = connect({rule})(Button)
+
+export const ButtonCreateMeeting = (props) => (
+  <ButtonWrapped type='create' {...props}>Создать встречу</ButtonWrapped>
+)
+
+export const ButtonCancel = (props) => (
+  <ButtonWrapped type='cancel' {...props}>Отменить</ButtonWrapped>
+)
+
+export default ButtonWrapped

@@ -77,25 +77,23 @@ const Floor = ({ level }) => (
   }}><b>{level} ЭТАЖ</b></div>
 )
 
+const TimetableEvent = () => (
+  <div style={{display: 'flex'}}>
+    <div style={{width: '20px', height: '58px', background: 'rgba(213,223,233,1)'}}></div>
+    <div style={{width: '100px', height: '58px', background: 'rgba(213,223,233,0)'}}></div>
+    <div style={{width: '200px', height: '58px', background: 'rgba(213,223,233,1)'}}></div>
+  </div>
+)
+
 class RoomsTimetable extends Component {
   constructor() {
     super()
     this.handleScroll = this.handleScroll.bind(this)
-    this.handleRoomsScroll = this.handleRoomsScroll.bind(this)
   }
   handleScroll(event) {
-    console.log(event)
-    // console.log(this.container.scrollLeft)
     window.requestAnimationFrame(() => {
       this.blocks.style.transform = `translate(${-this.container.scrollLeft}px, 0px)`
     })
-    // console.log(this.blocks.scrollLeft)
-  }
-
-  handleRoomsScroll(event) {
-    console.log('rooms', event)
-    event.preventDefault()
-    return false
   }
   render() {
     return (
@@ -116,12 +114,13 @@ class RoomsTimetable extends Component {
             <RoomNameBlock>Прачечная</RoomNameBlock>
           </div>
         </div>*/}
-        <div style={{overflow: 'scroll', maxWidth: '100%'}}>
-          <div style={{overflow: 'scroll',position: 'absolute', zIndex: '-1'}}
-            ref={(ref) => this.blocks = ref} onScroll={this.handleRoomsScroll}>
-            <div style={{width: '1000px', background: 'rgba(0, 0, 0, .5)'}}>qwerty</div>
-            <div style={{width: '100px', background: 'rgba(0, 0, 0, .5)'}}>qwerty</div>
-            <div style={{width: '100px', background: 'rgba(0, 0, 0, .5)'}}>qwerty</div>
+        <div style={{overflow: 'scroll',position: 'absolute', zIndex: '-1'}}
+          ref={(ref) => this.blocks = ref}>
+          <TimetableEvent />
+          <div style={{display: 'flex'}}>
+            <div style={{width: '200px', height: '58px', background: 'rgba(213,223,233,1)'}}></div>
+            <div style={{width: '100px', height: '58px', background: 'rgba(213,223,233,0)'}}></div>
+            <div style={{width: '200px', height: '58px', background: 'rgba(213,223,233,1)'}}></div>
           </div>
         </div>
         <div style={sTime.container} onScroll={this.handleScroll}
