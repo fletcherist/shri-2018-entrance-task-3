@@ -3,7 +3,7 @@ import { connect } from 'preact-fela'
 import Button, { ButtonCreateMeeting, ButtonCancel } from './button'
 import { BigDivider } from './divider'
 
-import Input from './input'
+import Input, { DateInput } from './input'
 
 const sBlock = {
   padding: '16px 16px 20px',
@@ -21,7 +21,8 @@ class BookRoom extends Component {
           <Input label='Тема' placeholder='О чём будете говорить?' />
 
           Дата и время
-          <input placeholder='О чём будете говорить?' />
+          <DateInput />
+          <input placeholder='О чём будете говорить?' type="date" />
           <input value='16:00' />
           <input value='16:30' />
           <input value='16:30' />

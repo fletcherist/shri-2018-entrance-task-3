@@ -36,6 +36,7 @@
     "preact-fela": "^6.1.1",
     "preact-redux": "^2.0.3",
     "preact-router": "^2.6.0",
+    "ramda": "^0.25.0",
     "redux": "^3.7.2",
     "webpack": "^3.6.0",
     "webpack-livereload-plugin": "^1.0.0"

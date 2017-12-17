@@ -1,5 +1,7 @@
 import { h }  from 'preact'
 import { connect } from 'preact-fela'
+import { mergeDeepLeft } from 'ramda'
+import CalendarIcon from '../assets/calendar.svg'
 
 const inputRule = state => ({
   width: '100%',
@@ -28,6 +30,7 @@ const Input = connect({
 })(({
   placeholder, value, styles, label
 }) => {
+  console.log('styles', styles)
   return (
     <div>
       {label && <div className={styles.labelRule}>{label}</div>}
@@ -35,5 +38,27 @@ const Input = connect({
     </div>
   )
 })
+
+const dateInputRule = state => mergeDeepLeft(inputRule(state), {
+  padding: '0px',
+  ':after': {
+    content: ' ',
+    height: '50px',
+    width: '50px',
+    position: 'absolute',
+    backgroundColor: 'blue'
+  }
+})
+
+export const DateInput = connect({
+  inputRule: dateInputRule
+})(({
+  placeholder, value, styles, label
+}) => (
+  <div>
+    {label && <div className={styles.labelRule}>{label}</div>}
+    <input className={styles.inputRule} placeholder={placeholder} />
+  </div>
+))
 
 export default Input
