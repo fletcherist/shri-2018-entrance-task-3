@@ -97,7 +97,7 @@ class RoomsTimetable extends Component {
   }
   render() {
     return (
-      <div style={{position: 'relative'}}>
+      <div style={{position: 'relative', overflow: 'hidden'}}>
         {/*<div style={{position: 'absolute', marginTop: '32px'}}>
           <Floor level={7} />
           <div style={sEvents}>
