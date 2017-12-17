@@ -2,7 +2,7 @@ import { h }  from 'preact'
 import { connect } from 'preact-fela'
 import { mergeDeepLeft } from 'ramda'
 import CalendarIcon from '../assets/calendar.svg'
-import TextLabel from './text-label'
+import { TextLabel } from './text'
 
 const inputRule = state => ({
   width: '100%',

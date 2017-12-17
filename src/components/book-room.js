@@ -4,7 +4,7 @@ import Button, { ButtonCreateMeeting, ButtonCancel } from './button'
 import { BigDivider, EmptyDivider } from './divider'
 
 import Input, { DateInput } from './input'
-import TextLabel from './text-label'
+import { TextLabel, TextHeadline } from './text'
 import RecommendedRoom from './recommended-room'
 
 const sBlock = {
@@ -22,13 +22,13 @@ class BookRoom extends Component {
     return (
       <div>
         <div style={sBlock}>
-          <h1>Новая встреча</h1>
+          <TextHeadline>Новая встреча</TextHeadline>
 
           <Input label='Тема' placeholder='О чём будете говорить?' />
           <EmptyDivider />
           <DateInput label='Дата и время' value='2017-12-17' onChange={this.handleChange} />
           {<EmptyDivider height={8} />}
-          <div style={{display:'flex', alignItems: 'center'}}>
+          <div style={{display: 'flex', alignItems: 'center'}}>
             <Input />
             <div style={{padding: '4px'}}>—</div>
             <Input />
@@ -61,10 +61,35 @@ class BookRoom extends Component {
             name='Готем'
           />
         </div>
-
-        Выберите переговорку
-
-        <ButtonCreateMeeting disabled />
+        <div style={{
+          position: 'fixed',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          width: '100%',
+          zIndex: '3',
+          bottom: 0
+        }}>
+          <div style={{
+            padding: '12px 16px 13px',
+            fontWeight: 'bold',
+            fontSize: '15px',
+            backgroundColor: 'rgba(0,16,33,0.80)',
+            color: 'white',
+            opacity: '0.93'
+          }}>Выберите переговорку</div>
+          <div style={{
+            backgroundColor: 'white',
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
+            <div style={{
+              padding: '16px 0px 20px'
+            }}>
+              <ButtonCreateMeeting disabled />
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
