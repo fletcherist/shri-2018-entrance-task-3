@@ -12,11 +12,24 @@ const TextLabel = ({ children, styles }) => (
 )
 const WrappedTextLabel = connect({labelRule})(TextLabel)
 
-const TextHeadline = ({ children, size }) => (
-  <h1 style={{fontSize: size ? `${size}px` : '20px'}}>{children}</h1>
+const TextHeadline = ({
+  children, size, marginTop, marginBottom
+}) => (
+  <h1 style={{
+    fontSize: size ? `${size}px` : '20px',
+    marginTop: marginTop ? `${marginTop}px` : '13px',
+    marginBottom: marginBottom ? `${marginBottom}px` : '13px'
+  }}>{children}</h1>
+)
+
+const Text = ({ fontSize, children }) => (
+  <span style={{
+    fontSize: fontSize || 15
+  }}>{children}</span>
 )
 
 export { WrappedTextLabel as TextLabel }
 export { TextHeadline }
+export { Text }
 
 export default connect({labelRule})(TextLabel)

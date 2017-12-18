@@ -14,7 +14,7 @@ const ArrayFrom8AM = (() => {
 const sTime = {
   container: {
     display: 'flex',
-    overflow: 'scroll',
+    overflow: 'auto',
     // transform: 'translate(180px, 0)'
     paddingLeft: '180px'
   },
@@ -114,7 +114,7 @@ class RoomsTimetable extends Component {
     this.handleScroll = this.handleScroll.bind(this)
   }
   handleScroll(event) {
-    console.log(this.container.scrollLeft)
+    // console.log(this.container.scrollLeft)
     // if (this.container.scrollLeft < 180) {
       // this.container.style.transform = `translate(${180 - this.container.scrollLeft}px, 0px)`
       // return event.preventDefault()
@@ -155,7 +155,6 @@ class RoomsTimetable extends Component {
             <TimetableEvent />
           </div>
         </div>
-        <EventTooltip />
         <div style={sTime.container} onScroll={this.handleScroll}
           ref={(ref) => this.container = ref}>
           {ArrayFrom8AM.map(hour => (
@@ -165,6 +164,7 @@ class RoomsTimetable extends Component {
             </div>
           ))}
         </div>
+        <EventTooltip />
       </div>
     )
   }
