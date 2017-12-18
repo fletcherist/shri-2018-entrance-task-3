@@ -1,6 +1,7 @@
 import { h, Component } from 'preact'
 import Divider from './divider'
 import { connect } from 'preact-fela'
+import EventTooltip from './event-tooltip'
 
 const ArrayFrom8AM = (() => {
   const array = []
@@ -154,6 +155,7 @@ class RoomsTimetable extends Component {
             <TimetableEvent />
           </div>
         </div>
+        <EventTooltip />
         <div style={sTime.container} onScroll={this.handleScroll}
           ref={(ref) => this.container = ref}>
           {ArrayFrom8AM.map(hour => (
