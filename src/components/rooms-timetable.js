@@ -38,7 +38,7 @@ const sTime = {
   }
 }
 
-const sRoomName = {
+const roomNameStyles = state => ({
   borderRadius: '4px',
   boxShadow: '0 1px 8px 0 rgba(0,44,92,0.28)',
   padding: '5px 8px 6px 8px',
@@ -49,11 +49,12 @@ const sRoomName = {
   position: 'absolute',
   letterSpacing: '0.4px'
   // minWidth: '80px'
-}
-
-const RoomName = ({children}) => (
-  <div style={sRoomName}>{children}</div>
-)
+})
+const RoomName = connect({
+  roomNameStyles
+})(({ children, styles }) => (
+  <div className={styles.roomNameStyles}>{children}</div>
+))
 
 const RoomNameBlock = (props) => (
   <div style={{marginLeft: '14px'}}>
@@ -68,15 +69,19 @@ const sEvents = {
   minWidth: '300px',
 }
 
-const Floor = ({ level }) => (
-  <div style={{
-    fontSize: '11px',
-    color: '#858E98',
-    letterSpacing: '0.4px',
-    padding: '16px 16px 8px',
-    zIndex: '-1'
-  }}><b>{level} ЭТАЖ</b></div>
-)
+const floorStyles = state => ({
+  fontSize: '11px',
+  color: '#858E98',
+  letterSpacing: '0.4px',
+  padding: '16px 16px 8px',
+  zIndex: '-1',
+  textTransform: 'uppercase'
+})
+const Floor = connect({
+  floorStyles
+})(({ level, styles }) => (
+  <div className={styles.floorStyles}><b>{level} этаж</b></div>
+))
 
 const TimetableEvent = () => (
   <div style={{display: 'flex', marginLeft: '180px'}}>
@@ -86,27 +91,32 @@ const TimetableEvent = () => (
   </div>
 )
 
-const Room = ({ name, capacity }) => (
-  <div style={{
-    padding: '12px 16px 12px 25px',
-    backgroundColor: 'transparent',
-    lineHeight: '17px'
-  }}>
-    <div style={{
-      width: '140px',
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      fontSize: '15px',
-      fontFamily: 'HelveticaNeue-Medium'
-    }}>
+const roomContainerStyles = state => ({
+  padding: '12px 16px 12px 25px',
+  backgroundColor: 'transparent',
+  lineHeight: '17px'
+})
+const roomStyles = state => ({
+  width: '140px',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  fontSize: '15px',
+  fontFamily: 'HelveticaNeue-Medium'
+})
+const Room = connect({
+  roomContainerStyles,
+  roomStyles
+})(({ name, capacity, styles }) => (
+  <div className={styles.roomContainerStyles}>
+    <div className={styles.roomStyles}>
       {name}
     </div>
     <div style={{
       fontSize: '13px'
     }}>3—6 человек</div>
   </div>
-)
+))
 
 class RoomsTimetable extends Component {
   constructor() {
@@ -125,11 +135,10 @@ class RoomsTimetable extends Component {
 
   handleScroll(event) {
     window.requestAnimationFrame(() => {
-      console.log('container', this.container)
-      if (this.container.scrollLeft > 180 && !this.state.isRoomsCollapsed) {
+      if (this.container.scrollLeft > 170 && !this.state.isRoomsCollapsed) {
         this.toggleRoomsCollapsed()
       }
-      if (this.container.scrollLeft < 180 && this.state.isRoomsCollapsed) {
+      if (this.container.scrollLeft < 170 && this.state.isRoomsCollapsed) {
         this.toggleRoomsCollapsed()
       }
       this.blocks.style.transform = `translate(${-this.container.scrollLeft}px, 0px)`
@@ -142,14 +151,17 @@ class RoomsTimetable extends Component {
     } = this.state
     return (
       <div>
-        <div style={{position: 'relative', overflow: 'hidden'}}>
-          <div style={{position: 'absolute', zIndex: '-1', top: '30px'}}
+        <div style={{position: 'relative', overflow: 'hidden', zIndex: -1 }}>
+          <div style={{position: 'absolute', zIndex: '-1', top: '30px', backgroundColor: 'grey'}}
             ref={(ref) => this.blocks = ref}>
-            <div style={{display: 'flex'}}>
+            <div>
+              <Floor level={7} />
+            </div>
+            <div style={{display: 'flex', borderBottom: '1px solid #E9ECEF', backgroundColor: 'white'}}>
               <Room name='Ржавый Фред' />
               <TimetableEvent />
             </div>
-            <div style={{display: 'flex'}}>
+            <div style={{display: 'flex', borderBottom: '1px solid #E9ECEF', backgroundColor: 'white'}}>
               <Room name='Оранжевый Тюльпан' />
               <TimetableEvent />
             </div>
@@ -177,10 +189,10 @@ class RoomsTimetable extends Component {
           {/*<EventTooltip />*/}
           <div style={sTime.container} onScroll={this.handleScroll}
             ref={(ref) => this.container = ref}>
-            {ArrayFrom8AM.map(hour => (
+            {ArrayFrom8AM.map((hour, index) => (
               <div>
                 <div style={sTime.element}>{hour}</div>
-                <div style={sTime.line}></div>
+                {(index > 0) && (<div style={sTime.line}></div>)}
               </div>
             ))}
           </div>
