@@ -16,7 +16,7 @@ const inputRule = state => ({
   },
   ':focus': {
     outline: 'none',
-    borderColor: 'rgba(0, 0, 0, .12)'
+    borderColor: '#007DFF'
   }
 })
 

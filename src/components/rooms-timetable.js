@@ -63,6 +63,21 @@ const Floor = connect({
   <div className={styles.floorStyles}><b>{level} этаж</b></div>
 ))
 
+const roomWithEventsStyles = state => ({
+  display: 'flex',
+  alignItems: 'center',
+  borderBottom: '1px solid #E9ECEF',
+  backgroundColor: 'white'
+})
+const RoomWithEvents = connect({
+  roomWithEventsStyles
+})(({ styles }) => (
+  <div className={styles.roomWithEventsStyles}>
+    <Room name='Ржавый Фред' />
+    <TimetableEvents />
+  </div>
+))
+
 class RoomsTimetable extends Component {
   constructor() {
     super()
@@ -102,14 +117,8 @@ class RoomsTimetable extends Component {
             <div>
               <Floor level={7} />
             </div>
-            <div style={{display: 'flex', borderBottom: '1px solid #E9ECEF', backgroundColor: 'white'}}>
-              <Room name='Ржавый Фред' />
-              <TimetableEvents />
-            </div>
-            <div style={{display: 'flex', borderBottom: '1px solid #E9ECEF', backgroundColor: 'white'}}>
-              <Room name='Оранжевый Тюльпан' />
-              <TimetableEvents />
-            </div>
+            <RoomWithEvents />
+            <RoomWithEvents />
           </div>
           <div>
             {isRoomsCollapsed ? (
