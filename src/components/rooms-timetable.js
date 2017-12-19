@@ -2,6 +2,9 @@ import { h, Component } from 'preact'
 import Divider from './divider'
 import { connect } from 'preact-fela'
 import EventTooltip from './event-tooltip'
+import Room from './room'
+import RoomCollapsed from './room-collapsed'
+import TimetableEvents from './timetable-events'
 
 const ArrayFrom8AM = (() => {
   const array = []
@@ -34,39 +37,16 @@ const sTime = {
     height: '500px',
     // overflow: 'scroll',
     marginLeft: '-24px'
-
   }
 }
-
-const roomNameStyles = state => ({
-  borderRadius: '4px',
-  boxShadow: '0 1px 8px 0 rgba(0,44,92,0.28)',
-  padding: '5px 8px 6px 8px',
-  fontWeight: 'bold',
-  fontSize: '11px',
-  color: '#858E98',
-  display: 'block',
-  position: 'absolute',
-  letterSpacing: '0.4px'
-  // minWidth: '80px'
-})
-const RoomName = connect({
-  roomNameStyles
-})(({ children, styles }) => (
-  <div className={styles.roomNameStyles}>{children}</div>
-))
-
-const RoomNameBlock = (props) => (
-  <div style={{marginLeft: '14px'}}>
-    <RoomName {...props}></RoomName>
-  </div>
-)
 
 // background: #D5DFE9;
 
 const sEvents = {
   height: '58px',
-  minWidth: '300px',
+  minWidth: '150px',
+  zIndex: '-999',
+  overflow: 'scroll'
 }
 
 const floorStyles = state => ({
@@ -81,41 +61,6 @@ const Floor = connect({
   floorStyles
 })(({ level, styles }) => (
   <div className={styles.floorStyles}><b>{level} этаж</b></div>
-))
-
-const TimetableEvent = () => (
-  <div style={{display: 'flex', marginLeft: '180px'}}>
-    <div style={{width: '20px', height: '58px', background: 'rgba(213,223,233,1)'}}></div>
-    <div style={{width: '100px', height: '58px', background: 'rgba(213,223,233,0)'}}></div>
-    <div style={{width: '200px', height: '58px', background: 'rgba(213,223,233,1)'}}></div>
-  </div>
-)
-
-const roomContainerStyles = state => ({
-  padding: '12px 16px 12px 25px',
-  backgroundColor: 'transparent',
-  lineHeight: '17px'
-})
-const roomStyles = state => ({
-  width: '140px',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  fontSize: '15px',
-  fontFamily: 'HelveticaNeue-Medium'
-})
-const Room = connect({
-  roomContainerStyles,
-  roomStyles
-})(({ name, capacity, styles }) => (
-  <div className={styles.roomContainerStyles}>
-    <div className={styles.roomStyles}>
-      {name}
-    </div>
-    <div style={{
-      fontSize: '13px'
-    }}>3—6 человек</div>
-  </div>
 ))
 
 class RoomsTimetable extends Component {
@@ -151,7 +96,7 @@ class RoomsTimetable extends Component {
     } = this.state
     return (
       <div>
-        <div style={{position: 'relative', overflow: 'hidden', zIndex: -1 }}>
+        <div style={{position: 'relative', overflow: 'hidden' }}>
           <div style={{position: 'absolute', zIndex: '-1', top: '30px', backgroundColor: 'grey'}}
             ref={(ref) => this.blocks = ref}>
             <div>
@@ -159,11 +104,11 @@ class RoomsTimetable extends Component {
             </div>
             <div style={{display: 'flex', borderBottom: '1px solid #E9ECEF', backgroundColor: 'white'}}>
               <Room name='Ржавый Фред' />
-              <TimetableEvent />
+              <TimetableEvents />
             </div>
             <div style={{display: 'flex', borderBottom: '1px solid #E9ECEF', backgroundColor: 'white'}}>
               <Room name='Оранжевый Тюльпан' />
-              <TimetableEvent />
+              <TimetableEvents />
             </div>
           </div>
           <div>
@@ -171,17 +116,17 @@ class RoomsTimetable extends Component {
               <div style={{position: 'absolute', marginTop: '10px', overflow: 'hidden'}}>
                 <Floor level={7} />
                 <div style={sEvents}>
-                  <RoomNameBlock>Ржавый Фред</RoomNameBlock>
+                  <RoomCollapsed>Ржавый Фред</RoomCollapsed>
                 </div>
                 <div style={sEvents}>
-                  <RoomNameBlock>Прачечная</RoomNameBlock>
+                  <RoomCollapsed>Прачечная</RoomCollapsed>
                 </div>
                 <Floor level={6} />
                 <div style={sEvents}>
-                  <RoomNameBlock>Ржавый Фред</RoomNameBlock>
+                  <RoomCollapsed>Ржавый Фред</RoomCollapsed>
                 </div>
                 <div style={sEvents}>
-                  <RoomNameBlock>Прачечная</RoomNameBlock>
+                  <RoomCollapsed>Прачечная</RoomCollapsed>
                 </div>
               </div>
             ) : null}
