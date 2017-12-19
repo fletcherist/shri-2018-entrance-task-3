@@ -125,6 +125,7 @@ class RoomsTimetable extends Component {
 
   handleScroll(event) {
     window.requestAnimationFrame(() => {
+      console.log('container', this.container)
       if (this.container.scrollLeft > 180 && !this.state.isRoomsCollapsed) {
         this.toggleRoomsCollapsed()
       }
@@ -153,6 +154,26 @@ class RoomsTimetable extends Component {
               <TimetableEvent />
             </div>
           </div>
+          <div>
+            {isRoomsCollapsed ? (
+              <div style={{position: 'absolute', marginTop: '10px', overflow: 'hidden'}}>
+                <Floor level={7} />
+                <div style={sEvents}>
+                  <RoomNameBlock>Ржавый Фред</RoomNameBlock>
+                </div>
+                <div style={sEvents}>
+                  <RoomNameBlock>Прачечная</RoomNameBlock>
+                </div>
+                <Floor level={6} />
+                <div style={sEvents}>
+                  <RoomNameBlock>Ржавый Фред</RoomNameBlock>
+                </div>
+                <div style={sEvents}>
+                  <RoomNameBlock>Прачечная</RoomNameBlock>
+                </div>
+              </div>
+            ) : null}
+          </div>
           {/*<EventTooltip />*/}
           <div style={sTime.container} onScroll={this.handleScroll}
             ref={(ref) => this.container = ref}>
@@ -164,25 +185,6 @@ class RoomsTimetable extends Component {
             ))}
           </div>
         </div>
-        {isRoomsCollapsed && (
-          <div style={{position: 'absolute', marginTop: '32px'}}>
-            <Floor level={7} />
-            <div style={sEvents}>
-              <RoomNameBlock>Ржавый Фред</RoomNameBlock>
-            </div>
-            <div style={sEvents}>
-              <RoomNameBlock>Прачечная</RoomNameBlock>
-            </div>
-            <Floor level={6} />
-            <div style={sEvents}>
-              <RoomNameBlock>Ржавый Фред</RoomNameBlock>
-            </div>
-            <div style={sEvents}>
-              <RoomNameBlock>Прачечная</RoomNameBlock>
-            </div>
-          </div>
-          )
-        }
       </div>
     )
   }
