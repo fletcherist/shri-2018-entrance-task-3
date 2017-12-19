@@ -27,7 +27,7 @@ class BookRoom extends Component {
           <Input label='Тема' placeholder='О чём будете говорить?' />
           <EmptyDivider />
           <DateInput label='Дата и время' value='2017-12-17' onChange={this.handleChange} />
-          {<EmptyDivider height={8} />}
+          <EmptyDivider height={8} />
           <div style={{display: 'flex', alignItems: 'center'}}>
             <Input />
             <div style={{padding: '4px'}}>—</div>

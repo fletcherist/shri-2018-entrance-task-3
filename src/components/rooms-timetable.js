@@ -112,59 +112,77 @@ class RoomsTimetable extends Component {
   constructor() {
     super()
     this.handleScroll = this.handleScroll.bind(this)
+    this.state = {
+      isRoomsCollapsed: false
+    }
   }
+
+  toggleRoomsCollapsed() {
+    this.setState({
+      isRoomsCollapsed: !this.state.isRoomsCollapsed
+    })
+  }
+
   handleScroll(event) {
-    // console.log(this.container.scrollLeft)
-    // if (this.container.scrollLeft < 180) {
-      // this.container.style.transform = `translate(${180 - this.container.scrollLeft}px, 0px)`
-      // return event.preventDefault()
-      // this.blocks.style.transform = `translate(${-this.container.scrollLeft}px, 0px)`
-    // } else {
-      window.requestAnimationFrame(() => {
-        this.blocks.style.transform = `translate(${-this.container.scrollLeft}px, 0px)`
-      })
-    // }
+    window.requestAnimationFrame(() => {
+      if (this.container.scrollLeft > 180 && !this.state.isRoomsCollapsed) {
+        this.toggleRoomsCollapsed()
+      }
+      if (this.container.scrollLeft < 180 && this.state.isRoomsCollapsed) {
+        this.toggleRoomsCollapsed()
+      }
+      this.blocks.style.transform = `translate(${-this.container.scrollLeft}px, 0px)`
+    })
   }
+
   render() {
+    const {
+      isRoomsCollapsed
+    } = this.state
     return (
-      <div style={{position: 'relative', overflow: 'hidden'}}>
-        {/*<div style={{position: 'absolute', marginTop: '32px'}}>
-          <Floor level={7} />
-          <div style={sEvents}>
-            <RoomNameBlock>Ржавый Фред</RoomNameBlock>
-          </div>
-          <div style={sEvents}>
-            <RoomNameBlock>Прачечная</RoomNameBlock>
-          </div>
-          <Floor level={6} />
-          <div style={sEvents}>
-            <RoomNameBlock>Ржавый Фред</RoomNameBlock>
-          </div>
-          <div style={sEvents}>
-            <RoomNameBlock>Прачечная</RoomNameBlock>
-          </div>
-        </div>*/}
-        <div style={{position: 'absolute', zIndex: '-1', top: '30px'}}
-          ref={(ref) => this.blocks = ref}>
-          <div style={{display: 'flex'}}>
-            <Room name='Ржавый Фред' />
-            <TimetableEvent />
-          </div>
-          <div style={{display: 'flex'}}>
-            <Room name='Оранжевый Тюльпан' />
-            <TimetableEvent />
-          </div>
-        </div>
-        <div style={sTime.container} onScroll={this.handleScroll}
-          ref={(ref) => this.container = ref}>
-          {ArrayFrom8AM.map(hour => (
-            <div>
-              <div style={sTime.element}>{hour}</div>
-              <div style={sTime.line}></div>
+      <div>
+        <div style={{position: 'relative', overflow: 'hidden'}}>
+          <div style={{position: 'absolute', zIndex: '-1', top: '30px'}}
+            ref={(ref) => this.blocks = ref}>
+            <div style={{display: 'flex'}}>
+              <Room name='Ржавый Фред' />
+              <TimetableEvent />
             </div>
-          ))}
+            <div style={{display: 'flex'}}>
+              <Room name='Оранжевый Тюльпан' />
+              <TimetableEvent />
+            </div>
+          </div>
+          {/*<EventTooltip />*/}
+          <div style={sTime.container} onScroll={this.handleScroll}
+            ref={(ref) => this.container = ref}>
+            {ArrayFrom8AM.map(hour => (
+              <div>
+                <div style={sTime.element}>{hour}</div>
+                <div style={sTime.line}></div>
+              </div>
+            ))}
+          </div>
         </div>
-        <EventTooltip />
+        {isRoomsCollapsed && (
+          <div style={{position: 'absolute', marginTop: '32px'}}>
+            <Floor level={7} />
+            <div style={sEvents}>
+              <RoomNameBlock>Ржавый Фред</RoomNameBlock>
+            </div>
+            <div style={sEvents}>
+              <RoomNameBlock>Прачечная</RoomNameBlock>
+            </div>
+            <Floor level={6} />
+            <div style={sEvents}>
+              <RoomNameBlock>Ржавый Фред</RoomNameBlock>
+            </div>
+            <div style={sEvents}>
+              <RoomNameBlock>Прачечная</RoomNameBlock>
+            </div>
+          </div>
+          )
+        }
       </div>
     )
   }
