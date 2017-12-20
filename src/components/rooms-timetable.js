@@ -5,6 +5,8 @@ import EventTooltip from './event-tooltip'
 import Room from './room'
 import RoomCollapsed from './room-collapsed'
 import TimetableEvents from './timetable-events'
+import RemoveEventConfirm from './remove-event-confirm'
+import Modal from './modal'
 
 const ArrayFrom8AM = (() => {
   const array = []
@@ -151,6 +153,8 @@ class RoomsTimetable extends Component {
             ))}
           </div>
         </div>
+        <RemoveEventConfirm />
+        <Modal />
       </div>
     )
   }
