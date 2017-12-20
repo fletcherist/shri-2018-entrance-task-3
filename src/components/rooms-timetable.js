@@ -153,8 +153,9 @@ class RoomsTimetable extends Component {
             ))}
           </div>
         </div>
-        <RemoveEventConfirm />
-        <Modal />
+        <Modal>
+          <RemoveEventConfirm />
+        </Modal>
       </div>
     )
   }

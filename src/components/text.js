@@ -13,12 +13,13 @@ const TextLabel = ({ children, styles }) => (
 const WrappedTextLabel = connect({labelRule})(TextLabel)
 
 const TextHeadline = ({
-  children, size, marginTop, marginBottom
+  children, size, marginTop, marginBottom, center
 }) => (
   <h1 style={{
     fontSize: size ? `${size}px` : '20px',
     marginTop: marginTop ? `${marginTop}px` : '13px',
-    marginBottom: marginBottom ? `${marginBottom}px` : '13px'
+    marginBottom: marginBottom ? `${marginBottom}px` : '13px',
+    textAlign: center ? 'center' : null
   }}>{children}</h1>
 )
 

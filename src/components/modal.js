@@ -18,8 +18,9 @@ const modalWrapperStyles = state => ({
 })
 
 const modalWindowStyles = state => ({
-  maxWidth: '444px',
-  padding: '32px',
+  maxWidth: '320px',
+  padding: '32px 62px',
+  width: '100%',
   backgroundColor: 'white',
   borderRadius: '8px',
   boxShadow: '0 1px 16px 0 rgba(0,44,92,0.28)'

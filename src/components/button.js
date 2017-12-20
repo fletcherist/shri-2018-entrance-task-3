@@ -12,6 +12,7 @@ const rule = (state) => {
     textAlign: 'center',
     padding: '5px 10px',
     backgroundColor: normal,
+    cursor: 'pointer',
     height: '44px',
     width: type === 'create' ? '172px' : '103px',
     fontSize: '15px',
@@ -50,6 +51,10 @@ export const ButtonCreateMeeting = (props) => (
 
 export const ButtonCancel = (props) => (
   <ButtonWrapped type='cancel' {...props}>Отменить</ButtonWrapped>
+)
+
+export const ButtonRemove = (props) => (
+  <ButtonWrapped type='cancel' {...props}>Удалить</ButtonWrapped>
 )
 
 export default ButtonWrapped
