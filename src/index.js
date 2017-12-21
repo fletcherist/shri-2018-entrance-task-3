@@ -86,5 +86,3 @@ const Main = () => (
 
 document.getElementById('app').innerHTML = ''
 render(<App />, document.getElementById('app'))
-
-console.log('hello world')

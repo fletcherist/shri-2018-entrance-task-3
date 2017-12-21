@@ -3,7 +3,6 @@ import { connect } from 'preact-fela'
 import Arrow from '../assets/arrow.svg'
 
 const rule = (state) => {
-  console.log(state)
   const { theme, type, width } = state
 
   const { normal, pressed, disabled } = theme.colors.button[type]
@@ -37,7 +36,6 @@ const rule = (state) => {
 }
 
 const Button = ({disabled, children, styles, type, onClick}) => {
-  console.log(disabled)
   return (
     <button className={styles.rule} disabled={disabled} onClick={onClick}>
       {children}
