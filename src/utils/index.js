@@ -1,3 +1,5 @@
+import { merge } from 'ramda'
+
 export const isMobile = () => {
   if (navigator.userAgent.match(/Android/i)
    || navigator.userAgent.match(/webOS/i)
@@ -12,3 +14,10 @@ export const isMobile = () => {
     return false
   }
 }
+
+export const convertArrayToObject = (array) =>
+  array.reduce((users, user) =>
+    merge(users, {
+      [user.id]: user
+    }),
+  {})

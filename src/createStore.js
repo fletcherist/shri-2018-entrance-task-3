@@ -8,14 +8,22 @@ import createSagaMiddleware from 'redux-saga'
 import mainSaga from './sagas/mainSaga'
 
 import modalsReducer from './reducers/modals'
+import usersReducer from './reducers/users'
+import eventsReducer from './reducers/events'
+import roomsReducer from './reducers/rooms'
 
+const reducers = combineReducers({
+  modals: modalsReducer,
+  users: usersReducer,
+  events: eventsReducer,
+  rooms: roomsReducer
+})
 const sagaMiddleware = createSagaMiddleware()
 
 export default function createAppStore() {
   const store = createStore(
-    combineReducers({
-      modals: modalsReducer
-    }), {},
+    reducers,
+    {},
     compose(
       applyMiddleware(sagaMiddleware),
       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

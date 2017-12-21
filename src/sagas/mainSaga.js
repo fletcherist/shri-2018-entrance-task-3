@@ -1,10 +1,22 @@
-import { put } from 'redux-saga/effects'
+import { put, call, fork } from 'redux-saga/effects'
 import { showModal } from '../actions/modals'
-import api from '../api'
+import { putFetchedUsers } from '../actions/users'
+import Api from '../api'
+
+function * usersSaga() {
+  const users = yield call(Api.users.get)
+  yield put(putFetchedUsers(users))
+}
+
+function * eventsSaga() {
+  const event = yield call(Api.events.get)
+  
+}
 
 function * mySaga() {
   yield put(showModal('RemoveEventConfirm'))
-  // yield takeLatest("USER_FETCH_REQUESTED", fetchUser);
+
+  yield fork(usersSaga)
 }
 
 export default mySaga
