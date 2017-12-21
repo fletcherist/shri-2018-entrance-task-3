@@ -15,7 +15,7 @@ import { createRenderer } from 'fela'
 import Button, { ButtonCreateMeeting, ButtonCancel } from './components/button'
 import Navigation from './components/navigation'
 import DateSwitcher from './components/date-switcher'
-import RoomsTimetable from './components/rooms-timetable'
+import RoomsTimetable from './containers/rooms-timetable'
 import BookRoom from './components/book-room'
 
 import createStore from './createStore'

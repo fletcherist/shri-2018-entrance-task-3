@@ -20,12 +20,17 @@ function * roomsSaga() {
   yield put(fetchRooms(rooms))
 }
 
+function * appSaga() {
+  
+}
+
 function * mainSaga() {
-  yield put(showModal('RemoveEventConfirm'))
+  // yield put(showModal('RemoveEventConfirm'))
 
   yield fork(usersSaga)
   yield fork(eventsSaga)
   yield fork(roomsSaga)
+  yield fork(appSaga)
 }
 
 export default mainSaga

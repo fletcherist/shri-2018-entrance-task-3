@@ -74,10 +74,10 @@ const roomWithEventsStyles = state => ({
 })
 const RoomWithEvents = connect({
   roomWithEventsStyles
-})(({ styles }) => (
+})(({ styles, roomName, roomEvents }) => (
   <div className={styles.roomWithEventsStyles}>
-    <Room name='Ржавый Фред' />
-    <TimetableEvents />
+    <Room name={roomName} />
+    <TimetableEvents events={roomEvents} />
   </div>
 ))
 
@@ -108,6 +108,40 @@ class RoomsTimetable extends Component {
     })
   }
 
+  renderRooms() {
+    console.log(this.props.rooms)
+    return (
+      <div style={{position: 'absolute', zIndex: '-1', top: '30px'}}
+        ref={(ref) => this.blocks = ref}>
+        {this.props.rooms.map((room, index, rooms) => {
+          const isNeededToRenderFloor =
+            index > 0 && (rooms[index - 1].floor !== room.floor) ||
+            index === 0
+          return (
+            <div>
+              {isNeededToRenderFloor &&
+                <div><Floor level={room.floor} /></div>
+              }
+              <RoomWithEvents
+                roomName={room.title}
+                roomEvents={this.props.eventsInRoom[room.id]}
+              />
+            </div>
+          )
+        }
+        )}
+      </div>
+    )
+    return (
+      <div style={{position: 'absolute', zIndex: '-1', top: '30px', backgroundColor: 'grey'}}
+        ref={(ref) => this.blocks = ref}>
+        <div><Floor level={7} /></div>
+        <RoomWithEvents />
+        <RoomWithEvents />
+      </div>
+    )
+  }
+
   render() {
     const {
       isRoomsCollapsed
@@ -115,14 +149,7 @@ class RoomsTimetable extends Component {
     return (
       <div>
         <div style={{position: 'relative', overflow: 'hidden' }}>
-          <div style={{position: 'absolute', zIndex: '-1', top: '30px', backgroundColor: 'grey'}}
-            ref={(ref) => this.blocks = ref}>
-            <div>
-              <Floor level={7} />
-            </div>
-            <RoomWithEvents />
-            <RoomWithEvents />
-          </div>
+          {this.renderRooms()}
           <div>
             {isRoomsCollapsed ? (
               <div style={{position: 'absolute', marginTop: '10px', overflow: 'hidden'}}>

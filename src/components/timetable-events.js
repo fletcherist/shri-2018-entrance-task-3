@@ -42,13 +42,15 @@ const timetableEventsContainerStyles = state => ({
 })
 const TimetableEvents = connect({
   timetableEventsContainerStyles
-})(({ styles }) => (
-  <div className={styles.timetableEventsContainerStyles}>
-    <TimetableEvent width={100} isBooked selected/>
-    <TimetableEvent width={100} selected/>
-    <TimetableEvent width={100} isBooked />
-  </div>
-))
+})(({ styles, events }) => {
+  return (
+    <div className={styles.timetableEventsContainerStyles}>
+      <TimetableEvent width={100} isBooked selected/>
+      <TimetableEvent width={100} selected/>
+      <TimetableEvent width={100} isBooked />
+    </div>
+  )
+})
 
 export { TimetableEvent, TimetableEvents }
 export default TimetableEvents

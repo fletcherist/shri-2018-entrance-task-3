@@ -23,6 +23,9 @@ export const fetchEvents = async () => {
         title
         dateStart
         dateEnd
+        users {
+          id
+        }
         room {
           ...${roomInfo}
         }
