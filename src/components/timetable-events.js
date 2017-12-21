@@ -1,5 +1,5 @@
 // @flow
-import { h } from 'preact'
+import { h, Component } from 'preact'
 import { connect } from 'preact-fela'
 import { isMobile } from '../utils'
 
@@ -40,17 +40,37 @@ const timetableEventsContainerStyles = state => ({
   display: 'flex',
   marginLeft: '180px'
 })
-const TimetableEvents = connect({
-  timetableEventsContainerStyles
-})(({ styles, events }) => {
-  return (
-    <div className={styles.timetableEventsContainerStyles}>
-      <TimetableEvent width={100} isBooked selected/>
-      <TimetableEvent width={100} selected/>
-      <TimetableEvent width={100} isBooked />
-    </div>
-  )
+
+const TimetableEvents = connect({timetableEventsContainerStyles})
+(class extends Component {
+  render({ styles, events }) {
+    console.log('events', events)
+    if (!events) {
+      return (<TimetableEvent width={100} />)
+    }
+    events.forEach(event => {
+      const dateStart = new Date(event.dateStart)
+      const dateEnd = new Date(event.dateEnd)
+      console.log('from', dateStart.getDate(), dateStart.getHours(), dateStart.getMinutes())
+      console.log('till', dateEnd.getDate(), dateEnd.getHours(), dateEnd.getMinutes())
+    })
+    return (
+      <div className={styles.timetableEventsContainerStyles}
+        ref={(ref) => this.container = ref}>
+        <TimetableEvent width={100} isBooked selected/>
+        <TimetableEvent width={100} selected/>
+        <TimetableEvent width={100} isBooked />
+      </div>
+    )
+  }
 })
+
+// const TimetableEvents = connect({
+//   timetableEventsContainerStyles
+// })(({ styles, events }) => {
+//   console.log('events', events)
+  
+// })
 
 export { TimetableEvent, TimetableEvents }
 export default TimetableEvents
