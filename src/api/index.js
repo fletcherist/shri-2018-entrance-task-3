@@ -29,9 +29,9 @@ export const fetchEvents = async () => {
       }
     }
   `)
-  if (eventsArray.users.length === 0) return {}
+  if (eventsArray.events.length === 0) return {}
   /* transforming evenys array to events object */
-  return convertArrayToObject(eventsArray.users)
+  return convertArrayToObject(eventsArray.events)
 }
 
 export const fetchRooms = async () => {
@@ -42,12 +42,12 @@ export const fetchRooms = async () => {
       }
     }
   `)
-  if (roomsArray.users.length === 0) return {}
+  if (roomsArray.rooms.length === 0) return {}
   /* transforming evenys array to events object */
-  return convertArrayToObject(roomsArray.users)
+  return convertArrayToObject(roomsArray.rooms)
 }
 
-fetchEvents().then(console.log)
+// fetchEvents().then(console.log)
 // fetchUsers().then(console.log)
 // fetchRooms().then(console.log)
 

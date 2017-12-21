@@ -2,7 +2,7 @@ import {
   FETCH_EVENTS
 } from './actionTypes'
 
-export const putFetchedEvents = (users) => ({
+export const fetchEvents = (events) => ({
   type: FETCH_EVENTS,
-  payload: users
+  payload: events
 })
