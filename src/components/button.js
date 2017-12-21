@@ -4,7 +4,7 @@ import Arrow from '../assets/arrow.svg'
 
 const rule = (state) => {
   console.log(state)
-  const { theme, type } = state
+  const { theme, type, width } = state
 
   const { normal, pressed, disabled } = theme.colors.button[type]
   return {
@@ -14,7 +14,9 @@ const rule = (state) => {
     backgroundColor: normal,
     cursor: 'pointer',
     height: '44px',
-    width: type === 'create' ? '172px' : '103px',
+    width: width
+      ? `${width}px`
+      : type === 'create' ? '172px' : '103px',
     fontSize: '15px',
     borderRadius: '5px',
     color: type === 'create'
@@ -34,10 +36,10 @@ const rule = (state) => {
   }
 }
 
-const Button = ({disabled, children, styles, type}) => {
+const Button = ({disabled, children, styles, type, onClick}) => {
   console.log(disabled)
   return (
-    <button className={styles.rule} disabled={disabled}>
+    <button className={styles.rule} disabled={disabled} onClick={onClick}>
       {children}
     </button>
   )
@@ -55,6 +57,12 @@ export const ButtonCancel = (props) => (
 
 export const ButtonRemove = (props) => (
   <ButtonWrapped type='cancel' {...props}>Удалить</ButtonWrapped>
+)
+
+export const ButtonOkay = (props) => (
+  <ButtonWrapped type='create' {...props} width={120}>
+    Хорошо
+  </ButtonWrapped>
 )
 
 export default ButtonWrapped

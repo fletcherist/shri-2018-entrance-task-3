@@ -10,7 +10,7 @@ const roomNameStyles = state => ({
   color: '#858E98',
   display: 'block',
   position: 'absolute',
-  letterSpacing: '0.4px'
+  letterSpacing: '0.4px',
   // minWidth: '80px'
 })
 const RoomName = connect({

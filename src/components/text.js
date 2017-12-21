@@ -23,14 +23,24 @@ const TextHeadline = ({
   }}>{children}</h1>
 )
 
-const Text = ({ fontSize, children }) => (
+const Text = ({ fontSize, children, center }) => (
   <span style={{
-    fontSize: fontSize || 15
+    fontSize: fontSize || 15,
+    textAlign: center ? 'center' : null
   }}>{children}</span>
+)
+
+const TextBlock = (props) => (
+  <div style={{
+    textAlign: props.center ? 'center' : null,
+    marginTop: '5.4px'
+  }}>
+    <Text {...props} />
+  </div>
 )
 
 export { WrappedTextLabel as TextLabel }
 export { TextHeadline }
-export { Text }
+export { Text, TextBlock }
 
 export default connect({labelRule})(TextLabel)

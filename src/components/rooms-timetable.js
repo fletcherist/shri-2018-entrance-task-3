@@ -5,7 +5,9 @@ import EventTooltip from './event-tooltip'
 import Room from './room'
 import RoomCollapsed from './room-collapsed'
 import TimetableEvents from './timetable-events'
+
 import RemoveEventConfirm from './remove-event-confirm'
+import CreateEventConfirm from './create-event-confirm'
 import Modal from './modal'
 
 const ArrayFrom8AM = (() => {
@@ -47,8 +49,7 @@ const sTime = {
 const sEvents = {
   height: '58px',
   minWidth: '150px',
-  zIndex: '-999',
-  overflow: 'scroll'
+  zIndex: '-999'
 }
 
 const floorStyles = state => ({
@@ -153,12 +154,17 @@ class RoomsTimetable extends Component {
             ))}
           </div>
         </div>
-        <Modal>
-          <RemoveEventConfirm />
-        </Modal>
       </div>
     )
   }
 }
+
+// <Modal>
+//   <CreateEventConfirm />
+// </Modal>
+// 
+// <Modal>
+//   <CreateEventConfirm />
+// </Modal>
 
 export default RoomsTimetable
