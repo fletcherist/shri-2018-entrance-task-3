@@ -7,7 +7,7 @@ import RoomCollapsed from './room-collapsed'
 import TimetableEvents from './timetable-events'
 
 import RemoveEventConfirm from './remove-event-confirm'
-import CreateEventConfirm from './create-event-confirm'
+import CreateEventConfirm from '../containers/create-event-confirm'
 import Modal from './modal'
 
 const ArrayFrom8AM = (() => {
@@ -154,6 +154,7 @@ class RoomsTimetable extends Component {
             ))}
           </div>
         </div>
+        <CreateEventConfirm />
       </div>
     )
   }

@@ -26,13 +26,17 @@ const modalWindowStyles = state => ({
   boxShadow: '0 1px 16px 0 rgba(0,44,92,0.28)'
 })
 
-const Modal = ({ styles, children }) => (
-  <div className={styles.modalContainerStyles}>
-    <div className={styles.modalWrapperStyles}>
-      <div className={styles.modalWindowStyles}>
-        {children}
+const Modal = ({ styles, children, isVisible }) => (
+  <div>
+    {isVisible && (
+      <div className={styles.modalContainerStyles}>
+        <div className={styles.modalWrapperStyles}>
+          <div className={styles.modalWindowStyles}>
+            {children}
+          </div>
+        </div>
       </div>
-    </div>
+    )}
   </div>
 )
 

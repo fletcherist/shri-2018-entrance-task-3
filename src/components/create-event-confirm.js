@@ -15,7 +15,11 @@ const centerBlockStyles = state => ({
   height: '50px'
 })
 
-const RemoveEventConfirm = ({ styles }) => (
+const RemoveEventConfirm = ({
+  styles,
+  showModalEvent,
+  hideModalEvent
+}) => (
   <div className={styles.containerStyles}>
     <div className={styles.centerBlockStyles}>
       <img src={`dist/${CloseIcon}`} style={{display: 'block'}}/>
@@ -28,7 +32,7 @@ const RemoveEventConfirm = ({ styles }) => (
     <EmptyDivider height={31} />
     <div className={styles.centerBlockStyles}>
       <HorizontalDivider width={16} />
-      <ButtonOkay />
+      <ButtonOkay onClick={hideModalEvent} />
     </div>
   </div>
 )
