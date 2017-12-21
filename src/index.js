@@ -5,8 +5,7 @@ import { Router } from 'preact-router'
 import { Link } from 'preact-router'
 
 import { createHashHistory } from 'history'
-import { Provider, coonect } from 'preact-redux'
-import { createStore } from 'redux'
+import { Provider, connect } from 'preact-redux'
 import {
   Provider as FelaProvider,
   ThemeProvider
@@ -19,17 +18,9 @@ import DateSwitcher from './components/date-switcher'
 import RoomsTimetable from './components/rooms-timetable'
 import BookRoom from './components/book-room'
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'increment': return {...state}
-    default: return state
-  }
-}
+import createStore from './createStore'
 
 const renderer = createRenderer()
-
-const store = createStore(reducer, {},
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 const theme = {
   colors: {
@@ -46,12 +37,12 @@ const theme = {
       }
     }
   },
-  boxShadow: 'box-shadow: 0 1px 8px 0 rgba(0,44,92,0.28)',
+  boxShadow: 'box-shadow: 0 1px 8px 0 rgba(0,44,92,0.28)'
 }
 
 const App = () => (
   <div>
-    <Provider store={store}>
+    <Provider store={createStore()}>
       <FelaProvider renderer={renderer}>
         <ThemeProvider theme={theme}>
           <div>

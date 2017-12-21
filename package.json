@@ -37,13 +37,14 @@
     "preact": "^8.2.7",
     "preact-compat": "^3.17.0",
     "preact-datepicker": "^0.1.0",
-    "preact-fela": "^6.1.1",
+    "preact-fela": "^6.2.1",
     "preact-redux": "^2.0.3",
     "preact-router": "^2.6.0",
     "ramda": "^0.25.0",
     "react": "15.5.4",
     "react-day-picker": "5.4.3",
     "redux": "^3.7.2",
+    "redux-saga": "^0.16.0",
     "webpack": "^3.6.0",
     "webpack-livereload-plugin": "^1.0.0"
   }
