@@ -3,9 +3,10 @@ import { connect } from 'preact-fela'
 import CloseIcon from '../assets/emoji1.svg'
 import { TextHeadline } from './text'
 import { ButtonRemove, ButtonCancel } from './button'
+import { HorizontalDivider } from './divider'
 
 const containerStyles = state => ({
-  width: '100%',
+  width: '100%'
 })
 
 const centerBlockStyles = state => ({
@@ -19,9 +20,12 @@ const RemoveEventConfirm = ({ styles }) => (
     <div className={styles.centerBlockStyles}>
       <img src={`dist/${CloseIcon}`} style={{display: 'block'}}/>
     </div>
-    <TextHeadline center>Встреча будет удалена<br /> безвозвратно</TextHeadline>
+    <TextHeadline center marginBottom={24}>
+      Встреча будет удалена<br /> безвозвратно
+    </TextHeadline>
     <div className={styles.centerBlockStyles}>
       <ButtonCancel />
+      <HorizontalDivider width={16} />
       <ButtonRemove />
     </div>
   </div>
