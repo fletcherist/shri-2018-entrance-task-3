@@ -10,12 +10,9 @@ import RemoveEventConfirm from './remove-event-confirm'
 import CreateEventConfirm from '../containers/create-event-confirm'
 import Modal from './modal'
 
-const ArrayFrom8AM = (() => {
-  const array = []
-  array.push('8:00')
-  for (let i = 9; i <= 23; i++) array.push(i.toString())
-  return array
-})()
+import { range, compose, prepend, toString, map } from 'ramda'
+
+const ArrayFrom8AM = compose(prepend('8:00'), map(toString))(range(9, 24))
 
 /* TimeBlock styles  */
 const sTime = {
@@ -74,9 +71,14 @@ const roomWithEventsStyles = state => ({
 })
 const RoomWithEvents = connect({
   roomWithEventsStyles
-})(({ styles, roomName, roomEvents }) => (
+})(({
+  styles,
+  roomName,
+  roomEvents,
+  roomCapacity
+}) => (
   <div className={styles.roomWithEventsStyles}>
-    <Room name={roomName} />
+    <Room name={roomName} capacity={roomCapacity} />
     <TimetableEvents events={roomEvents} />
   </div>
 ))
@@ -124,20 +126,13 @@ class RoomsTimetable extends Component {
               }
               <RoomWithEvents
                 roomName={room.title}
+                roomCapacity={room.capacity}
                 roomEvents={this.props.eventsInRoom[room.id]}
               />
             </div>
           )
         }
         )}
-      </div>
-    )
-    return (
-      <div style={{position: 'absolute', zIndex: '-1', top: '30px', backgroundColor: 'grey'}}
-        ref={(ref) => this.blocks = ref}>
-        <div><Floor level={7} /></div>
-        <RoomWithEvents />
-        <RoomWithEvents />
       </div>
     )
   }
