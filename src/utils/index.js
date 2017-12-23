@@ -21,3 +21,14 @@ export const convertArrayToObject = (array) =>
       [user.id]: user
     }),
   {})
+
+export const formatDateTime = (date, time) => {
+  console.log(date, time)
+  const formattedDateTime = new Date(date)
+  console.log(formattedDateTime)
+  const [hours, minutes] = time.split(':').map(Number)
+  console.log(hours, minutes)
+  formattedDateTime.setHours(hours)
+  formattedDateTime.setMinutes(minutes)
+  return formattedDateTime
+}

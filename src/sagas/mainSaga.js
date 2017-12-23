@@ -23,7 +23,8 @@ function * roomsSaga() {
 function * appSaga() {
   console.log(createEvent)
   yield takeEvery(createEvent().type, function * (action) {
-    console.log('creating event!!!', action)
+
+    console.log('creating event!!!', action.payload)
   })
 }
 

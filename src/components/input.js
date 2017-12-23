@@ -23,12 +23,13 @@ const inputRule = state => ({
 const Input = connect({
   inputRule
 })(({
-  placeholder, value, styles, label
+  placeholder, value, styles, label, onInput
 }) => {
   return (
     <div>
       {label && <TextLabel>{label}</TextLabel>}
-      <input className={styles.inputRule} placeholder={placeholder} value={value} />
+      <input className={styles.inputRule} placeholder={placeholder} value={value}
+        onInput={onInput} />
     </div>
   )
 })
@@ -52,11 +53,12 @@ const dateInputRule = state => mergeDeepLeft(inputRule(state), {
 export const DateInput = connect({
   inputRule: dateInputRule,
 })(({
-  placeholder, value, styles, label
+  placeholder, value, styles, label, onInput
 }) => (
   <div>
     {label && <TextLabel>{label}</TextLabel>}
     <input className={styles.inputRule} type='date'
+      onInput={onInput}
       value={value}
       placeholder={placeholder}
       max='3000-12-31' />

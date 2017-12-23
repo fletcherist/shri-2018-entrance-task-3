@@ -2,12 +2,14 @@
 
 import { h, Component } from 'preact'
 import { connect } from 'preact-fela'
+import { merge } from 'ramda'
 import Button, { ButtonCreateMeeting, ButtonCancel } from './button'
 import { BigDivider, EmptyDivider } from './divider'
 
 import Input, { DateInput } from './input'
 import { TextLabel, TextHeadline } from './text'
 import RecommendedRoom from './recommended-room'
+import { formatDateTime } from '../utils'
 
 const sBlock = {
   padding: '16px 16px 20px',
@@ -16,28 +18,80 @@ const sBlock = {
 }
 
 type Props = {
-  createEvent: string
+  createEvent: Function,
+  handleTitleInput: Function
 };
 
 class BookRoom extends Component<Props> {
-  handleChange(event: Event) {
-    console.log(event)
+  constructor() {
+    super()
+    this.state = {
+      values: {
+        title: '123',
+        date: '10.10.2017',
+        timeStart: '123',
+        timeEnd: '123',
+      },
+      isReadyForCreating: false
+    }
+    this.handleTitleInput = this.handleTitleInput.bind(this)
+    this.handleDateInput = this.handleDateInput.bind(this)
+    this.handleTimeStartInput = this.handleTimeStartInput.bind(this)
+    this.handleTimeEndInput = this.handleTimeEndInput.bind(this)
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleTitleInput(event: Event) { this.handleInput('title', event) }
+  handleDateInput(event: Event) { this.handleInput('date', event) }
+  handleTimeStartInput(event: Event) { this.handleInput('timeStart', event) }
+  handleTimeEndInput(event: Event) { this.handleInput('timeEnd', event) }
+
+  handleInput(type: string, event: Event) {
+    this.setState({
+      values: merge(this.state.values, {
+        [type]: event.target.value
+      })
+    }, () => {
+      console.log(this.state)
+      const { title, date, timeStart, timeEnd } = this.state.values
+      const isReadyForCreating = title && date && timeStart && timeEnd
+      this.setState({isReadyForCreating})
+    })
+    console.log(type, event.target.value)
+  }
+
+  handleSubmit() {
+    const { title, timeStart, timeEnd, date } = this.state.values
+    this.props.createEvent({
+      title: title,
+      dateStart: formatDateTime(date, timeStart),
+      dateEnd: formatDateTime(date, timeEnd)
+    })
   }
 
   render() {
+    const { title, date, timeStart, timeEnd } = this.state.values
     return (
       <div>
         <div style={sBlock}>
           <TextHeadline>Новая встреча</TextHeadline>
 
-          <Input label='Тема' placeholder='О чём будете говорить?' />
+          <Input label='Тема' placeholder='О чём будете говорить?'
+            value={title}
+            onInput={this.handleTitleInput} />
           <EmptyDivider />
-          <DateInput label='Дата и время' value='2017-12-17' onChange={this.handleChange} />
+          <DateInput label='Дата и время' value={date}
+            onInput={this.handleDateInput} />
           <EmptyDivider height={8} />
           <div style={{display: 'flex', alignItems: 'center'}}>
-            <Input />
+            <Input onInput={this.handleTimeStartInput}
+              placeholder='13:00'
+              value={timeStart} />
             <div style={{padding: '4px'}}>—</div>
-            <Input />
+            <Input onInput={this.handleTimeEndInput}
+              placeholder='13:30'
+              value={timeEnd} />
           </div>
         </div>
         <BigDivider />
@@ -92,8 +146,8 @@ class BookRoom extends Component<Props> {
             <div style={{
               padding: '16px 0px 20px'
             }}>
-              <ButtonCreateMeeting disabled
-                onClick={() => this.props.createEvent() } />
+              <ButtonCreateMeeting disabled={!this.state.isReadyForCreating}
+                onClick={this.handleSubmit} />
             </div>
           </div>
         </div>
