@@ -16,7 +16,9 @@ import Button, { ButtonCreateMeeting, ButtonCancel } from './components/button'
 import Navigation from './components/navigation'
 import DateSwitcher from './components/date-switcher'
 import RoomsTimetable from './containers/rooms-timetable'
-import BookRoom from './components/book-room'
+import BookRoom from './containers/book-room'
+
+import CreateEventConfirm from './containers/create-event-confirm'
 
 import createStore from './createStore'
 
@@ -52,6 +54,7 @@ const App = () => (
               <BookingPage path='/timetable' />
               <CreatePage path='/create' />
             </Router>
+            <CreateEventConfirm />
           </div>
         </ThemeProvider>
       </FelaProvider>

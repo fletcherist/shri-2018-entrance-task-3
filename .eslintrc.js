@@ -2,7 +2,8 @@ module.exports = {
     "parser": "babel-eslint",
     "extends": "standard",
     "plugins": [
-        "flowtype"
+      "flowtype",
+      "plugin:react/recommended"
     ],
     rules: {
       'no-return-await': 0,

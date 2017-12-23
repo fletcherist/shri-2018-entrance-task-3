@@ -1,5 +1,5 @@
 {
-  "presets": ["stage-2", "stage-3", "flow", "stage-0", "react"],
+  "presets": ["stage-2", "stage-3", "flow", "stage-0", "react", "flow"],
   "plugins": [
           ["transform-react-jsx", { "pragma":"h" }],
           ["module-resolver", {

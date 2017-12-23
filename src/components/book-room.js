@@ -1,3 +1,5 @@
+// @flow
+
 import { h, Component } from 'preact'
 import { connect } from 'preact-fela'
 import Button, { ButtonCreateMeeting, ButtonCancel } from './button'
@@ -13,8 +15,12 @@ const sBlock = {
   flexDirection: 'column'
 }
 
-class BookRoom extends Component {
-  handleChange(event) {
+type Props = {
+  createEvent: string
+};
+
+class BookRoom extends Component<Props> {
+  handleChange(event: Event) {
     console.log(event)
   }
 
@@ -86,7 +92,8 @@ class BookRoom extends Component {
             <div style={{
               padding: '16px 0px 20px'
             }}>
-              <ButtonCreateMeeting disabled />
+              <ButtonCreateMeeting disabled
+                onClick={() => this.props.createEvent() } />
             </div>
           </div>
         </div>

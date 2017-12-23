@@ -1,7 +1,7 @@
-import { put, call, fork } from 'redux-saga/effects'
+import { put, call, fork, takeEvery } from 'redux-saga/effects'
 import { showModal } from '../actions/modals'
 import { fetchUsers } from '../actions/users'
-import { fetchEvents } from '../actions/events'
+import { fetchEvents, createEvent } from '../actions/events'
 import { fetchRooms } from '../actions/rooms'
 import Api from '../api'
 
@@ -21,7 +21,10 @@ function * roomsSaga() {
 }
 
 function * appSaga() {
-  
+  console.log(createEvent)
+  yield takeEvery(createEvent().type, function * (action) {
+    console.log('creating event!!!', action)
+  })
 }
 
 function * mainSaga() {
