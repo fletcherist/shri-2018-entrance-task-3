@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.image {
+  height: 32px;
+  width: 32px;
+  border-radius: 32px;
+}
+
+.username {
+  padding-left: 8px;
+  fontSize: 13px;
+  letter-spacing: 0;
+}
+
+.homeFloorContainer {
+  padding-left: 5px;
+  margin-top: -1px;
+}
+
+.homeFloor {
+  color: #8C959E;
+  font-size: 13px;
+}
+
+.container:hover {
+  background: #F6F7F9;
+}
+
+.container:hover .homeFloor {
+  color: #8C949E;
+}
+
+.container:hover .username {
+
+}

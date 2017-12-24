@@ -1,37 +1,30 @@
 import { h } from 'preact'
 import { connect } from 'preact-fela'
-
-const rule = state => ({
-  display: 'flex',
-  alignItems: 'center'
-})
-
-const imageRule = state => ({
-  height: '32px',
-  width: '32px',
-  borderRadius: '32px'
-})
-
-const usernameRule = state => ({
-  paddingLeft: '8px',
-  fontSize: '15px'
-})
+import s from './user.css'
 
 const User = ({
   styles,
   userName,
-  userPhoto
+  userPhoto,
+  homeFloor,
+  onClick,
+  id
 }) => (
-  <div className={styles.rule}>
+  <div className={s.container} onClick={(event) => onClick(event, id)}>
     <div>
-      <img className={styles.imageRule} src={userPhoto} />
+      <img className={s.image} src={userPhoto} />
     </div>
-    <div className={styles.usernameRule}>{userName}</div>
+    <div className={s.username}>{userName}</div>
+    {homeFloor && (
+      <div className={s.homeFloorContainer}>
+        <span> · </span>
+        <span className={s.homeFloor}>
+          {homeFloor} этаж
+        </span>
+      </div>
+    )}
   </div>
 )
 
 export default connect({
-  rule,
-  imageRule,
-  usernameRule
 })(User)
