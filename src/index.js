@@ -19,6 +19,7 @@ import RoomsTimetable from './containers/rooms-timetable'
 import BookRoom from './containers/book-room'
 
 import CreateEventConfirm from './containers/create-event-confirm'
+import RemoveEventConfirm from './containers/remove-event-confirm'
 
 import createStore from './createStore'
 
@@ -55,6 +56,7 @@ const App = () => (
               <CreatePage path='/create' />
             </Router>
             <CreateEventConfirm />
+            <RemoveEventConfirm />
           </div>
         </ThemeProvider>
       </FelaProvider>

@@ -13,7 +13,6 @@ export const CreateEventConfirmModal = (props) => (
 
 const MODAL_NAME = 'CreateEventConfirm'
 const mapStateToProps = state => {
-  console.log('mapStateToProps', state.modals[MODAL_NAME])
   return {
     isVisible: state.modals[MODAL_NAME].isVisible || false,
     data: state.modals[MODAL_NAME].data || {}

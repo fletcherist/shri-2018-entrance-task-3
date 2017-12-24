@@ -1,4 +1,5 @@
 // @flow
+
 import {
   SHOW_MODAL,
   HIDE_MODAL,
