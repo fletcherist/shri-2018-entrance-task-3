@@ -23,13 +23,15 @@ const inputRule = state => ({
 const Input = connect({
   inputRule
 })(({
-  placeholder, value, styles, label, onInput
+  placeholder, value, styles, label, onInput,
+  onClick, ref, onFocusOut, onFocus
 }) => {
   return (
     <div>
       {label && <TextLabel>{label}</TextLabel>}
       <input className={styles.inputRule} placeholder={placeholder} value={value}
-        onInput={onInput} />
+        onInput={onInput} onClick={onClick} ref={ref} onFocusOut={onFocusOut}
+        onFocus={onFocus} />
     </div>
   )
 })

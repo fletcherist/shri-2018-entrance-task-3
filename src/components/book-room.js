@@ -10,6 +10,7 @@ import Input, { DateInput } from './input'
 import { TextLabel, TextHeadline } from './text'
 import RecommendedRoom from './recommended-room'
 import { formatDateTime, isMobile } from '../utils'
+import AutocompleteUsers from '../containers/autocomplete-users'
 
 import s from './book-room.css'
 
@@ -101,7 +102,7 @@ const BookRoom = connect({
           </div>
           <BigDivider />
           <div style={sBlock}>
-            <Input label='Участники' placeholder='Например, Тор Одинович' />
+            <AutocompleteUsers />
           </div>
           <BigDivider />
 
