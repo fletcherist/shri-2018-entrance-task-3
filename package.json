@@ -32,6 +32,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "fela": "^6.1.0",
     "flow-bin": "^0.56.0",
+    "fuzzysearch": "^1.0.3",
     "graphql": "^0.12.3",
     "history": "^4.7.2",
     "lokka": "^1.7.0",

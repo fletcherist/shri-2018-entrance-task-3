@@ -1,16 +1,33 @@
 // @flow
 import { h, Component } from 'preact'
 import { connect } from 'preact-fela'
+import fuzzysearch from 'fuzzysearch'
+import { filter } from 'ramda'
 import Input from './input'
 import User from './user'
 
-class AutocompleteUsers extends Component {
+type Props = {
+  users: Object,
+  usersArray: Array<Object>
+};
+
+const filterUsers = (users, searchQuery) =>
+  users.filter(user => {
+    return fuzzysearch(
+      searchQuery.toLowerCase(),
+      user.username.toLowerCase()
+    )
+  })
+
+class AutocompleteUsers extends Component<Props> {
   constructor() {
     super()
     this.handleInputFocus = this.handleInputFocus.bind(this)
     this.handleInputFocusOut = this.handleInputFocusOut.bind(this)
+    this.handleInput = this.handleInput.bind(this)
     this.state = {
-      clickedOnInput: true
+      clickedOnInput: true,
+      searchQuery: ''
     }
   }
   handleClickOutside(event: Event) {
@@ -18,25 +35,44 @@ class AutocompleteUsers extends Component {
   }
 
   handleInputFocus(event: Event) {
-    console.log('focus')
     this.setState({clickedOnInput: true})
   }
 
   handleInputFocusOut(event: Event) {
-    console.log('focus out')
     this.setState({clickedOnInput: false})
   }
+
+  handleInput(event: Event) {
+    this.setState({
+      searchQuery: event.target.value
+    })
+  }
+
+  renderSuggestedUsers() {
+    const suggestedUsers = filterUsers(
+      this.props.usersArray,
+      this.state.searchQuery
+    )
+    const users = suggestedUsers.map(user => (
+      <User userName={user.username}
+        userPhoto={user.avatarUrl} />
+    ))
+    return users
+  }
+
   render() {
     return (
       <div>
         <Input label='Участники' placeholder='Например, Тор Одинович'
           ref={(ref) => this.inputElement = ref}
             onFocus={this.handleInputFocus}
-            onFocusOut={this.handleInputFocusOut} />
+            value={this.state.searchQuery}
+            onFocusOut={this.handleInputFocusOut}
+            onInput={this.handleInput} />
         <div>
           {this.state.clickedOnInput && (
             <div>
-              <User userName='лекс хаха' userPhoto='https://avatars0.githubusercontent.com/u/1813468?s=460&v=4' />
+              {this.renderSuggestedUsers()}
             </div>
           )}
         </div>

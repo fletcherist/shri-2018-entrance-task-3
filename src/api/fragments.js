@@ -15,6 +15,7 @@ export const userInfo = client.createFragment(`
     login
     homeFloor
     avatarUrl
+    username
   }
 `)
 
