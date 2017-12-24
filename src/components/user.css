@@ -39,6 +39,7 @@
 }
 
 .containerParticipant {
+  margin-top: 8px;
   display: flex;
   align-items: center;
   background-color: #E9ECEF;

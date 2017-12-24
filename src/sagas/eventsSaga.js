@@ -11,7 +11,7 @@ export default function * eventsSaga() {
 
   // Handling booking room event
   yield takeEvery(createEvent().type, function * (action) {
-    const { title, dateStart, dateEnd } = action.payload
+    const { title, dateStart, dateEnd, usersIds } = action.payload
     try {
       const newEvent = yield call(Api.events.create, {
         input: {
@@ -20,7 +20,7 @@ export default function * eventsSaga() {
           dateEnd
         },
         roomId: 1,
-        usersIds: [1, 2, 3]
+        usersIds: usersIds
       })
       yield put(setModalData({
         modalName: 'CreateEventConfirm',

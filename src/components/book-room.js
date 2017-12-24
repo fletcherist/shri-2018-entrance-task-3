@@ -38,6 +38,7 @@ const BookRoom = connect({
         timeStart: '13:00',
         timeEnd: '13:30',
       },
+      usersIds: [],
       isReadyForCreating: false
     }
     this.handleTitleInput = this.handleTitleInput.bind(this)
@@ -46,6 +47,7 @@ const BookRoom = connect({
     this.handleTimeEndInput = this.handleTimeEndInput.bind(this)
 
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.setParticipants = this.setParticipants.bind(this)
   }
 
   handleTitleInput(event: Event) { this.handleInput('title', event) }
@@ -72,7 +74,15 @@ const BookRoom = connect({
     this.props.createEvent({
       title: title,
       dateStart: formatDateTime(date, timeStart),
-      dateEnd: formatDateTime(date, timeEnd)
+      dateEnd: formatDateTime(date, timeEnd),
+      usersIds: this.state.usersIds
+    })
+  }
+
+  setParticipants(participants) {
+    console.log('setting participants', participants)
+    this.setState({
+      usersIds: participants
     })
   }
 
@@ -102,7 +112,7 @@ const BookRoom = connect({
           </div>
           <BigDivider />
           <div style={sBlock}>
-            <AutocompleteUsers />
+            <AutocompleteUsers setParticipants={this.setParticipants} />
           </div>
           <BigDivider />
 

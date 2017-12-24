@@ -9,10 +9,9 @@ const User = ({
   userName,
   userPhoto,
   homeFloor,
-  onClick,
   id
 }) => (
-  <div className={s.container} onClick={(event) => onClick(event, id)}>
+  <div className={s.container}>
     <div>
       <img className={s.image} src={userPhoto} />
     </div>
@@ -21,7 +20,8 @@ const User = ({
 )
 
 export const UserSelect = (props) => (
-  <div className={cx(s.container, s.containerSelect)}>
+  <div className={cx(s.container, s.containerSelect)}
+    onClick={(event) => props.onClick(event, props.id)}>
     <User {...props} />
     {props.homeFloor && (
       <div className={s.homeFloorContainer}>

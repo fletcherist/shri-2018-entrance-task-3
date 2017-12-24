@@ -8,7 +8,8 @@ import User, { UserSelect, UserParticipant } from './user'
 
 type Props = {
   users: Object,
-  usersArray: Array<Object>
+  usersArray: Array<Object>,
+  setParticipants: Function
 };
 
 const suggestedUsersContainerStyles = state => ({
@@ -63,7 +64,7 @@ class AutocompleteUsers extends Component<Props> {
   handleInputFocusOut(event: Event) {
     event.preventDefault()
     setTimeout(() => {
-      this.setState({clickedOnInput: false})
+      // this.setState({clickedOnInput: false})
     }, 200)
   }
 
@@ -78,6 +79,8 @@ class AutocompleteUsers extends Component<Props> {
     this.setState({
       selectedUsers:
         uniq([...this.state.selectedUsers, userId])
+    }, () => {
+      this.props.setParticipants(this.state.selectedUsers)
     })
     this.setState({clickedOnInput: false})
     console.log(this.state)
