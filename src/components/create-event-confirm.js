@@ -15,10 +15,11 @@ const centerBlockStyles = state => ({
   height: '50px'
 })
 
-const RemoveEventConfirm = ({
+const CreateEventConfirm = ({
   styles,
   showModalEvent,
-  hideModalEvent
+  hideModalEvent,
+  data
 }) => (
   <div className={styles.containerStyles}>
     <div className={styles.centerBlockStyles}>
@@ -27,8 +28,8 @@ const RemoveEventConfirm = ({
     <TextHeadline center>
       Встреча создана!
     </TextHeadline>
-    <TextBlock center>14 декабря, 15:00—17:00</TextBlock>
-    <TextBlock center>Готем · 4 этаж</TextBlock>
+    <TextBlock center>14 декабря, {data.dateStart}—{data.dateEnd}</TextBlock>
+    <TextBlock center>{data.room.title} · {data.room.floor} этаж</TextBlock>
     <EmptyDivider height={31} />
     <div className={styles.centerBlockStyles}>
       <HorizontalDivider width={16} />
@@ -40,4 +41,4 @@ const RemoveEventConfirm = ({
 export default connect({
   containerStyles,
   centerBlockStyles
-})(RemoveEventConfirm)
+})(CreateEventConfirm)

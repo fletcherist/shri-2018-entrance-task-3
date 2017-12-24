@@ -1,18 +1,15 @@
+// @flow
+
 import { put, call, fork, takeEvery } from 'redux-saga/effects'
-import { showModal } from '../actions/modals'
+import { showModal, setModalData } from '../actions/modals'
 import { fetchUsers } from '../actions/users'
-import { fetchEvents, createEvent } from '../actions/events'
 import { fetchRooms } from '../actions/rooms'
+import eventsSaga from './eventsSaga'
 import Api from '../api'
 
 function * usersSaga() {
   const users = yield call(Api.users.get)
   yield put(fetchUsers(users))
-}
-
-function * eventsSaga() {
-  const events = yield call(Api.events.get)
-  yield put(fetchEvents(events))
 }
 
 function * roomsSaga() {
@@ -21,16 +18,10 @@ function * roomsSaga() {
 }
 
 function * appSaga() {
-  console.log(createEvent)
-  yield takeEvery(createEvent().type, function * (action) {
 
-    console.log('creating event!!!', action.payload)
-  })
 }
 
 function * mainSaga() {
-  // yield put(showModal('RemoveEventConfirm'))
-
   yield fork(usersSaga)
   yield fork(eventsSaga)
   yield fork(roomsSaga)

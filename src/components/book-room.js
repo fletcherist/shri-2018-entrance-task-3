@@ -28,9 +28,9 @@ class BookRoom extends Component<Props> {
     this.state = {
       values: {
         title: '123',
-        date: '10.10.2017',
-        timeStart: '123',
-        timeEnd: '123',
+        date: '2017-10-10',
+        timeStart: '13:00',
+        timeEnd: '13:30',
       },
       isReadyForCreating: false
     }
@@ -76,7 +76,6 @@ class BookRoom extends Component<Props> {
       <div>
         <div style={sBlock}>
           <TextHeadline>Новая встреча</TextHeadline>
-
           <Input label='Тема' placeholder='О чём будете говорить?'
             value={title}
             onInput={this.handleTitleInput} />

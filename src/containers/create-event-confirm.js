@@ -1,20 +1,24 @@
 import { h } from 'preact'
 import { connect } from 'preact-redux'
-import RemoveEventConfirm from '../components/create-event-confirm'
+import CreateEventConfirm from '../components/create-event-confirm'
 import Modal from '../components/modal'
 
 import { showModal, hideModal } from '../actions/modals'
 
-export const RemoveEventConfirmModal = (props) => (
+export const CreateEventConfirmModal = (props) => (
   <Modal {...props}>
-    <RemoveEventConfirm {...props} />
+    <CreateEventConfirm {...props} />
   </Modal>
 )
 
-const MODAL_NAME = 'RemoveEventConfirm'
-const mapStateToProps = state => ({
-  isVisible: state.modals[MODAL_NAME].isVisible || false
-})
+const MODAL_NAME = 'CreateEventConfirm'
+const mapStateToProps = state => {
+  console.log('mapStateToProps', state.modals[MODAL_NAME])
+  return {
+    isVisible: state.modals[MODAL_NAME].isVisible || false,
+    data: state.modals[MODAL_NAME].data || {}
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   showModalEvent: () => dispatch(showModal(MODAL_NAME)),
@@ -23,4 +27,4 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(
   mapStateToProps, mapDispatchToProps
-)(RemoveEventConfirmModal)
+)(CreateEventConfirmModal)

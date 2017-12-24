@@ -1,3 +1,5 @@
+// @flow
+
 import client from './graphql-client'
 import { roomInfo, userInfo } from './fragments'
 import { convertArrayToObject } from '../utils'
@@ -46,6 +48,7 @@ export const fetchRooms = async () => {
     }
   `)
   if (roomsArray.rooms.length === 0) return {}
+
   /* transforming evenys array to events object */
   return convertArrayToObject(roomsArray.rooms)
 }
@@ -54,26 +57,27 @@ export const fetchRooms = async () => {
 // fetchUsers().then(console.log)
 // fetchRooms().then(console.log)
 
-export const createEvent = () => {
+type createEventDataType = {
+  input: {
+    title: string,
+    dateStart: Date,
+    dateEnd: Date
+  },
+  roomId: number,
+  usersIds: Array<number>
+};
+export const createEvent = async (data: createEventDataType) => {
   const mutationQuery = `($input: EventInput!, $usersIds: [ID], $roomId: ID!){
     newEvent: createEvent(input: $input, usersIds: $usersIds, roomId: $roomId) {
       title
       dateStart
       dateEnd
+      room {
+        ...${roomInfo}
+      }
     }
   }`
-
-  const data = {
-    input: {
-      title: 'new event',
-      dateStart: new Date().toString(),
-      dateEnd: new Date(Date.now() + 10e7).toString()
-    },
-    roomId: 1,
-    usersIds: [1, 2, 3]
-  }
-
-  client.mutate(mutationQuery, data).then(console.log)
+  return await client.mutate(mutationQuery, data)
 }
 
 export default {
@@ -81,7 +85,8 @@ export default {
     get: fetchUsers
   },
   events: {
-    get: fetchEvents
+    get: fetchEvents,
+    create: createEvent
   },
   rooms: {
     get: fetchRooms
