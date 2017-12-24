@@ -4,7 +4,7 @@ import { connect } from 'preact-fela'
 import fuzzysearch from 'fuzzysearch'
 import { filter, uniq } from 'ramda'
 import Input from './input'
-import User from './user'
+import User, { UserSelect, UserParticipant } from './user'
 
 type Props = {
   users: Object,
@@ -47,8 +47,10 @@ class AutocompleteUsers extends Component<Props> {
     this.handleInputFocusOut = this.handleInputFocusOut.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.handleSelectUser = this.handleSelectUser.bind(this)
+    this.handleRemoveUser = this.handleRemoveUser.bind(this)
+
     this.state = {
-      clickedOnInput: true,
+      clickedOnInput: false,
       searchQuery: '',
       selectedUsers: []
     }
@@ -72,7 +74,6 @@ class AutocompleteUsers extends Component<Props> {
   }
 
   handleSelectUser(event, userId) {
-    event.preventDefault()
     console.log(userId)
     this.setState({
       selectedUsers:
@@ -80,6 +81,13 @@ class AutocompleteUsers extends Component<Props> {
     })
     this.setState({clickedOnInput: false})
     console.log(this.state)
+  }
+
+  handleRemoveUser(event, userId) {
+    this.setState({
+      selectedUsers: this.state.selectedUsers
+        .filter(_userId => _userId !== userId)
+    })
   }
 
   renderSuggestedUsers() {
@@ -92,7 +100,7 @@ class AutocompleteUsers extends Component<Props> {
       this.state.selectedUsers
     )
     const users = filteredUsers.map(user => (
-      <User userName={user.username}
+      <UserSelect userName={user.username}
         userPhoto={user.avatarUrl}
         homeFloor={user.homeFloor.toString()}
         id={user.id}
@@ -105,10 +113,11 @@ class AutocompleteUsers extends Component<Props> {
     const selectedUsers = this.props.usersArray
       .filter(user => this.state.selectedUsers.includes(user.id))
       .map(user => (
-        <User userName={user.username}
+        <UserParticipant userName={user.username}
           userPhoto={user.avatarUrl}
           id={user.id}
-          onClick={this.handleSelectUser} />
+          onClick={this.handleSelectUser} 
+          onCloseButtonClick={this.handleRemoveUser} />
         ))
     return (
       <div>

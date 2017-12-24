@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 5px;
 }
 
 .image {
@@ -27,14 +26,27 @@
   font-size: 13px;
 }
 
-.container:hover {
+.containerSelect:hover {
   background: #F6F7F9;
 }
 
-.container:hover .homeFloor {
+.containerSelect:hover .homeFloor {
   color: #8C949E;
 }
 
-.container:hover .username {
+.containerSelect:hover .username {
 
+}
+
+.containerParticipant {
+  display: flex;
+  align-items: center;
+  background-color: #E9ECEF;
+  border-radius: 16px;
+}
+
+.closeButton {
+  margin-left: auto;
+  padding-right: 10px;
+  cursor: pointer;
 }
