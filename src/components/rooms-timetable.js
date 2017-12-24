@@ -13,6 +13,8 @@ import { range, compose, prepend, toString, map } from 'ramda'
 
 const ArrayFrom8AM = compose(prepend('8:00'), map(toString))(range(9, 24))
 
+const LEFT_BAR_WIDTH = 180
+
 /* TimeBlock styles  */
 const sTime = {
   container: {
@@ -74,11 +76,14 @@ const RoomWithEvents = connect({
   styles,
   roomName,
   roomEvents,
-  roomCapacity
+  roomCapacity,
+  eventsScrollWidth
 }) => (
   <div className={styles.roomWithEventsStyles}>
     <Room name={roomName} capacity={roomCapacity} />
-    <TimetableEvents events={roomEvents} />
+    <TimetableEvents
+      events={roomEvents}
+      eventsScrollWidth={eventsScrollWidth} />
   </div>
 ))
 
@@ -87,7 +92,8 @@ class RoomsTimetable extends Component {
     super()
     this.handleScroll = this.handleScroll.bind(this)
     this.state = {
-      isRoomsCollapsed: false
+      isRoomsCollapsed: false,
+      eventsScrollWidth: 0
     }
   }
 
@@ -127,6 +133,7 @@ class RoomsTimetable extends Component {
                 roomName={room.title}
                 roomCapacity={room.capacity}
                 roomEvents={this.props.eventsInRoom[room.id]}
+                eventsScrollWidth={this.state.eventsScrollWidth}
               />
             </div>
           )
@@ -134,6 +141,13 @@ class RoomsTimetable extends Component {
         )}
       </div>
     )
+  }
+
+  componentDidMount() {
+    window.container = this.container
+    const eventsScrollWidth = this.container.scrollWidth - LEFT_BAR_WIDTH
+    this.setState({eventsScrollWidth})
+    console.log(eventsScrollWidth)
   }
 
   render() {
