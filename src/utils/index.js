@@ -1,5 +1,7 @@
 import { merge } from 'ramda'
+import { transformEvents } from './transformEvents'
 
+export { transformEvents }
 export const isMobile = () => {
   if (navigator.userAgent.match(/Android/i)
    || navigator.userAgent.match(/webOS/i)

@@ -8,3 +8,7 @@ export const FETCH_EVENTS = 'FETCH_EVENTS'
 export const CREATE_EVENT = 'CREATE_EVENT'
 
 export const FETCH_ROOMS = 'FETCH_ROOMS'
+
+// Event types
+export const EMPTY_EVENT = 'EMPTY_EVENT'
+export const REAL_EVENT = 'REAL_EVENT'

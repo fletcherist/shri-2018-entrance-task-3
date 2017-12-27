@@ -1,9 +1,15 @@
-const merge = require('ramda').merge
+import { merge } from 'ramda'
+import { EMPTY_EVENT, REAL_EVENT } from '../actions/actionTypes'
 
-function transformEvents(events) {
+export function transformEvents(events) {
   const newEvents = []
   events.forEach((event, index) => {
-    const { dateStart, dateEnd } = event
+    let { dateStart, dateEnd } = event
+
+    if (typeof dateStart === 'string')
+        dateStart = new Date(dateStart)
+    if (typeof dateEnd === 'string')
+        dateEnd = new Date(dateEnd)
 
     /*
      * filling the gap before first event
@@ -13,7 +19,7 @@ function transformEvents(events) {
       const dayBeginning = getDayBeginning(dateStart)
       if (dayBeginning < dateStart) {
         newEvents.push({
-          type: 'EMPTY_EVENT',
+          type: EMPTY_EVENT,
           dateStart: dayBeginning,
           dateEnd: dateStart
         })
@@ -27,7 +33,7 @@ function transformEvents(events) {
        */
       if (previousEvent.dateEnd < dateStart) {
         newEvents.push({
-          type: 'EMPTY_EVENT',
+          type: EMPTY_EVENT,
           dateStart: previousEvent.dateEnd,
           dateEnd: dateStart
         })
@@ -36,7 +42,7 @@ function transformEvents(events) {
 
     newEvents.push(
       merge(event, {
-        type: 'REAL_EVENT',
+        type: REAL_EVENT,
         dateStart: dateStart,
         dateEnd: dateEnd
       }))
@@ -49,7 +55,7 @@ function transformEvents(events) {
       const dayEnding = getDayEnding(dateStart)
       if (dateEnd < dayEnding) {
         newEvents.push({
-          type: 'EMPTY_EVENT',
+          type: EMPTY_EVENT,
           dateStart: dateEnd,
           dateEnd: dayEnding
         })
@@ -59,7 +65,7 @@ function transformEvents(events) {
   return newEvents
 }
 
-function getDayBeginning(date) {
+export function getDayBeginning(date) {
   const newDate = new Date(date)
   newDate.setHours(8)
   newDate.setMinutes(0)
@@ -67,7 +73,7 @@ function getDayBeginning(date) {
   return newDate
 }
 
-function getDayEnding(date) {
+export function getDayEnding(date) {
   const newDate = new Date(date)
   newDate.setHours(0)
   newDate.setMinutes(0)
@@ -76,9 +82,9 @@ function getDayEnding(date) {
   return newDate
 }
 
-console.log(getDayBeginning(new Date()))
-console.log(getDayEnding(new Date()))
-
+/*
+ *  Some test cases
+ */ 
 const events = [
   {
     title: 'greetings',
@@ -93,5 +99,3 @@ const events = [
     dateEnd: new Date(1514230451959)
   }
 ]
-
-console.log(transformEvents(events))

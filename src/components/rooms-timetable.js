@@ -47,7 +47,7 @@ const sTime = {
 const sEvents = {
   height: '58px',
   minWidth: '150px',
-  zIndex: '-999'
+  // zIndex: '-999'
 }
 
 const floorStyles = state => ({
