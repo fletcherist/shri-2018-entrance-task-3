@@ -5,9 +5,13 @@ import EventTooltip from './event-tooltip'
 import Room from './room'
 import RoomCollapsed from './room-collapsed'
 import TimetableEvents from './timetable-events'
+import DateSwitcher from './date-switcher'
+import { TimetableEvent } from './timetable-events'
 
 import RemoveEventConfirm from './remove-event-confirm'
 import Modal from './modal'
+
+import s from '../styles/rooms-timetable.css'
 
 import { range, compose, prepend, toString, map } from 'ramda'
 
@@ -115,33 +119,37 @@ class RoomsTimetable extends Component {
     })
   }
 
-  renderRooms() {
-    console.log(this.props.rooms)
-    return (
-      <div style={{position: 'absolute', zIndex: '-1', top: '30px'}}
-        ref={(ref) => this.blocks = ref}>
-        {this.props.rooms.map((room, index, rooms) => {
-          const isNeededToRenderFloor =
-            index > 0 && (rooms[index - 1].floor !== room.floor) ||
-            index === 0
-          return (
-            <div>
-              {isNeededToRenderFloor &&
-                <div><Floor level={room.floor} /></div>
-              }
-              <RoomWithEvents
-                roomName={room.title}
-                roomCapacity={room.capacity}
-                roomEvents={this.props.eventsInRoom[room.id]}
-                eventsScrollWidth={this.state.eventsScrollWidth}
-              />
-            </div>
-          )
-        }
-        )}
-      </div>
-    )
-  }
+  // renderRooms() {
+  //   console.log(this.props.rooms)
+  //   return (
+  //     <div style={{position: 'absolute', zIndex: '-1', top: '30px'}}
+  //       ref={(ref) => this.blocks = ref}>
+  //       {this.props.rooms.map((room, index, rooms) => {
+  //         const isNeededToRenderFloor =
+  //           index > 0 && (rooms[index - 1].floor !== room.floor) ||
+  //           index === 0
+  //         return (
+  //           <div>
+  //             {isNeededToRenderFloor &&
+  //               <div><Floor level={room.floor} /></div>
+  //             }
+  //             <RoomWithEvents
+  //               roomName={room.title}
+  //               roomCapacity={room.capacity}
+  //               roomEvents={this.props.eventsInRoom[room.id]}
+  //               eventsScrollWidth={this.state.eventsScrollWidth}
+  //             />
+  //           </div>
+  //         )
+  //       }
+  //       )}
+  //     </div>
+  //   )
+  // }
+
+  // renderRooms() {
+  //   const rooms = this.props.rooms()
+  // }
 
   componentDidMount() {
     window.container = this.container
@@ -156,37 +164,46 @@ class RoomsTimetable extends Component {
     } = this.state
     return (
       <div>
-        <div style={{position: 'relative', overflow: 'hidden' }}>
-          {this.renderRooms()}
-          <div>
-            {isRoomsCollapsed ? (
-              <div style={{position: 'absolute', marginTop: '10px', overflow: 'hidden'}}>
-                <Floor level={7} />
-                <div style={sEvents}>
-                  <RoomCollapsed>Ржавый Фред</RoomCollapsed>
-                </div>
-                <div style={sEvents}>
-                  <RoomCollapsed>Прачечная</RoomCollapsed>
-                </div>
-                <Floor level={6} />
-                <div style={sEvents}>
-                  <RoomCollapsed>Ржавый Фред</RoomCollapsed>
-                </div>
-                <div style={sEvents}>
-                  <RoomCollapsed>Прачечная</RoomCollapsed>
-                </div>
-              </div>
-            ) : null}
-          </div>
+        <div>
+          {/*{this.renderRooms()}*/}
           {/*<EventTooltip />*/}
-          <div style={sTime.container} onScroll={this.handleScroll}
+          <div className={s.container}
             ref={(ref) => this.container = ref}>
-            {ArrayFrom8AM.map((hour, index) => (
-              <div>
-                <div style={sTime.element}>{hour}</div>
-                {(index > 0) && (<div style={sTime.line}></div>)}
+              <div className={s.dateSwitcher}>
+                <DateSwitcher />
               </div>
-            ))}
+              <div className={s.timetable}>
+                {ArrayFrom8AM.map(time => (<div>{time}</div>))}
+              </div>
+              <div className={s.rooms}>
+                <Floor level={6} />
+                <Room name='Ржавый Фред' capacity={7} />
+                <Room name='Оранжевый Тюльпан' capacity={7} />
+                <Room name='Ещё рума' capacity={7} />
+                <Floor level={5} />
+                <div>4</div>
+              </div>
+              <div className={s.events}>
+                <div className={s.eventsArea}></div>
+                <div>empty space</div>
+                <div className={s.roomEvents}>
+                  <TimetableEvent
+                    width={50} />
+                    <TimetableEvent
+                    width={50} />
+                    <TimetableEvent
+                    width={50} />
+                </div>
+                <div>
+                  <TimetableEvent
+                    width={50} />
+                </div>
+                <div>
+                  <TimetableEvent
+                    width={50} />
+                </div>
+                <div>empty space</div>
+              </div>
           </div>
         </div>
       </div>

@@ -1,0 +1,54 @@
+.container {
+  display: grid;
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+.dateSwitcher {
+  grid-row: 1;
+}
+
+.timetable {
+  display: grid;
+  grid-template-columns: repeat(16, 65px);
+  grid-row: 1;
+  align-items: end;
+}
+
+.rooms {
+  grid-row: 2;
+  display: grid;
+  grid-template-rows: repeat(4, 58px);
+  align-items: center;
+}
+
+.events {
+  grid-row: 2;
+  position: relative;
+  display: grid;
+}
+
+.eventsArea::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  content: '';
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent 60px,
+    black 60px,
+    black 61px
+  );
+  background-size: 100% 100%;
+}
+
+.roomEvents {
+  display: flex;
+}
+
+.eventsArea {
+  height: 0px;
+}

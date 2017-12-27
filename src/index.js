@@ -14,7 +14,6 @@ import { createRenderer } from 'fela'
 
 import Button, { ButtonCreateMeeting, ButtonCancel } from './components/button'
 import Navigation from './components/navigation'
-import DateSwitcher from './components/date-switcher'
 import RoomsTimetable from './containers/rooms-timetable'
 import BookRoom from './containers/book-room'
 
@@ -66,7 +65,6 @@ const App = () => (
 
 const BookingPage = () => (
   <div>
-    <DateSwitcher />
     <RoomsTimetable />
   </div>
 )

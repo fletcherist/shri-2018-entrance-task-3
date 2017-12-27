@@ -61,7 +61,7 @@ const TimetableEvent = connect({
   }
 
   handleEventClick(event) {
-    console.log(event)
+    // console.log(event)
   }
 
   render({ styles, selected, isBooked }) {
@@ -85,7 +85,7 @@ const timetableEventsContainerStyles = state => ({
 const TimetableEvents = connect({timetableEventsContainerStyles})
 (class extends Component {
   componentDidMount() {
-    console.log('eventsScrollWidth', this.props.eventsScrollWidth)
+    // console.log('eventsScrollWidth', this.props.eventsScrollWidth)
   }
   render({ styles, events }) {
     // console.log('events', events)
@@ -106,8 +106,8 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
         eventDuration * this.props.eventsScrollWidth / MINUTES_BETWEEN_8_AND_24
       
       // console.log('eventDuration', eventDuration)
-      console.log('from', dateStart.getDate(), dateStart.getHours(), dateStart.getMinutes())
-      console.log('till', dateEnd.getDate(), dateEnd.getHours(), dateEnd.getMinutes())
+      // console.log('from', dateStart.getDate(), dateStart.getHours(), dateStart.getMinutes())
+      // console.log('till', dateEnd.getDate(), dateEnd.getHours(), dateEnd.getMinutes())
       return (
         <TimetableEvent width={durationInPixels}
           isBooked={event.type === REAL_EVENT}
@@ -116,7 +116,7 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
         />
       )
     })
-    console.log(proccessedEvents)
+    // console.log(proccessedEvents)
     return (
       <div className={styles.timetableEventsContainerStyles}
         ref={(ref) => this.container = ref}>
