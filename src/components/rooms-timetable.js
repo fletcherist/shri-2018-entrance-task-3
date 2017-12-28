@@ -5,7 +5,7 @@ import EventTooltip from './event-tooltip'
 import Room from './room'
 import RoomCollapsed from './room-collapsed'
 import TimetableEvents from './timetable-events'
-import DateSwitcher from './date-switcher'
+import DateSwitcher from '../containers/date-switcher'
 import { TimetableEvent } from './timetable-events'
 
 import RemoveEventConfirm from './remove-event-confirm'

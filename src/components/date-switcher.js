@@ -1,14 +1,17 @@
+// @flow
+
 import { h, Component } from 'preact'
 import { connect } from 'preact-fela'
 import ArrowIcon from '../assets/arrow.svg'
 import Divider from './divider'
+import { formatTimeIntoDateSwitcher } from '../utils'
 import Pikaday from 'pikaday'
 
 /* styles */
 const s = {
   container: {
     padding: '12px 16px',
-    minWidth: '197px'
+    minWidth: '250px'
   },
   wrapper: {
     display: 'flex',
@@ -63,7 +66,12 @@ const RightIcon = ({styles}) => (
 const LeftIconWrapped = connect({iconStyle, iconWrapperStyle})(LeftIcon)
 const RightIconWrapped = connect({iconStyle, iconWrapperStyle})(RightIcon)
 
-class DateSwitcher extends Component {
+type Props = {
+  setNextDay: Function,
+  setPreviousDay: Function,
+  currentDate: Date
+};
+class DateSwitcher extends Component<Props> {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
@@ -94,11 +102,15 @@ class DateSwitcher extends Component {
       <div>
         <div style={s.container}>
           <div style={s.wrapper}>
-            <div style={s.icon}><LeftIconWrapped /></div>
-            <div style={s.label} onClick={this.handleClick} ref={ref => this.datepicker = ref}>
-              14 дек · Сегодня
+            <div style={s.icon} onClick={this.props.setPreviousDay}>
+              <LeftIconWrapped />
             </div>
-            <RightIconWrapped />
+            <div style={s.label} onClick={this.handleClick} ref={ref => this.datepicker = ref}>
+              {formatTimeIntoDateSwitcher(this.props.currentDate)}
+            </div>
+            <div onClick={this.props.setNextDay}>
+              <RightIconWrapped />
+            </div>
           </div>
         </div>
         <Divider />

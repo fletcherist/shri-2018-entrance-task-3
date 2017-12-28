@@ -1,7 +1,12 @@
 import { merge } from 'ramda'
 import { transformEvents } from './transformEvents'
+import { formatTimeIntoDateSwitcher } from './formatTimeIntoDateSwitcher'
 
-export { transformEvents }
+export {
+  transformEvents,
+  formatTimeIntoDateSwitcher
+}
+
 export const isMobile = () => {
   if (navigator.userAgent.match(/Android/i)
    || navigator.userAgent.match(/webOS/i)

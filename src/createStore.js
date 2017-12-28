@@ -11,12 +11,14 @@ import modalsReducer from './reducers/modals'
 import usersReducer from './reducers/users'
 import eventsReducer from './reducers/events'
 import roomsReducer from './reducers/rooms'
+import appReducer from './reducers/app'
 
 const reducers = combineReducers({
   modals: modalsReducer,
   users: usersReducer,
   events: eventsReducer,
-  rooms: roomsReducer
+  rooms: roomsReducer,
+  app: appReducer
 })
 const sagaMiddleware = createSagaMiddleware()
 
