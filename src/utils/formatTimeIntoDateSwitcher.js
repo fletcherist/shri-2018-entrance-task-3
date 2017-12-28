@@ -7,18 +7,21 @@ const months = [
 ]
 
 const days = [
-  'Понедельник', 'Вторник',
-  'Среда', 'Четверг',
-  'Пятница', 'Суббота', 'Воскресенье'
+  'пн', 'вт',
+  'ср', 'чт',
+  'пт', 'сб', 'вс'
 ]
 
 export const formatTimeIntoDateSwitcher = (date) => {
   const currentMonth = date.getMonth()
 
   const currentDate = new Date().getDate()
-  const isToday = date.getDate() === currentDate
-  const isTomorrow = date.getDate() === currentDate + 1
-  const isYesteday = date.getDate() === currentDate - 1
+
+  const isThatMonth = date.getMonth() === new Date().getMonth()
+  const isToday = isThatMonth && date.getDate() === currentDate
+  const isTomorrow = isThatMonth && date.getDate() === currentDate + 1
+  const isYesteday = isThatMonth && date.getDate() === currentDate - 1
+
 
   return [
     date.getDate(),
