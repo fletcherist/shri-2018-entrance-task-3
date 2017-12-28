@@ -7,7 +7,8 @@ import Pikaday from 'pikaday'
 /* styles */
 const s = {
   container: {
-    padding: '12px 16px'
+    padding: '12px 16px',
+    minWidth: '197px'
   },
   wrapper: {
     display: 'flex',

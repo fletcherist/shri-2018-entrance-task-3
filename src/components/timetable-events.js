@@ -28,7 +28,7 @@ const timetableEventStyles = (state: timetableEventType) => {
     height: IS_MOBILE ? '58px' : '28px',
     backgroundColor: isBooked
       ? selected ? '#99A9B9' : 'rgba(213,223,233,1)'
-      : selected ? '#2F57F9' : 'rgba(0, 0, 0, .2)',
+      : selected ? '#2F57F9' : 'white',
     borderRadius: (!isBooked && selected) ? '2px' : '0px'
   }
 }
@@ -61,7 +61,7 @@ const TimetableEvent = connect({
   }
 
   handleEventClick(event) {
-    // console.log(event)
+    console.log(event)
   }
 
   render({ styles, selected, isBooked }) {
