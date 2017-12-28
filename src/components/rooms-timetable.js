@@ -114,34 +114,6 @@ class RoomsTimetable extends Component {
     })
   }
 
-  // renderRooms() {
-  //   console.log(this.props.rooms)
-  //   return (
-  //     <div style={{position: 'absolute', zIndex: '-1', top: '30px'}}
-  //       ref={(ref) => this.blocks = ref}>
-  //       {this.props.rooms.map((room, index, rooms) => {
-          // const isNeededToRenderFloor =
-          //   index > 0 && (rooms[index - 1].floor !== room.floor) ||
-          //   index === 0
-  //         return (
-  //           <div>
-  //             {isNeededToRenderFloor &&
-  //               <div><Floor level={room.floor} /></div>
-  //             }
-  //             <RoomWithEvents
-  //               roomName={room.title}
-  //               roomCapacity={room.capacity}
-  //               roomEvents={this.props.eventsInRoom[room.id]}
-  //               eventsScrollWidth={this.state.eventsScrollWidth}
-  //             />
-  //           </div>
-  //         )
-  //       }
-  //       )}
-  //     </div>
-  //   )
-  // }
-
   renderRooms() {
     const renderedRooms = []
     const rooms = this.props.rooms.forEach((room, index, rooms) => {
@@ -170,73 +142,6 @@ class RoomsTimetable extends Component {
     return renderedRooms
   }
 
-  renderRoomEvents() {
-    // const eventsInRoom = this.props.rooms.map(room => {
-    //   return this.props.eventsInRoom[room.id]
-    // })
-
-    // const renderEventsInRoom = eventsInRoom.map(roomEvents => (
-    //   <div className={s.roomEvents}>
-    //     <TimetableEvents
-    //       events={roomEvents}
-    //       eventsScrollWidth={this.state.eventsScrollWidth} />
-    //   </div>
-    // ))
-
-    // console.log(renderEventsInRoom)
-
-    // console.log('eventsInRoom', eventsInRoom)
-    // return renderEventsInRoom
-
-    return [
-      <div className={s.eventsArea}></div>,
-      <div className={s.roomEvents} style={{'grid-row':1}}>
-        <TimetableEvent
-          width={50} />
-        <TimetableEvent
-          width={50} />
-          <TimetableEvent
-          width={50} />
-          <TimetableEvent
-          width={50} />
-          <TimetableEvent
-          width={50} />
-          <TimetableEvent
-          width={50} />
-      </div>,
-      <div className={s.roomEvents} style={{'grid-row':2}}>
-        <TimetableEvent
-          width={50} />
-      </div>,
-      <div className={s.roomEvents} style={{'grid-row':3}}>
-        <TimetableEvent
-          width={50} />
-      </div>,
-      <div className={s.roomEvents} style={{'grid-row':4}}>
-        <TimetableEvent
-          width={50} />
-      </div>,
-      <div className={s.roomEvents} style={{'grid-row':5}}>
-        <TimetableEvent
-          width={50} />
-      </div>
-    ]
-
-    console.log('eventsInRoom', eventsInRoom)
-    return (
-      <div>
-        <div className={s.roomEvents}>
-          <TimetableEvent
-            width={50} />
-        </div>
-        <div className={s.roomEvents}>
-          <TimetableEvent
-            width={50} />
-        </div>
-      </div>
-    )
-  }
-
   componentDidMount() {
     window.container = this.container
     const eventsScrollWidth = this.container.scrollWidth - LEFT_BAR_WIDTH
@@ -259,7 +164,9 @@ class RoomsTimetable extends Component {
                 <DateSwitcher />
               </div>
               <div className={s.timetable}>
-                {ArrayFrom8AM.map(time => (<div>{time}</div>))}
+                {ArrayFrom8AM.map(time => (
+                  <div className={s.time}>{time}</div>
+                ))}
               </div>
               <div className={s.wrapper}>
                 {this.renderRooms()}

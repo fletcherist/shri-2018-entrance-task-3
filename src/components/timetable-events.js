@@ -64,7 +64,7 @@ const TimetableEvent = connect({
     console.log(event)
   }
 
-  render({ styles, selected, isBooked }) {
+  render({ styles, selected, isBooked, event }) {
     return (
       <div className={styles.timetableEventStyles}
         onClick={this.handleEventClick}>
@@ -105,18 +105,21 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
       const durationInPixels =
         eventDuration * this.props.eventsScrollWidth / MINUTES_BETWEEN_8_AND_24
       
-      // console.log('eventDuration', eventDuration)
-      // console.log('from', dateStart.getDate(), dateStart.getHours(), dateStart.getMinutes())
-      // console.log('till', dateEnd.getDate(), dateEnd.getHours(), dateEnd.getMinutes())
+      console.log('room id', event.room)
+      console.log('eventDuration', eventDuration)
+      console.log('from', dateStart.getHours(), dateStart.getMinutes())
+      console.log('till', dateEnd.getHours(), dateEnd.getMinutes())
       return (
-        <TimetableEvent width={durationInPixels}
+        <TimetableEvent
+          width={durationInPixels}
           isBooked={event.type === REAL_EVENT}
           selected={false}
           type={event.type}
+          event={event}
         />
       )
     })
-    // console.log(proccessedEvents)
+    console.log(proccessedEvents)
     return (
       <div className={styles.timetableEventsContainerStyles}
         ref={(ref) => this.container = ref}>
