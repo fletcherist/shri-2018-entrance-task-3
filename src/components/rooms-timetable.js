@@ -158,6 +158,9 @@ class RoomsTimetable extends Component {
         <div>
           {/*{this.renderRooms()}*/}
           {/*<EventTooltip />*/}
+          <div className={s.dateSwitcherMobile}>
+            <DateSwitcher />
+          </div>
           <div className={s.container}
             ref={(ref) => this.container = ref}>
               <div className={s.dateSwitcher}>

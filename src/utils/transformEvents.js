@@ -1,7 +1,13 @@
-import { merge } from 'ramda'
+import { merge, sort } from 'ramda'
 import { EMPTY_EVENT, REAL_EVENT } from '../actions/actionTypes'
 
+
+export const sortEventsByDate = events => sort(
+  (event1, event2) =>
+    (new Date(event1.dateStart) > new Date(event2.dateStart)),
+  events)
 export function transformEvents(events) {
+  events = sortEventsByDate(events)
   const newEvents = []
   events.forEach((event, index) => {
     let { dateStart, dateEnd } = event
@@ -31,7 +37,8 @@ export function transformEvents(events) {
       /*
        * handling the gap between two events in the row
        */
-      if (previousEvent.dateEnd < dateStart) {
+      if (new Date(previousEvent.dateEnd).getTime() <
+          new Date(dateStart).getTime()) {
         newEvents.push({
           type: EMPTY_EVENT,
           dateStart: previousEvent.dateEnd,

@@ -78,8 +78,7 @@ const TimetableEvent = connect({
 })
 
 const timetableEventsContainerStyles = state => ({
-  display: 'flex',
-  marginLeft: '52px'
+  display: 'flex'
 })
 
 const TimetableEvents = connect({timetableEventsContainerStyles})

@@ -11,7 +11,7 @@ import Pikaday from 'pikaday'
 const s = {
   container: {
     padding: '12px 16px',
-    minWidth: '250px'
+    minWidth: '225px'
   },
   wrapper: {
     display: 'flex',

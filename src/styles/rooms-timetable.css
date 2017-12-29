@@ -2,27 +2,26 @@
   display: grid;
   max-width: 100%;
   overflow-x: scroll;
+
+  grid-template-areas:
+    "dateSwitcher timetable"
+    "wrapper wrapper";
+  grid-template-columns: 245px auto;
 }
 
 .dateSwitcher {
-  grid-row: 1;
+  /*grid-row: 1;*/
+  grid-area: dateSwitcher;
+  max-width: 245px;
 }
 
 .timetable {
   display: grid;
   grid-template-columns: repeat(16, 65px);
   grid-row: 1;
-  align-items: end;
-}
+  align-items: center;
 
-.time {
-  min-width: 49px;
-  margin-left: 28px;
-  padding: 9px 0px 10px 0;
-  text-align: center;
-  font-size: 11px;
-  color: #858E98;
-  letter-spacing: 0.4px;
+  grid-area: timetable;
 }
 
 .events {
@@ -30,6 +29,23 @@
   position: relative;
   display: grid;
   background: #F6F7F9;
+}
+
+.wrapper {
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(2, minmax(58px, auto));
+  grid-template-columns: repeat(2, 2fr);
+  grid-column: 1 / 2 span;
+  background-color: #F7F8F9;
+}
+
+.time {
+  min-width: 49px;
+  /*padding: 9px 0px 10px 0;*/
+  font-size: 11px;
+  color: #858E98;
+  letter-spacing: 0.4px;
 }
 
 .eventsArea::before {
@@ -64,18 +80,10 @@
   /*grid-column: 1;*/
   background-color: #fff;
   z-index: 10;
+  min-width: 245px;
   max-width: 245px;
 }
 
-.wrapper {
-  position: relative;
-  display: grid;
-  grid-template-rows: repeat(2, minmax(58px, auto));
-  grid-template-columns: repeat(2, 2fr);
-  grid-column: 1 / 2 span;
-  background-color: #F7F8F9;
-  
-}
 
 .floor {
   font-size: 11px;
@@ -86,20 +94,41 @@
   text-transform: uppercase;
 }
 
+.dateSwitcherMobile {
+  display: none;
+}
+
 
 @media screen and (max-width: 460px) {
+  /*.container {
+    grid-template-areas:
+      "dateSwitcher"
+      "timetable"
+      "wrapper";
+  }*/
+
+  .dateSwitcherMobile {
+    display: block;
+  }
+
   .wrapper {
     grid-row-gap: 2px;
   }
   .room {
-    min-width: 245px;
+    min-width: 181px;
     /*border-bottom: 2px solid #E9ECEF;*/
   }
   .dateSwitcher {
-    max-width: 245px;
+    max-width: 181px;
+    grid-row: 0;
+    visibility: hidden;
+    height: 31px;
   }
   .floor {
     background-color: #F7F8F9;
+  }
+
+  .time {
   }
 
   .roomEvents {

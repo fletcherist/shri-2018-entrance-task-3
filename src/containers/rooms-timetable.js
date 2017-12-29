@@ -6,12 +6,13 @@ const mapStateToProps = state => {
   const sortByFloorComparator = (room1, room2) => room1.floor < room2.floor
 
   const filterByCurrentDate = (event, currentDate) =>
-    new Date(event.dateStart).getDate() === currentDate
+    new Date(event.dateStart).getDate() === currentDate.getDate()
 
   const rooms = sort(sortByFloorComparator, Object.values(state.rooms))
 
   let eventsArray = Object.values(state.events)
-  eventsArray = eventsArray.filter(event => filterByCurrentDate(event, 15))
+  eventsArray = eventsArray.filter(event =>
+    filterByCurrentDate(event, state.app.currentDate))
 
   const groupByRoom = groupBy(event => event.room.id)
   const eventsInRoom = groupByRoom(eventsArray)
