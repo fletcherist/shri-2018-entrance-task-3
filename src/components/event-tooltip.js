@@ -4,14 +4,18 @@ import { TextHeadline, Text } from './text'
 import User from './user'
 import EditIcon from '../assets/edit.svg'
 import { EmptyDivider } from './divider'
+import { ending, formatTimeIntoEventTooltip } from '../utils'
 
 const rule = state => ({
+  background: 'white',
+  minWidth: '360px',
   maxWidth: '360px',
   position: 'relative',
   boxShadow: '0 1px 16px 0 rgba(0,44,92,0.28)',
   padding: '10px 16px',
   zIndex: '9999',
   borderRadius: '8px',
+  marginTop: '180px',
   '::after': {
     content: '""',
     position: 'absolute',
@@ -51,21 +55,29 @@ const otherParticipantsRule = state => ({
   color: '#858E98'
 })
 
+const getUsersEnding = amount =>
+  ending(amount, ['участник', 'участника', 'участников'])
+
 const EventTooltip = ({
-  styles
+  styles,
+  event
 }) => (
   <div className={styles.rule}>
     <div className={styles.editButtonRule}>
       <img className={styles.editIconRule} src={`dist/${EditIcon}`} />
     </div>
-    <TextHeadline marginTop={8} marginBottom={8}>Рассуждения о высоком</TextHeadline>
-    <Text>14 декабря, 15:00—17:00  · Ржавый Фред</Text>
+    <TextHeadline marginTop={8} marginBottom={8}>{event.title}</TextHeadline>
+    <Text>{formatTimeIntoEventTooltip(event.dateStart, event.dateEnd)} · {event.room.title}</Text>
     <EmptyDivider height={16} />
     <div className={styles.participantsRule}>
-      <User userName='Дарт Вейдер' userPhoto={'https://1ofdmq2n8tc36m6i46scovo2e-wpengine.netdna-ssl.com/wp-content/uploads/2014/04/Steven_Hallam-slide.jpg'} />
-      <div className={styles.otherParticipantsRule}>
-        <Text> и 12 участников</Text>
-      </div>
+      <User userName={event.users[0].username} userPhoto={event.users[0].avatarUrl} />
+      {
+        <div className={styles.otherParticipantsRule}>
+          <Text> и {event.users.length - 1}
+            {' '}{getUsersEnding(event.users.length - 1)}
+          </Text>
+        </div>
+      }
     </div>
   </div>
 )

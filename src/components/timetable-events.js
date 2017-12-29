@@ -15,7 +15,11 @@ const IS_MOBILE = isMobile()
 const MINUTES_BETWEEN_8_AND_24 = 960
 
 const getEventDurationInMinutes =
-  (startTime, endTime) => (endTime - startTime) / 1000 / 60
+  (startTime: number, endTime: number) =>
+    (endTime - startTime) / 1000 / 60
+const getEventDurationInPixels =
+  (eventDurationInMinutes: number, eventsScrollWidth: number) =>
+    eventDurationInMinutes * eventsScrollWidth / MINUTES_BETWEEN_8_AND_24
 
 const timetableEventStyles = (state: timetableEventType) => {
   const { width, isBooked, selected } = state
@@ -42,6 +46,7 @@ const TimetableEvent = connect({
       isTooltipOpened: false
     }
     this.handleEventClick = this.handleEventClick.bind(this)
+    this.openTooltip = this.openTooltip.bind(this)
   }
 
   openTooltip() {
@@ -55,7 +60,7 @@ const TimetableEvent = connect({
       return null
     if (this.state.isTooltipOpened) {
       return (
-        <EventTooltip />
+        <EventTooltip event={this.props.event} />
       )
     }
   }
@@ -67,7 +72,7 @@ const TimetableEvent = connect({
   render({ styles, selected, isBooked, event }) {
     return (
       <div className={styles.timetableEventStyles}
-        onClick={this.handleEventClick}>
+        onClick={this.openTooltip}>
         {(!isBooked && selected) && (
           <div>+</div>
         )}
@@ -78,7 +83,8 @@ const TimetableEvent = connect({
 })
 
 const timetableEventsContainerStyles = state => ({
-  display: 'flex'
+  display: 'flex',
+  paddingLeft: '14px'
 })
 
 const TimetableEvents = connect({timetableEventsContainerStyles})
@@ -88,10 +94,18 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
   }
   render({ styles, events }) {
     // console.log('events', events)
+    const durationInPixels =
+        getEventDurationInPixels(MINUTES_BETWEEN_8_AND_24,
+          this.props.eventsScrollWidth)
     if (!events) {
       return (
         <div className={styles.timetableEventsContainerStyles}
           ref={(ref) => this.container = ref}>
+          <TimetableEvent
+            width={durationInPixels}
+            isBooked={false}
+            selected={false}
+          />
         </div>
       )
     }
@@ -102,7 +116,7 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
 
       const eventDuration = getEventDurationInMinutes(dateStart, dateEnd)
       const durationInPixels =
-        eventDuration * this.props.eventsScrollWidth / MINUTES_BETWEEN_8_AND_24
+        getEventDurationInPixels(eventDuration, this.props.eventsScrollWidth)
       
       console.log('room id', event.room)
       console.log('eventDuration', eventDuration)
