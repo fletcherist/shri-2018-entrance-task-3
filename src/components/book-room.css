@@ -8,3 +8,56 @@
     flex-direction: column;
   }
 }
+
+.infoBlock {
+  padding: 16px 16px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileDivider {
+  display: block;
+}
+
+@media (min-width: 600px) {
+  .mobileDivider {
+    display: none;
+  }
+}
+
+.timeInput {
+  display: flex;
+  align-items: center;
+}
+.timeInputDash {
+  padding: 4px;
+}
+
+.footer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  z-index: 3;
+  bottom: 0;
+}
+
+.footerNotification {
+  padding: 12px 16px 13px;
+  font-weight: bold;
+  font-size: 15px;
+  background-color: rgba(0,16,33,0.80);
+  color: white;
+  opacity: 0.93;
+}
+
+.footerCreateRoom {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.footerCreateRommWrapper {
+  padding: 16px 0px 20px;
+}

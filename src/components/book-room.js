@@ -14,12 +14,6 @@ import AutocompleteUsers from '../containers/autocomplete-users'
 
 import s from './book-room.css'
 
-const sBlock = {
-  padding: '16px 16px 20px',
-  display: 'flex',
-  flexDirection: 'column'
-}
-
 type Props = {
   createEvent: Function,
   handleTitleInput: Function
@@ -91,7 +85,7 @@ const BookRoom = connect({
     return (
       <div>
         <div className={s.container}>
-          <div style={sBlock}>
+          <div className={s.infoBlock}>
             <TextHeadline>Новая встреча</TextHeadline>
             <Input label='Тема' placeholder='О чём будете говорить?'
               value={title}
@@ -100,23 +94,23 @@ const BookRoom = connect({
             <DateInput label='Дата и время' value={date}
               onInput={this.handleDateInput} />
             <EmptyDivider height={8} />
-            <div style={{display: 'flex', alignItems: 'center'}}>
+            <div className={s.timeInput}>
               <Input onInput={this.handleTimeStartInput}
                 placeholder='13:00'
                 value={timeStart} />
-              <div style={{padding: '4px'}}>—</div>
+              <div className={s.timeInputDash}>—</div>
               <Input onInput={this.handleTimeEndInput}
                 placeholder='13:30'
                 value={timeEnd} />
             </div>
           </div>
-          <BigDivider />
-          <div style={sBlock}>
+          <div className={s.mobileDivider}><BigDivider /></div>
+          <div className={s.infoBlock}>
             <AutocompleteUsers setParticipants={this.setParticipants} />
           </div>
-          <BigDivider />
+          <div className={s.mobileDivider}><BigDivider /></div>
 
-          <div style={sBlock}>
+          <div className={s.infoBlock}>
             <TextLabel>Рекомендованные переговорки</TextLabel>
             <RecommendedRoom
               floor='4'
@@ -137,31 +131,10 @@ const BookRoom = connect({
               name='Готем'
             />
           </div>
-          <div style={{
-            position: 'fixed',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            width: '100%',
-            zIndex: '3',
-            bottom: 0
-          }}>
-            <div style={{
-              padding: '12px 16px 13px',
-              fontWeight: 'bold',
-              fontSize: '15px',
-              backgroundColor: 'rgba(0,16,33,0.80)',
-              color: 'white',
-              opacity: '0.93'
-            }}>Выберите переговорку</div>
-            <div style={{
-              backgroundColor: 'white',
-              display: 'flex',
-              justifyContent: 'center'
-            }}>
-              <div style={{
-                padding: '16px 0px 20px'
-              }}>
+          <div className={s.footer}>
+            <div className={s.footerNotification}>Выберите переговорку</div>
+            <div className={s.footerCreateRoom}>
+              <div className={s.footerCreateRommWrapper}>
                 <ButtonCreateMeeting disabled={!this.state.isReadyForCreating}
                   onClick={this.handleSubmit} />
               </div>
