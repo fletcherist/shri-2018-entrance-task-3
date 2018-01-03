@@ -2,7 +2,7 @@ import { h } from 'preact'
 import { connect } from 'preact-fela'
 import cx from 'classnames'
 import CloseIcon from '../assets/close.svg'
-import s from './user.css'
+import s from '../styles/user.css'
 
 const User = ({
   styles,

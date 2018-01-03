@@ -12,7 +12,8 @@
 
 .username {
   padding-left: 8px;
-  fontSize: 13px;
+  padding-right: 8px;
+  font-size: 13px;
   letter-spacing: 0;
 }
 
@@ -24,6 +25,10 @@
 .homeFloor {
   color: #8C959E;
   font-size: 13px;
+}
+
+.containerSelect {
+  padding-left: 16px;
 }
 
 .containerSelect:hover {
@@ -40,6 +45,7 @@
 
 .containerParticipant {
   margin-top: 8px;
+  margin-right: 8px;
   display: flex;
   align-items: center;
   background-color: #E9ECEF;
@@ -49,5 +55,13 @@
 .closeButton {
   margin-left: auto;
   padding-right: 10px;
+  padding-top: 5px;
   cursor: pointer;
+}
+
+
+@media screen and (max-width: 700px) {
+  .username {
+    font-size: 15px;
+  }
 }

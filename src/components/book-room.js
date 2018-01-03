@@ -12,7 +12,9 @@ import RecommendedRoom from './recommended-room'
 import { formatDateTime, isMobile } from '../utils'
 import AutocompleteUsers from '../containers/autocomplete-users'
 
-import s from './book-room.css'
+import cx from 'classnames'
+
+import s from '../styles/book-room.css'
 
 type Props = {
   createEvent: Function,
@@ -84,54 +86,65 @@ const BookRoom = connect({
     const { title, date, timeStart, timeEnd } = this.state.values
     return (
       <div>
+        <TextHeadline>Новая встреча</TextHeadline>
         <div className={s.container}>
-          <div className={s.infoBlock}>
-            <TextHeadline>Новая встреча</TextHeadline>
-            <Input label='Тема' placeholder='О чём будете говорить?'
-              value={title}
-              onInput={this.handleTitleInput} />
-            <EmptyDivider />
-            <DateInput label='Дата и время' value={date}
-              onInput={this.handleDateInput} />
-            <EmptyDivider height={8} />
-            <div className={s.timeInput}>
-              <Input onInput={this.handleTimeStartInput}
-                placeholder='13:00'
-                value={timeStart} />
-              <div className={s.timeInputDash}>—</div>
-              <Input onInput={this.handleTimeEndInput}
-                placeholder='13:30'
-                value={timeEnd} />
+          <div className={s.infoBlock__title}>
+            <div className={s.content}>
+              <Input label='Тема' placeholder='О чём будете говорить?'
+                value={title}
+                onInput={this.handleTitleInput} />
+              <EmptyDivider />
             </div>
           </div>
-          <div className={s.mobileDivider}><BigDivider /></div>
-          <div className={s.infoBlock}>
-            <AutocompleteUsers setParticipants={this.setParticipants} />
+          <div className={s.infoBlock__datetime}>
+            <div className={s.content}>
+              <DateInput label='Дата и время' value={date}
+                onInput={this.handleDateInput} />
+              <EmptyDivider height={8} />
+              <div className={s.timeInput}>
+                <Input onInput={this.handleTimeStartInput}
+                  placeholder='13:00'
+                  value={timeStart} />
+                <div className={s.timeInputDash}>—</div>
+                <Input onInput={this.handleTimeEndInput}
+                    placeholder='13:30'
+                  value={timeEnd} />
+              </div>
+            </div>
+            <div className={s.mobileDivider}><BigDivider /></div>
           </div>
-          <div className={s.mobileDivider}><BigDivider /></div>
+          <div className={s.infoBlock__participants}>
+            <div className={s.content}>
+              <AutocompleteUsers setParticipants={this.setParticipants} />
+            </div>
+            <div className={s.mobileDivider}><BigDivider /></div>
+          </div>
 
-          <div className={s.infoBlock}>
-            <TextLabel>Рекомендованные переговорки</TextLabel>
-            <RecommendedRoom
-              floor='4'
-              timeStart='16:00'
-              timeEnd='16:30'
-              name='Готем'
-            />
-            <RecommendedRoom
-              floor='4'
-              timeStart='16:00'
-              timeEnd='16:30'
-              name='Готем'
-            />
-            <RecommendedRoom
-              floor='4'
-              timeStart='16:00'
-              timeEnd='16:30'
-              name='Готем'
-            />
+          <div className={s.infoBlock__rooms}>
+            <div className={s.content}>
+              <TextLabel>Рекомендованные переговорки</TextLabel>
+              <RecommendedRoom
+                floor='4'
+                timeStart='16:00'
+                timeEnd='16:30'
+                name='Готем'
+              />
+              <RecommendedRoom
+                floor='4'
+                timeStart='16:00'
+                timeEnd='16:30'
+                name='Готем'
+              />
+              <RecommendedRoom
+                floor='4'
+                timeStart='16:00'
+                timeEnd='16:30'
+                name='Готем'
+              />
+            </div>
           </div>
-          <div className={s.footer}>
+        </div>
+        <div className={s.footer}>
             <div className={s.footerNotification}>Выберите переговорку</div>
             <div className={s.footerCreateRoom}>
               <div className={s.footerCreateRommWrapper}>
@@ -140,7 +153,6 @@ const BookRoom = connect({
               </div>
             </div>
           </div>
-        </div>
       </div>
     )
   }

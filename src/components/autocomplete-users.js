@@ -1,33 +1,17 @@
 // @flow
 import { h, Component } from 'preact'
-import { connect } from 'preact-fela'
 import fuzzysearch from 'fuzzysearch'
 import { filter, uniq } from 'ramda'
 import Input from './input'
 import User, { UserSelect, UserParticipant } from './user'
+
+import s from '../styles/autocomplete-users.css'
 
 type Props = {
   users: Object,
   usersArray: Array<Object>,
   setParticipants: Function
 };
-
-const suggestedUsersContainerStyles = state => ({
-  position: 'relative'
-})
-
-const suggestedUsersStyles = state => {
-  console.log(state)
-  return {
-    position: 'absolute',
-    backgroundColor: 'white',
-    width: '100%',
-    boxShadow: '0 1px 10px 0 rgba(0,44,92,0.28)',
-    borderRadius: '4px',
-    padding: '5px 0'
-
-  }
-}
 
 const filterUsersBySearchQuery = (users, searchQuery) =>
   users.filter(user => {
@@ -123,7 +107,7 @@ class AutocompleteUsers extends Component<Props> {
           onCloseButtonClick={this.handleRemoveUser} />
         ))
     return (
-      <div>
+      <div className={s.selectedUsers}>
         {selectedUsers}
       </div>
     )
@@ -138,9 +122,9 @@ class AutocompleteUsers extends Component<Props> {
             value={this.state.searchQuery}
             onFocusOut={this.handleInputFocusOut}
             onInput={this.handleInput} />
-        <div className={styles.suggestedUsersContainerStyles}>
+        <div className={s.suggestedUsersContainer}>
           {this.state.clickedOnInput && (
-            <div className={styles.suggestedUsersStyles}>
+            <div className={s.suggestedUsers}>
               {this.renderSuggestedUsers()}
             </div>
           )}
@@ -153,7 +137,4 @@ class AutocompleteUsers extends Component<Props> {
   }
 }
 
-export default connect({
-  suggestedUsersContainerStyles,
-  suggestedUsersStyles
-})(AutocompleteUsers)
+export default AutocompleteUsers
