@@ -8,9 +8,9 @@ import { BigDivider, EmptyDivider } from './divider'
 
 import Input, { DateInput } from './input'
 import { TextLabel, TextHeadline } from './text'
-import RecommendedRoom from './recommended-room'
 import { formatDateTime, isMobile } from '../utils'
 import AutocompleteUsers from '../containers/autocomplete-users'
+import RecommendedRooms from '../containers/recommended-rooms'
 
 import cx from 'classnames'
 
@@ -129,24 +129,7 @@ const BookRoom = connect({
           <div className={s.infoBlock__rooms}>
             <div className={s.content}>
               <TextLabel>Рекомендованные переговорки</TextLabel>
-              <RecommendedRoom
-                floor='4'
-                timeStart='16:00'
-                timeEnd='16:30'
-                name='Готем'
-              />
-              <RecommendedRoom
-                floor='4'
-                timeStart='16:00'
-                timeEnd='16:30'
-                name='Готем'
-              />
-              <RecommendedRoom
-                floor='4'
-                timeStart='16:00'
-                timeEnd='16:30'
-                name='Готем'
-              />
+              <RecommendedRooms />
             </div>
           </div>
         </div>
