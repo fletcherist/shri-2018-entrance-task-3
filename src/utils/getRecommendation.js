@@ -1,4 +1,5 @@
 //@flow
+import { filter, sort } from 'ramda'
 
 const rooms = {
   "1": {
@@ -214,16 +215,45 @@ type roomsType = { [key: string]: roomType };
 type usersType = { [key: string]: userType };
 type eventsType = { [key: string]: eventType }; 
 
+
+const getDistanceFromUserWorkspace = (roomFloor: number, userFloor: number) =>
+  Math.abs(roomFloor - userFloor)
+const getDistanceFromUsersToRoom = (users: Array<userType>, room: roomType) =>
+  users.reduce((distance, user) =>
+    distance + getDistanceFromUserWorkspace(room.floor, user.homeFloor), 0)
+
 /*
+ * Sorts from the shortest distance to the longest
+ */
+const sortRoomsByDistanceFromUsers =
+  (rooms: Array<roomType>, users: Array<userType>) =>
+    sort((room1, room2) =>
+      getDistanceFromUsersToRoom(users, room1) >
+      getDistanceFromUsersToRoom(users, room2)
+    )(rooms)
+
+/*
+ * This function finds most suitable rooms for booking
  * 
+ * rooms All available rooms
+ * users Event's participants
+ * events All events on that particular date
  */
 export function getRecommendation(
-  rooms: roomType,
+  rooms: roomsType,
   users: usersType,
   events: eventsType,
 ): Array<roomType> {
+  /* transforming rooms object to rooms array */
+  rooms = Object.values(rooms)
+  /* transforming users object to users array */
+  users = Object.values(users)
+
+  sortRoomsByDistanceFromUsers(rooms, users)
+    .forEach(room => console.log(getDistanceFromUsersToRoom(users, room)))
+  // console.log(rooms)
   return []
 }
 
 
-getRecommendation(events)
+getRecommendation(rooms, users, events)

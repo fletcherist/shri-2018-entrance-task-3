@@ -5,7 +5,6 @@ import { getRecommendation } from '../utils/getRecommendation'
 
 const mapStateToProps = state => {
   const { rooms, users, events } = state
-  console.log(JSON.stringify(users, null, 2))
   return {
 
   }
