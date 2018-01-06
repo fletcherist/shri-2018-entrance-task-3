@@ -20,15 +20,30 @@ const inputRule = state => ({
   }
 })
 
+const labelRule = state => ({
+  '@media (max-width: 700px)': {
+    opacity: state.hideLabelOnMobile ? 0 : 1
+  }
+})
+
 const Input = connect({
-  inputRule
+  inputRule,
+  labelRule
 })(({
   placeholder, value, styles, label, onInput,
-  onClick, ref, onFocusOut, onFocus
+  onClick, ref, onFocusOut, onFocus, hideLabelOnMobile
 }) => {
   return (
     <div>
-      {label && <TextLabel>{label}</TextLabel>}
+      {label && 
+        (<div className={styles.labelRule}>
+          <TextLabel className={styles.labelRule}>
+            {label}
+          </TextLabel>
+        </div>
+      )}
+
+        
       <input className={styles.inputRule} placeholder={placeholder} value={value}
         onInput={onInput} onClick={onClick} ref={ref} onFocusOut={onFocusOut}
         onFocus={onFocus} />

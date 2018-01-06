@@ -86,7 +86,9 @@ const BookRoom = connect({
     const { title, date, timeStart, timeEnd } = this.state.values
     return (
       <div>
-        <TextHeadline>Новая встреча</TextHeadline>
+        <div className={s.headline}>
+          <TextHeadline>Новая встреча</TextHeadline>
+        </div>
         <div className={s.container}>
           <div className={s.infoBlock__title}>
             <div className={s.content}>
@@ -97,17 +99,21 @@ const BookRoom = connect({
             </div>
           </div>
           <div className={s.infoBlock__datetime}>
-            <div className={s.content}>
+            <div className={cx(s.content, s.infoBlock__datetime_wrapper)}>
               <DateInput label='Дата и время' value={date}
                 onInput={this.handleDateInput} />
-              <EmptyDivider height={8} />
+              {/*<EmptyDivider height={8} />*/}
               <div className={s.timeInput}>
                 <Input onInput={this.handleTimeStartInput}
+                  label='Начало'
+                  hideLabelOnMobile
                   placeholder='13:00'
                   value={timeStart} />
                 <div className={s.timeInputDash}>—</div>
                 <Input onInput={this.handleTimeEndInput}
-                    placeholder='13:30'
+                  label='Конец'
+                  hideLabelOnMobile
+                  placeholder='13:30'
                   value={timeEnd} />
               </div>
             </div>

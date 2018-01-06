@@ -48,7 +48,7 @@ class AutocompleteUsers extends Component<Props> {
   handleInputFocusOut(event: Event) {
     event.preventDefault()
     setTimeout(() => {
-      // this.setState({clickedOnInput: false})
+      this.setState({clickedOnInput: false})
     }, 200)
   }
 
