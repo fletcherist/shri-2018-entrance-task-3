@@ -1,5 +1,14 @@
 //@flow
-import { filter, sort } from 'ramda'
+import {
+  filter,
+  sort,
+  curry,
+  compose,
+  reduce,
+  merge,
+  mergeWith,
+  sum
+} from 'ramda'
 
 const rooms = {
   "1": {
@@ -225,12 +234,64 @@ const getDistanceFromUsersToRoom = (users: Array<userType>, room: roomType) =>
 /*
  * Sorts from the shortest distance to the longest
  */
-const sortRoomsByDistanceFromUsers =
-  (rooms: Array<roomType>, users: Array<userType>) =>
+const sortRoomsByDistanceFromUsers = curry(
+  (users: Array<userType>, rooms: Array<roomType>) =>
     sort((room1, room2) =>
       getDistanceFromUsersToRoom(users, room1) >
       getDistanceFromUsersToRoom(users, room2)
     )(rooms)
+)
+
+const sortRoomsByCapacityAndUsersAmount = curry(
+  (usersAmount: number, rooms: Array<roomType>) =>
+    compose(
+      /*
+       * sorts by users amount.
+       * if room's `capacity` is less than `usersAmount` →
+       * → then swap
+       */
+      rooms => sort(room => room.capacity < usersAmount)(rooms),
+      /*
+       * sorts in the descending order ex. 7 6 5 4...
+       */
+      rooms => sort((room1, room2) => room1.capacity < room2.capacity)(rooms)
+    )(rooms)
+)
+
+/*
+ * This function converts room's array
+ * to correlating hash table (left items are better than right)
+ *
+ * hash table represents roomId with key and value between (0, 1)
+ * which represents index of likenesses.
+ */
+const createRoomsIndexes = (rooms: Array<roomType>) =>
+  rooms.reduce((roomsIndexes, room, roomIndex) =>
+    merge(roomsIndexes, {[room.id]:
+      (rooms.length - roomIndex) / rooms.length}),
+    {})
+
+const mergeRoomsIndexes = (roomsIndexes) => {
+  const mergedRoomsIndex = {}
+  roomsIndexes.forEach(roomIndex => {
+    for (let index in roomIndex) {
+      mergedRoomsIndex[index] = (mergedRoomsIndex[index] || 0) + roomIndex[index]
+    }
+  })
+  return mergedRoomsIndex
+}
+
+const transformRoomsIndexesObjectIntoArray = (roomsIndexes) =>
+  Object.keys(roomsIndexes).map(key => ({
+    key: key,
+    value: roomsIndexes[key]
+  }))
+
+const sortRoomsIndexes = (roomsIndexes) => sort(
+  (index1, index2) => index1.value < index2.value
+)(roomsIndexes)
+
+const findRoomById = curry((rooms, id) => rooms.filter(room => room.id === id)[0])
 
 /*
  * This function finds most suitable rooms for booking
@@ -242,17 +303,36 @@ const sortRoomsByDistanceFromUsers =
 export function getRecommendation(
   rooms: roomsType,
   users: usersType,
-  events: eventsType,
+  events: eventsType
 ): Array<roomType> {
   /* transforming rooms object to rooms array */
   rooms = Object.values(rooms)
   /* transforming users object to users array */
   users = Object.values(users)
 
-  sortRoomsByDistanceFromUsers(rooms, users)
-    .forEach(room => console.log(getDistanceFromUsersToRoom(users, room)))
-  // console.log(rooms)
-  return []
+  const getRoom = findRoomById(rooms)
+
+  const byDistanceSorter = sortRoomsByDistanceFromUsers(users)
+  const byUsersAmountSorter = sortRoomsByCapacityAndUsersAmount(users.length)
+
+  const sortEffects = [byDistanceSorter, byUsersAmountSorter]
+
+  /*
+   * For each sort effect we count how suitable is that particular room
+   * Then we summarize that results and sort rooms similar to that summarized effect.
+   */
+  const roomsIndexes = sortEffects
+    .map(sortEffect => sortEffect(rooms))
+    .map(createRoomsIndexes)
+  console.log(roomsIndexes)
+
+  const sortedRoomsIndexes = compose(
+    sortRoomsIndexes,
+    transformRoomsIndexesObjectIntoArray,
+    mergeRoomsIndexes
+  )(roomsIndexes)
+
+  return sortedRoomsIndexes.map(index => getRoom(index.key))
 }
 
 
