@@ -22,6 +22,8 @@ import RemoveEventConfirm from './containers/remove-event-confirm'
 
 import createStore from './createStore'
 
+import Spin from './components/spin'
+
 const renderer = createRenderer()
 
 const theme = {
@@ -50,12 +52,10 @@ const App = () => (
           <div>
             <Navigation />
             <Router history={createHashHistory()}>
-              <Main path='/' />
+              <BookingPage path='/' />
               <BookingPage path='/timetable' />
               <CreatePage path='/create' />
             </Router>
-            <CreateEventConfirm />
-            <RemoveEventConfirm />
           </div>
         </ThemeProvider>
       </FelaProvider>
@@ -66,6 +66,7 @@ const App = () => (
 const BookingPage = () => (
   <div>
     <RoomsTimetable />
+    <Spin size={40}/>
   </div>
 )
 

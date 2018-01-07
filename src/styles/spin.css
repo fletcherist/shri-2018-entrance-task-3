@@ -1,0 +1,58 @@
+/*
+  CODE IS NOT MINE.
+  It's from teatime-components by @sullenor
+  Please, check here
+  https://github.com/sullenor/teatime-components/blob/master/style/spin/spin.css
+*/
+
+@keyframes spin
+{
+  from
+  {
+    transform: rotate(0deg);
+  }
+
+  to
+  {
+    transform: rotate(360deg);
+  }
+}
+
+.selector
+{
+  /* the common selector */
+}
+
+.wrapper
+{
+  display: inline-block;
+}
+
+.control
+{
+  display: inline-block;
+
+  box-sizing: border-box;
+  margin: 0;
+
+  animation: spin 1s infinite linear;
+
+  border: 2px solid #fc0;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-radius: 50%;
+
+  font: inherit;
+
+  width: 24px;
+  height: 24px;
+
+  line-height: 20px;
+}
+
+.control:before
+{
+  visibility: hidden;
+
+  content: '\A0';
+}
