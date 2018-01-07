@@ -17,12 +17,12 @@ import Navigation from './components/navigation'
 import RoomsTimetable from './containers/rooms-timetable'
 import BookRoom from './containers/book-room'
 
+import MainLayout from './containers/main-layout'
+
 import CreateEventConfirm from './containers/create-event-confirm'
 import RemoveEventConfirm from './containers/remove-event-confirm'
 
 import createStore from './createStore'
-
-import Spin from './components/spin'
 
 const renderer = createRenderer()
 
@@ -52,21 +52,14 @@ const App = () => (
           <div>
             <Navigation />
             <Router history={createHashHistory()}>
-              <BookingPage path='/' />
-              <BookingPage path='/timetable' />
+              <MainLayout path='/' />
+              <MainLayout path='/timetable' />
               <CreatePage path='/create' />
             </Router>
           </div>
         </ThemeProvider>
       </FelaProvider>
     </Provider>
-  </div>
-)
-
-const BookingPage = () => (
-  <div>
-    <RoomsTimetable />
-    <Spin size={40}/>
   </div>
 )
 

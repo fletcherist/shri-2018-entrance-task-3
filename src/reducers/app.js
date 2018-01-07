@@ -1,12 +1,17 @@
 import {
   SET_CURRENT_DATE,
   SET_NEXT_DATE,
-  SET_PREVIOUS_DATE
+  SET_PREVIOUS_DATE,
+
+  SET_APP_STATUS,
+  APP_STATUS_LOADING
 } from '../actions/actionTypes'
+
 import { merge } from 'ramda'
 
 const initialState = {
-  currentDate: new Date()
+  currentDate: new Date(),
+  appStatus: APP_STATUS_LOADING
 }
 
 const ONE_HOUR = 1000 * 60 * 60
@@ -29,6 +34,10 @@ export default function appReducer(state = initialState, action) {
         currentDate: new Date(
           state.currentDate.getTime() - ONE_DAY
         )
+      })
+    case SET_APP_STATUS:
+      return merge(state, {
+        appStatus: action.payload || false
       })
     default: return state
   }

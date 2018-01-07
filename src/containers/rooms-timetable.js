@@ -21,7 +21,8 @@ const mapStateToProps = state => {
     rooms: rooms,
     eventsInRoom,
     events: state.events,
-    users: state.users
+    users: state.users,
+    appStatus: state.app.appStatus
   }
 }
 

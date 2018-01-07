@@ -2,11 +2,13 @@ import { merge } from 'ramda'
 import { transformEvents } from './transformEvents'
 import { formatTimeIntoDateSwitcher } from './formatTimeIntoDateSwitcher'
 import { formatTimeIntoEventTooltip } from './formatTimeIntoEventTooltip'
+import { delay } from './delay'
 
 export {
   transformEvents,
   formatTimeIntoDateSwitcher,
-  formatTimeIntoEventTooltip
+  formatTimeIntoEventTooltip,
+  delay
 }
 
 export const isMobile = () => {

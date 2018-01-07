@@ -1,0 +1,25 @@
+.preloaderContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+  width: 100%;
+}
+
+.noConnectionNotice {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  padding-top: 4rem;
+}
+
+.noConnectionPrimary {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.noConnectionSecondary {
+  line-height: 2rem;
+  color: rgba(0, 0, 0, .5);
+}

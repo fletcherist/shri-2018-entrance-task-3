@@ -10,6 +10,7 @@ import { TimetableEvent } from './timetable-events'
 
 import RemoveEventConfirm from './remove-event-confirm'
 import Modal from './modal'
+import Spin from './spin'
 
 import s from '../styles/rooms-timetable.css'
 
@@ -149,6 +150,22 @@ class RoomsTimetable extends Component {
     console.log(eventsScrollWidth)
   }
 
+  renderContainer() {
+    // if (this.props.appStatus === APP_STATUS_LOADING) {
+      return (
+        <div className={s.preloaderContainer}>
+          <Spin size={60} />
+        </div>
+      )
+    // }
+
+    if (this.props.appStatus === APP_STATUS_FETCHING_FAILED) {
+      <div>
+        Ошибка при получении данных
+      </div>
+    }
+  }
+
   render() {
     const {
       isRoomsCollapsed
@@ -156,8 +173,6 @@ class RoomsTimetable extends Component {
     return (
       <div>
         <div>
-          {/*{this.renderRooms()}*/}
-          {/*<EventTooltip />*/}
           <div className={s.dateSwitcherMobile}>
             <DateSwitcher />
           </div>

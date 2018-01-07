@@ -55,10 +55,6 @@ export const fetchRooms = async () => {
   return convertArrayToObject(roomsArray.rooms)
 }
 
-// fetchEvents().then(console.log)
-// fetchUsers().then(console.log)
-// fetchRooms().then(console.log)
-
 type createEventDataType = {
   input: {
     title: string,
