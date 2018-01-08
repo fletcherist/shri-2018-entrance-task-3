@@ -1,0 +1,26 @@
+.container {
+  position: absolute;
+  display: block;
+  z-index: 9999;
+  overflow: hidden;
+  top: 18px;
+}
+
+.time {
+  font-size: 11px;
+  color: white;
+  letter-spacing: 0.4px;
+  font-weight: bold;
+  background-color: #007DFF;
+  text-align: center;
+  border-radius: 100px;
+  padding: 3px 7px;
+}
+
+.line {
+  border-right: 1px solid #007DFF;
+  z-index: 9999;
+  height: 1000px;
+  overflow: hidden;
+  margin-right: 20px;
+}

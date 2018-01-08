@@ -5,31 +5,9 @@ import { connect } from 'preact-fela'
 import ArrowIcon from '../assets/arrow.svg'
 import Divider from './divider'
 import { formatTimeIntoDateSwitcher } from '../utils'
+import s from '../styles/date-switcher.css'
+import cx from 'classnames'
 import Pikaday from 'pikaday'
-
-/* styles */
-const s = {
-  container: {
-    padding: '12px 16px',
-    minWidth: '225px'
-  },
-  wrapper: {
-    display: 'flex',
-    // justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    maxWidth: '100%'
-  },
-  label: {
-    flexGrow: 1,
-    textAlign: 'center',
-    fontFamily: 'HelveticaNeue-Medium'
-  },
-  icon: {
-    // justifyContent: 'flex-start',
-    flexGrow: 0
-  }
-}
 
 const iconStyle = state => ({
   padding: '7px',
@@ -98,14 +76,18 @@ class DateSwitcher extends Component<Props> {
     })
   }
   render({styles}) {
+    console.log(this.props.currentDate)
     return (
       <div>
-        <div style={s.container}>
-          <div style={s.wrapper}>
-            <div style={s.icon} onClick={this.props.setPreviousDay}>
+        <div className={s.container}>
+          <div className={s.wrapper}>
+            <div className={s.icon} onClick={this.props.setPreviousDay}>
               <LeftIconWrapped />
             </div>
-            <div style={s.label} onClick={this.handleClick} ref={ref => this.datepicker = ref}>
+            <div className={cx({
+              [s.label]: true,
+              [s.currentDate]: this.props.currentDate.getDate() === new Date().getDate()
+            })} onClick={this.handleClick} ref={ref => this.datepicker = ref}>
               {formatTimeIntoDateSwitcher(this.props.currentDate)}
             </div>
             <div onClick={this.props.setNextDay}>

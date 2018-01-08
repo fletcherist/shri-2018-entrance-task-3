@@ -22,6 +22,8 @@
   align-items: center;
 
   grid-area: timetable;
+
+  position: relative;
 }
 
 .events {

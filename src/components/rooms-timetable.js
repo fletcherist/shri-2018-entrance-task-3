@@ -8,6 +8,7 @@ import TimetableEvents from './timetable-events'
 import DateSwitcher from '../containers/date-switcher'
 import { TimetableEvent } from './timetable-events'
 
+import CurrentTime from './current-time'
 import RemoveEventConfirm from './remove-event-confirm'
 import Modal from './modal'
 import Spin from './spin'
@@ -182,6 +183,7 @@ class RoomsTimetable extends Component {
                 <DateSwitcher />
               </div>
               <div className={s.timetable}>
+                <div style={{position: 'absolute', transform: 'translate(300px, 0)', zIndex: 9999}}><CurrentTime /></div>
                 {ArrayFrom8AM.map(time => (
                   <div className={s.time}>{time}</div>
                 ))}

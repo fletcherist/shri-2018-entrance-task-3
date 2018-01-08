@@ -13,10 +13,10 @@ import Api from '../api'
 import { delay } from '../utils'
 
 export default function * eventsSaga() {
-
   yield put(setAppStatus(APP_STATUS_LOADING))
+  let events
   try {
-    const events = yield call(Api.events.get)
+    events = yield call(Api.events.get)
   } catch (error) {
     yield delay(1000)
     yield put(setAppStatus(APP_STATUS_FETCHING_FAILED))
