@@ -71,9 +71,9 @@ const EventTooltip = ({
     <EmptyDivider height={16} />
     <div className={styles.participantsRule}>
       <User userName={event.users[0].username} userPhoto={event.users[0].avatarUrl} />
-      {
+      {event.users.length - 1 > 0 &&
         <div className={styles.otherParticipantsRule}>
-          <Text> и {event.users.length - 1}
+          <Text fontSize={13}> и {event.users.length - 1}
             {' '}{getUsersEnding(event.users.length - 1)}
           </Text>
         </div>

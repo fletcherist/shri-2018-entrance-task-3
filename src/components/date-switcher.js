@@ -7,7 +7,6 @@ import Divider from './divider'
 import { formatTimeIntoDateSwitcher } from '../utils'
 import s from '../styles/date-switcher.css'
 import cx from 'classnames'
-import Pikaday from 'pikaday'
 
 const iconStyle = state => ({
   padding: '7px',
@@ -57,15 +56,6 @@ class DateSwitcher extends Component<Props> {
     this.state = {
       isDatepickerOpened: false
     }
-  }
-  componentDidMount() {
-    // this.picker = new Pikaday({
-    //   field: this.datepicker,
-    //   onSelect: function() {
-    //     console.log(this.getMoment())
-    //   }
-    // })
-    // console.log(this.picker)
   }
 
   handleDateChange(event: Event) {

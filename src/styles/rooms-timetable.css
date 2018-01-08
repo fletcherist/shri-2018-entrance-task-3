@@ -1,3 +1,6 @@
+:root {
+  --border-color: rgb(233, 236, 239);
+}
 .container {
   display: grid;
   max-width: 100%;
@@ -17,13 +20,15 @@
 
 .timetable {
   display: grid;
-  grid-template-columns: repeat(16, 65px);
+  grid-template-columns: repeat(17, 65px);
   grid-row: 1;
   align-items: center;
 
   grid-area: timetable;
 
   position: relative;
+
+  border-bottom: 1px solid var(--border-color);
 }
 
 .events {
@@ -50,11 +55,15 @@
   letter-spacing: 0.4px;
 }
 
+.time:nth-child(2) {
+  opacity: 0;
+}
+
 .eventsArea::before {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: -14px;
   right: 0;
   content: '';
   background-image: repeating-linear-gradient(
@@ -72,6 +81,7 @@
   display: flex;
   /*grid-column: 2;*/
   align-items: center;
+  transform: translate(-18px, 0);
 }
 
 .eventsArea {
@@ -82,8 +92,9 @@
   /*grid-column: 1;*/
   background-color: #fff;
   z-index: 10;
+  border-right: 1px solid var(--border-color);
   min-width: 245px;
-  max-width: 245px;
+  /*max-width: 245px;*/
 }
 
 
@@ -120,14 +131,23 @@
   .dateSwitcher {
     max-width: 181px;
     grid-row: 0;
-    visibility: hidden;
+    border-bottom: 1px solid var(--border-color);
     height: 31px;
   }
+
+  .dateSwitcherMobileInner {
+    visibility: hidden;
+  }
+
   .floor {
     background-color: #F7F8F9;
   }
 
   .time {
+  }
+
+  .time:nth-child(2) {
+    opacity: 1;
   }
 
   .roomEvents {

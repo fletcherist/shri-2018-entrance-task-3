@@ -4,17 +4,19 @@ import { h, Component } from 'preact'
 import s from '../styles/current-time.css'
 import {
   getEventDurationInMinutes,
-  getEventDurationInPixels,
+  getEventDurationInPixels
 } from '../utils'
 import { getDayBeginning } from '../utils/transformEvents'
 
 const COMPONENT_WIDTH = 54
+const COMPONENT_HEIGHT = 40
 const formatMinutes = minutes => minutes >= 10
   ? minutes
   : `0${minutes}`
 
 type Props = {
-  eventsScrollWidth: number
+  eventsScrollWidth: number,
+  containerHeight: number
 };
 class CurrentTime extends Component<Props> {
   componentDidMount() {
@@ -38,7 +40,9 @@ class CurrentTime extends Component<Props> {
           <span className={s.secondsIndicator}>:</span>
           <span>{time[1]}</span>
         </div>
-        <div className={s.line}></div>
+        <div className={s.line} style={{
+          height: `${this.props.containerHeight - COMPONENT_HEIGHT}px`
+        }}></div>
       </div>
     )
   }

@@ -28,11 +28,14 @@ const timetableEventStyles = (state: timetableEventType) => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: IS_MOBILE ? '58px' : '28px',
+    height: '28px',
     backgroundColor: isBooked
       ? selected ? '#99A9B9' : 'rgba(213,223,233,1)'
       : selected ? '#2F57F9' : 'white',
-    borderRadius: (!isBooked && selected) ? '2px' : '0px'
+    borderRadius: (!isBooked && selected) ? '2px' : '0px',
+    '@media (max-width: 500px) ': {
+      height: '58px'
+    }
   }
 }
 
@@ -83,7 +86,8 @@ const TimetableEvent = connect({
 
 const timetableEventsContainerStyles = state => ({
   display: 'flex',
-  paddingLeft: '14px'
+  // paddingLeft: '14px',
+  maxWidth: '1120px'
 })
 
 const TimetableEvents = connect({timetableEventsContainerStyles})

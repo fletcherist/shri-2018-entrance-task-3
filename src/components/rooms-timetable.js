@@ -15,9 +15,13 @@ import Spin from './spin'
 
 import s from '../styles/rooms-timetable.css'
 
-import { range, compose, prepend, toString, map } from 'ramda'
+import { range, compose, prepend, toString, map, append } from 'ramda'
 
-const ArrayFrom8AM = compose(prepend('8:00'), map(toString))(range(9, 24))
+const ArrayFrom8AM = compose(
+  append('0:00'),
+  prepend('8:00'),
+  map(toString))(range(9, 24)
+)
 
 const LEFT_BAR_WIDTH = 180
 
@@ -57,7 +61,8 @@ class RoomsTimetable extends Component {
     this.handleScroll = this.handleScroll.bind(this)
     this.state = {
       isRoomsCollapsed: false,
-      eventsScrollWidth: 0
+      eventsScrollWidth: 0,
+      containerHeight: 0
     }
   }
 
@@ -109,7 +114,8 @@ class RoomsTimetable extends Component {
   componentDidMount() {
     window.container = this.container
     const eventsScrollWidth = this.container.scrollWidth - LEFT_BAR_WIDTH
-    this.setState({eventsScrollWidth})
+    const containerHeight = this.container.clientHeight
+    this.setState({eventsScrollWidth, containerHeight})
     console.log(eventsScrollWidth)
   }
 
@@ -126,10 +132,15 @@ class RoomsTimetable extends Component {
           <div className={s.container}
             ref={(ref) => this.container = ref}>
             <div className={s.dateSwitcher}>
-              <DateSwitcher />
+              <div className={s.dateSwitcherMobileInner}>
+                <DateSwitcher />
+              </div>
             </div>
             <div className={s.timetable}>
-              <CurrentTime eventsScrollWidth={this.state.eventsScrollWidth} />
+              <CurrentTime
+                eventsScrollWidth={this.state.eventsScrollWidth}
+                containerHeight={this.state.containerHeight}
+              />
               {ArrayFrom8AM.map(time => (
                 <div className={s.time}>{time}</div>
               ))}

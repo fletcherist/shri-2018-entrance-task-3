@@ -9,3 +9,5 @@
 
 (APP STATE NO CONNECTION)
 https://i.imgur.com/3AJbDd9.gif
+
+На десктопах рабочий день начинается с девяти. На мобильных — с восьми.

@@ -222,8 +222,7 @@ type eventType = {
 
 type roomsType = { [key: string]: roomType };
 type usersType = { [key: string]: userType };
-type eventsType = { [key: string]: eventType }; 
-
+type eventsType = { [key: string]: eventType };
 
 const getDistanceFromUserWorkspace = (roomFloor: number, userFloor: number) =>
   Math.abs(roomFloor - userFloor)
@@ -269,7 +268,7 @@ const createRoomsIndexes = (rooms: Array<roomType>) =>
   rooms.reduce((roomsIndexes, room, roomIndex) =>
     merge(roomsIndexes, {[room.id]:
       (rooms.length - roomIndex) / rooms.length}),
-    {})
+  {})
 
 const mergeRoomsIndexes = (roomsIndexes) => {
   const mergedRoomsIndex = {}
@@ -295,7 +294,7 @@ const findRoomById = curry((rooms, id) => rooms.filter(room => room.id === id)[0
 
 /*
  * This function finds most suitable rooms for booking
- * 
+ *
  * rooms All available rooms
  * users Event's participants
  * events All events on that particular date
@@ -334,6 +333,5 @@ export function getRecommendation(
 
   return sortedRoomsIndexes.map(index => getRoom(index.key))
 }
-
 
 getRecommendation(rooms, users, events)
