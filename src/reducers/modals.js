@@ -14,7 +14,8 @@ const initialModalState = {
 
 const initialState = {
   RemoveEventConfirm: initialModalState,
-  CreateEventConfirm: initialModalState
+  CreateEventConfirm: initialModalState,
+  EventTooltip: initialModalState
 }
 
 export default function modalsReducer(state = initialState, action) {

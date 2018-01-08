@@ -7,10 +7,9 @@ import {
 
   getEventDurationInMinutes,
   getEventDurationInPixels,
-  MINUTES_BETWEEN_8_AND_24,
+  MINUTES_BETWEEN_8_AND_24
 } from '../utils'
 import { EMPTY_EVENT, REAL_EVENT } from '../actions/actionTypes'
-import EventTooltip from './event-tooltip'
 
 type timetableEventType = {
   width: number,
@@ -18,11 +17,10 @@ type timetableEventType = {
   selected: boolean
 };
 
-const IS_MOBILE = isMobile()
-
 const timetableEventStyles = (state: timetableEventType) => {
   const { width, isBooked, selected } = state
   return {
+    position: 'relative',
     cursor: isBooked ? 'pointer' : null,
     width: width ? `${width}px` : '20px',
     display: 'flex',
@@ -39,46 +37,40 @@ const timetableEventStyles = (state: timetableEventType) => {
   }
 }
 
+type TimetableEventProps = {
+  onClick: Function
+};
 const TimetableEvent = connect({
   timetableEventStyles
-})(class extends Component {
-  constructor() {
-    super()
+})(class extends Component<TimetableEventProps> {
+  constructor(props) {
+    super(props)
     this.state = {
       isTooltipOpened: false
     }
-    this.handleEventClick = this.handleEventClick.bind(this)
-    this.openTooltip = this.openTooltip.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  openTooltip() {
-    this.setState({
-      isTooltipOpened: true
-    })
-  }
-
-  renderTooltip() {
-    if (this.props.type === EMPTY_EVENT)
-      return null
-    if (this.state.isTooltipOpened) {
-      return (
-        <EventTooltip event={this.props.event} />
-      )
+  handleClick(event) {
+    this.props.onClick(
+      event, /* that is browser click event */
+      this.props.event /* room event, sorry for that naming */
+    )
+    console.log(this.props)
+    if (this.props.isBooked) {
+      this.setState({
+        isTooltipOpened: true
+      })
     }
-  }
-
-  handleEventClick(event) {
-    console.log(event)
   }
 
   render({ styles, selected, isBooked, event }) {
     return (
       <div className={styles.timetableEventStyles}
-        onClick={this.openTooltip}>
+        onClick={this.handleClick}>
         {(!isBooked && selected) && (
           <div>+</div>
         )}
-        {this.renderTooltip()}
       </div>
     )
   }
@@ -90,11 +82,27 @@ const timetableEventsContainerStyles = state => ({
   maxWidth: '1120px'
 })
 
+type TimetableEventsProps = {
+  setCurrentEvent: Function,
+  handleEventTooltipModal: Function
+};
+
 const TimetableEvents = connect({timetableEventsContainerStyles})
-(class extends Component {
+(class extends Component<TimetableEventsProps> {
+  constructor() {
+    super()
+    this.handleEventClick = this.handleEventClick.bind(this)
+  }
   componentDidMount() {
     // console.log('eventsScrollWidth', this.props.eventsScrollWidth)
   }
+
+  handleEventClick(mouseEvent, roomEvent) {
+    console.log('handleEventClick', mouseEvent, roomEvent)
+    this.props.setCurrentEvent(roomEvent)
+    this.props.handleEventTooltipModal(mouseEvent)
+  }
+
   render({ styles, events }) {
     // console.log('events', events)
     const durationInPixels =
@@ -107,7 +115,8 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
           <TimetableEvent
             width={durationInPixels}
             isBooked={false}
-            selected={false}
+            selected={true}
+            onClick={this.handleEventClick}
           />
         </div>
       )
@@ -120,11 +129,11 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
       const eventDuration = getEventDurationInMinutes(dateStart, dateEnd)
       const durationInPixels =
         getEventDurationInPixels(eventDuration, this.props.eventsScrollWidth)
-      
-      console.log('room id', event.room)
-      console.log('eventDuration', eventDuration)
-      console.log('from', dateStart.getHours(), dateStart.getMinutes())
-      console.log('till', dateEnd.getHours(), dateEnd.getMinutes())
+
+      // console.log('room id', event.room)
+      // console.log('eventDuration', eventDuration)
+      // console.log('from', dateStart.getHours(), dateStart.getMinutes())
+      // console.log('till', dateEnd.getHours(), dateEnd.getMinutes())
       return (
         <TimetableEvent
           width={durationInPixels}
@@ -132,9 +141,11 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
           selected={false}
           type={event.type}
           event={event}
+          onClick={this.handleEventClick}
         />
       )
     })
+
     console.log(proccessedEvents)
     return (
       <div className={styles.timetableEventsContainerStyles}

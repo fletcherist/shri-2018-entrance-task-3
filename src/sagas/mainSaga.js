@@ -13,6 +13,7 @@ import {
 } from '../actions/actionTypes'
 
 import eventsSaga from './eventsSaga'
+import modalsSaga from './modalsSaga'
 import Api from '../api'
 
 function * usersSaga() {
@@ -46,6 +47,7 @@ function * mainSaga() {
   yield fork(eventsSaga)
   yield fork(roomsSaga)
   yield fork(appSaga)
+  yield fork(modalsSaga)
 }
 
 export default mainSaga

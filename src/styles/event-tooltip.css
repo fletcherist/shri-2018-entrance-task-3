@@ -1,0 +1,49 @@
+.container {
+  position: absolute;
+  top: 40px;
+}
+
+.wrapper {
+  background-color: white;
+  min-width: 360px;
+  max-width: 360px;
+  position: relative;
+  box-shadow: 0 1px 16px 0 rgba(0,44,92,0.28);
+  padding: 10px 16px;
+  z-index: 9999;
+  border-radius: 8px;
+}
+
+.wrapper::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 61.8%; /* Golden rule damn it */
+  border: 10px solid white;
+  border-color: transparent transparent white transparent;
+}
+
+.editButton {
+  background-color: #E9ECEF;
+  height: 24px;
+  width: 24px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.participants {
+  display: flex;
+  align-items: center;
+  flex-basis: 30px;
+}
+
+.otherParticipants {
+  margin-left: 6px;
+  color: #858E98;
+}

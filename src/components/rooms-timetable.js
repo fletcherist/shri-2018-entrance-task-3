@@ -1,12 +1,14 @@
+// @flow
+
 import { h, Component } from 'preact'
 import Divider from './divider'
 import { connect } from 'preact-fela'
-import EventTooltip from './event-tooltip'
 import Room from './room'
 import RoomCollapsed from './room-collapsed'
 import TimetableEvents from './timetable-events'
 import DateSwitcher from '../containers/date-switcher'
 import { TimetableEvent } from './timetable-events'
+import EventTooltip from '../containers/event-tooltip'
 
 import CurrentTime from './current-time'
 import RemoveEventConfirm from './remove-event-confirm'
@@ -18,7 +20,6 @@ import s from '../styles/rooms-timetable.css'
 import { range, compose, prepend, toString, map, append } from 'ramda'
 
 const ArrayFrom8AM = compose(
-  append('0:00'),
   prepend('8:00'),
   map(toString))(range(9, 24)
 )
@@ -55,7 +56,11 @@ const RoomWithEvents = connect({
   </div>
 ))
 
-class RoomsTimetable extends Component {
+type Props = {
+  setCurrentEvent: Function,
+  handleEventTooltipModal: Function
+};
+class RoomsTimetable extends Component<Props> {
   constructor() {
     super()
     this.handleScroll = this.handleScroll.bind(this)
@@ -104,7 +109,9 @@ class RoomsTimetable extends Component {
         <div className={s.roomEvents}>
           <TimetableEvents
             events={this.props.eventsInRoom[room.id]}
-            eventsScrollWidth={this.state.eventsScrollWidth} />
+            eventsScrollWidth={this.state.eventsScrollWidth}
+            setCurrentEvent={this.props.setCurrentEvent}
+            handleEventTooltipModal={this.props.handleEventTooltipModal} />
         </div>
       )
     })
@@ -137,6 +144,7 @@ class RoomsTimetable extends Component {
               </div>
             </div>
             <div className={s.timetable}>
+              <EventTooltip />
               <CurrentTime
                 eventsScrollWidth={this.state.eventsScrollWidth}
                 containerHeight={this.state.containerHeight}

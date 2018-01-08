@@ -8,7 +8,7 @@ import {
 } from '../utils'
 import { getDayBeginning } from '../utils/transformEvents'
 
-const COMPONENT_WIDTH = 54
+const COMPONENT_WIDTH = 154
 const COMPONENT_HEIGHT = 40
 const formatMinutes = minutes => minutes >= 10
   ? minutes

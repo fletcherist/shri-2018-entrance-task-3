@@ -9,7 +9,9 @@ import {
 
   APP_STATUS_LOADING,
   APP_STATUS_LOADED,
-  APP_STATUS_FETCHING_FAILED
+  APP_STATUS_FETCHING_FAILED,
+
+  SET_CURRENT_EVENT
 } from './actionTypes'
 
 export type appStatusType =
@@ -33,4 +35,9 @@ export const setPreviousDay = () => ({
 export const setAppStatus = (appStatus: appStatusType) => ({
   type: SET_APP_STATUS,
   payload: appStatus
+})
+
+export const setCurrentEvent = (event: Object) => ({
+  type: SET_CURRENT_EVENT,
+  payload: event
 })

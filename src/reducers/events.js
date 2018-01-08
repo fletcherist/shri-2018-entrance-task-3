@@ -3,7 +3,7 @@ import {
   CREATE_EVENT
 } from '../actions/actionTypes'
 
-export default function usersReducer(state = {}, action) {
+export default function eventsReducer(state = {}, action) {
   switch (action.type) {
     case FETCH_EVENTS:
       return {...state, ...action.payload}

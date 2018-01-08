@@ -1,5 +1,7 @@
 import { connect } from 'preact-redux'
 import RoomsTimetable from '../components/rooms-timetable'
+import { setCurrentEvent } from '../actions/app'
+import { handleEventTooltipModal } from '../actions/modals'
 import { sort, sortBy, merge, propEq, groupBy, filter } from 'ramda'
 
 const mapStateToProps = state => {
@@ -27,7 +29,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  
+  setCurrentEvent: (event) => dispatch(setCurrentEvent(event)),
+  handleEventTooltipModal: (mouseEvent) => dispatch(handleEventTooltipModal(mouseEvent))
 })
 
 export default connect(
