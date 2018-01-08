@@ -47,12 +47,13 @@ const RightIconWrapped = connect({iconStyle, iconWrapperStyle})(RightIcon)
 type Props = {
   setNextDay: Function,
   setPreviousDay: Function,
+  setCurrentDate: Function,
   currentDate: Date
 };
 class DateSwitcher extends Component<Props> {
   constructor() {
     super()
-    this.handleClick = this.handleClick.bind(this)
+    this.handleDateChange = this.handleDateChange.bind(this)
     this.state = {
       isDatepickerOpened: false
     }
@@ -66,20 +67,21 @@ class DateSwitcher extends Component<Props> {
     // })
     // console.log(this.picker)
   }
-  handleClick(event) {
-    console.log(this.state.isDatepickerOpened)
-    this.setState({
-      isDatepickerOpened: !this.state.isDatepickerOpened
-    }, () => {
-      if (this.state.isDatepickerOpened) this.picker.show()
-      else setTimeout(() => { this.picker.hide() }, 0)
-    })
+
+  handleDateChange(event: Event) {
+    const newDate = new Date(event.target.value)
+    this.props.setCurrentDate(newDate)
   }
+
   render({styles}) {
     console.log(this.props.currentDate)
     return (
       <div>
         <div className={s.container}>
+          <div className={s.datepickerContainer}>
+            <input type='date' className={s.datepicker} ref={(ref) => this.datepicker = ref}
+              onChange={this.handleDateChange} />
+          </div>
           <div className={s.wrapper}>
             <div className={s.icon} onClick={this.props.setPreviousDay}>
               <LeftIconWrapped />

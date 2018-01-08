@@ -3,7 +3,7 @@ module.exports = {
     "extends": "standard",
     "plugins": [
       "flowtype",
-      "plugin:react/recommended"
+      "react"
     ],
     rules: {
       'no-return-await': 0,

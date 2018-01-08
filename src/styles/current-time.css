@@ -25,3 +25,29 @@
   overflow: hidden;
   margin-right: 20px;
 }
+
+@keyframes indicate {
+  0% {
+    opacity: 0;
+  }
+  98% {
+    opacity: 1;
+  }
+
+  99% {
+    opacity: 0;
+  }
+}
+
+.secondsIndicator {
+  animation-name: indicate;
+  animation-duration: 1s;
+  animation-iteration-count: 9999999999;
+  animation-timing-function: ease-in-out;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    top: 6px;
+  }
+}

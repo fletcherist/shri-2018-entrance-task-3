@@ -21,44 +21,7 @@ const ArrayFrom8AM = compose(prepend('8:00'), map(toString))(range(9, 24))
 
 const LEFT_BAR_WIDTH = 180
 
-/* TimeBlock styles  */
-const sTime = {
-  container: {
-    display: 'flex',
-    overflow: 'auto',
-    // transform: 'translate(180px, 0)'
-    paddingLeft: '180px'
-  },
-  element: {
-    minWidth: '49px',
-    marginLeft: '28px',
-    padding: '9px 0px 10px 0',
-    textAlign: 'center',
-    fontSize: '11px',
-    color: '#858E98',
-    letterSpacing: '0.4px'
-    // borderBottom: '1px solid #E9ECEF'
-  },
-  line: {
-    borderLeft: '1px solid rgba(19,100,205,0.10)',
-    // position: 'absolute',
-    height: '500px',
-    // overflow: 'scroll',
-    marginLeft: '-24px'
-  }
-}
-
-// background: #D5DFE9;
-
-const sEvents = {
-  height: '58px',
-  minWidth: '150px',
-  // zIndex: '-999'
-}
-
-const floorStyles = state => ({
-  
-})
+const floorStyles = state => ({})
 const Floor = connect({
   floorStyles
 })(({ level, styles }) => (
@@ -122,7 +85,6 @@ class RoomsTimetable extends Component {
       const isNeededToRenderFloor =
         index > 0 && (rooms[index - 1].floor !== room.floor) ||
         index === 0
-      console.log(room)
 
       renderedRooms.push(
         <div className={s.room}>
@@ -151,22 +113,6 @@ class RoomsTimetable extends Component {
     console.log(eventsScrollWidth)
   }
 
-  renderContainer() {
-    // if (this.props.appStatus === APP_STATUS_LOADING) {
-      return (
-        <div className={s.preloaderContainer}>
-          <Spin size={60} />
-        </div>
-      )
-    // }
-
-    if (this.props.appStatus === APP_STATUS_FETCHING_FAILED) {
-      <div>
-        Ошибка при получении данных
-      </div>
-    }
-  }
-
   render() {
     const {
       isRoomsCollapsed
@@ -179,19 +125,19 @@ class RoomsTimetable extends Component {
           </div>
           <div className={s.container}
             ref={(ref) => this.container = ref}>
-              <div className={s.dateSwitcher}>
-                <DateSwitcher />
-              </div>
-              <div className={s.timetable}>
-                <CurrentTime eventsScrollWidth={this.state.eventsScrollWidth} />
-                {ArrayFrom8AM.map(time => (
-                  <div className={s.time}>{time}</div>
-                ))}
-              </div>
-              <div className={s.wrapper}>
-                {this.renderRooms()}
-                <div className={s.eventsArea}></div>
-              </div>
+            <div className={s.dateSwitcher}>
+              <DateSwitcher />
+            </div>
+            <div className={s.timetable}>
+              <CurrentTime eventsScrollWidth={this.state.eventsScrollWidth} />
+              {ArrayFrom8AM.map(time => (
+                <div className={s.time}>{time}</div>
+              ))}
+            </div>
+            <div className={s.wrapper}>
+              {this.renderRooms()}
+              <div className={s.eventsArea}></div>
+            </div>
           </div>
         </div>
       </div>
