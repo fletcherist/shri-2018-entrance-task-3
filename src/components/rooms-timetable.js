@@ -183,7 +183,7 @@ class RoomsTimetable extends Component {
                 <DateSwitcher />
               </div>
               <div className={s.timetable}>
-                <div style={{position: 'absolute', transform: 'translate(300px, 0)', zIndex: 9999}}><CurrentTime /></div>
+                <CurrentTime eventsScrollWidth={this.state.eventsScrollWidth} />
                 {ArrayFrom8AM.map(time => (
                   <div className={s.time}>{time}</div>
                 ))}

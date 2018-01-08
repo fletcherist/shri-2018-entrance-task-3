@@ -1,11 +1,22 @@
 import { merge } from 'ramda'
-import { transformEvents } from './transformEvents'
+import {
+  transformEvents,
+
+  getEventDurationInMinutes,
+  getEventDurationInPixels,
+  MINUTES_BETWEEN_8_AND_24,
+} from './transformEvents'
 import { formatTimeIntoDateSwitcher } from './formatTimeIntoDateSwitcher'
 import { formatTimeIntoEventTooltip } from './formatTimeIntoEventTooltip'
 import { delay } from './delay'
 
 export {
+  MINUTES_BETWEEN_8_AND_24,
+
   transformEvents,
+  getEventDurationInMinutes,
+  getEventDurationInPixels,
+
   formatTimeIntoDateSwitcher,
   formatTimeIntoEventTooltip,
   delay

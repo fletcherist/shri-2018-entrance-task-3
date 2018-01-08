@@ -1,7 +1,14 @@
 // @flow
 import { h, Component } from 'preact'
 import { connect } from 'preact-fela'
-import { isMobile, transformEvents } from '../utils'
+import {
+  isMobile,
+  transformEvents,
+
+  getEventDurationInMinutes,
+  getEventDurationInPixels,
+  MINUTES_BETWEEN_8_AND_24,
+} from '../utils'
 import { EMPTY_EVENT, REAL_EVENT } from '../actions/actionTypes'
 import EventTooltip from './event-tooltip'
 
@@ -12,14 +19,6 @@ type timetableEventType = {
 };
 
 const IS_MOBILE = isMobile()
-const MINUTES_BETWEEN_8_AND_24 = 960
-
-const getEventDurationInMinutes =
-  (startTime: number, endTime: number) =>
-    (endTime - startTime) / 1000 / 60
-const getEventDurationInPixels =
-  (eventDurationInMinutes: number, eventsScrollWidth: number) =>
-    eventDurationInMinutes * eventsScrollWidth / MINUTES_BETWEEN_8_AND_24
 
 const timetableEventStyles = (state: timetableEventType) => {
   const { width, isBooked, selected } = state

@@ -4,6 +4,7 @@
   z-index: 9999;
   overflow: hidden;
   top: 18px;
+  pointer-events: none;
 }
 
 .time {

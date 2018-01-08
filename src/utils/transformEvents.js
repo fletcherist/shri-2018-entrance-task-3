@@ -1,6 +1,15 @@
+// @flow
+
 import { merge, sort } from 'ramda'
 import { EMPTY_EVENT, REAL_EVENT } from '../actions/actionTypes'
 
+export const MINUTES_BETWEEN_8_AND_24 = 960
+export const getEventDurationInMinutes =
+  (startTime: Date, endTime: Date) =>
+    (endTime - startTime) / 1000 / 60
+export const getEventDurationInPixels =
+  (eventDurationInMinutes: number, eventsScrollWidth: number) =>
+    eventDurationInMinutes * eventsScrollWidth / MINUTES_BETWEEN_8_AND_24
 
 export const sortEventsByDate = events => sort(
   (event1, event2) =>
