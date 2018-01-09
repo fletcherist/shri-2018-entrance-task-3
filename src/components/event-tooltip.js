@@ -1,3 +1,4 @@
+// @flow
 import { h, Component } from 'preact'
 import { TextHeadline, Text } from './text'
 import User from './user'
@@ -9,15 +10,27 @@ import s from '../styles/event-tooltip.css'
 const getUsersEnding = amount =>
   ending(amount, ['участник', 'участника', 'участников'])
 
-class EventTooltip extends Component {
+type Props = {
+  targetElementData: Object,
+  isVisible: boolean,
+  event: Object
+};
+class EventTooltip extends Component<Props> {
+  componentDidUpdate() {
+    console.log('dom', this.eventTooltipDOM)
+  }
   render({ event }) {
-    console.log('eventToo', event)
     if (!event.room) {
       console.error('eventTooltip: not enough data')
       return null
     }
+
+    const { targetElementData } = this.props
+    console.log('targetElementData', targetElementData)
     return (
-      <div className={s.container}>
+      <div className={s.container} style={{
+        transform: `translate(${targetElementData.x - 392}px, ${targetElementData.y - 53}px)`
+      }} ref={ref => this.eventTooltipDOM = ref}>
         <div className={s.wrapper}>
           <div className={s.editButton}>
             <img src={`dist/${EditIcon}`} />

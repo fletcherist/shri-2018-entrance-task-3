@@ -4,7 +4,9 @@ import EventTooltip from '../components/event-tooltip'
 const mapStateToProps = state => {
   const currentEvent = state.app.currentEvent
   return {
-    event: currentEvent
+    event: currentEvent,
+    isVisible: state.modals.EventTooltip.isVisible,
+    targetElementData: state.modals.EventTooltip.data
   }
 }
 

@@ -1,6 +1,7 @@
 .container {
   position: absolute;
   top: 40px;
+  z-index: 9999999;
 }
 
 .wrapper {
