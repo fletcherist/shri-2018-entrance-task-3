@@ -27,9 +27,20 @@ class EventTooltip extends Component<Props> {
 
     const { targetElementData } = this.props
     console.log('targetElementData', targetElementData)
+
+    // return (
+    //   <div className={s.test} style={{
+    //     transform: `translate(${
+    //       targetElementData.x + (targetElementData.width / 2)
+    //     }px, ${targetElementData.y}px)`
+    //   }}>
+    //   </div>
+    // )
     return (
       <div className={s.container} style={{
-        transform: `translate(${targetElementData.x - 392}px, ${targetElementData.y - 53}px)`
+        transform: `translate(${
+          targetElementData.x + (targetElementData.width / 2)
+        }px, ${targetElementData.y - 53}px)`
       }} ref={ref => this.eventTooltipDOM = ref}>
         <div className={s.wrapper}>
           <div className={s.editButton}>

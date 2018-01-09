@@ -6,23 +6,14 @@ import {
   hideModal
 } from '../actions/modals'
 
-
- function getAbsolutePosition(element) {
-    var r = { x: element.offsetLeft, y: element.offsetTop };
-    if (element.offsetParent) {
-      var tmp = getAbsolutePosition(element.offsetParent);
-      r.x += tmp.x;
-      r.y += tmp.y;
-    }
-    return r;
-  };
+import { getRelativeCoordinates } from '../utils/getRelativeCoordinates'
 
 export default function * modalsSaga() {
   yield takeEvery(handleEventTooltipModal().type, function * (action) {
     const clickedElement = action.payload.target
 
-    const elementCoordinates = getAbsolutePosition(clickedElement)
-    // const elementCoordinates = clickedElement.getBoundingClientRect()
+    const elementCoordinates = getRelativeCoordinates(clickedElement)
+    const elementProperties = clickedElement.getBoundingClientRect()
 
     // console.log(elementCoordinates)
 
@@ -31,12 +22,8 @@ export default function * modalsSaga() {
       data: {
         x: elementCoordinates.x,
         y: elementCoordinates.y,
-        // left: elementCoordinates.left,
-        // right: elementCoordinates.right,
-        // top: elementCoordinates.top,
-        // bottom: elementCoordinates.bottom,
-        // height: elementCoordinates.height,
-        // width: elementCoordinates.width
+        width: elementProperties.width,
+        height: elementProperties.height
       }
     }))
 

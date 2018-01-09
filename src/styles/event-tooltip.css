@@ -1,13 +1,25 @@
+:root {
+  --left-bar-width-desktop: 245px;
+  --left-bar-width-mobile: 181px;
+
+  --container-width: 360px;
+  --container-height: 134px;
+}
+
 .container {
   position: absolute;
-  top: 40px;
   z-index: 9999999;
+
+  margin-left: calc(
+    0px - var(--left-bar-width-desktop) - (var(--container-width) / 2) - 40px
+  );
+  margin-top: calc(var(--container-height) / 2 - 30px);
 }
 
 .wrapper {
   background-color: white;
-  min-width: 360px;
-  max-width: 360px;
+  min-width: var(--container-width);
+  max-width: var(--container-width);
   position: relative;
   box-shadow: 0 1px 16px 0 rgba(0,44,92,0.28);
   padding: 10px 16px;
@@ -19,7 +31,7 @@
   content: '';
   position: absolute;
   top: -20px;
-  left: 61.8%; /* Golden rule damn it */
+  left: 50%; /* Golden rule damn it */
   border: 10px solid white;
   border-color: transparent transparent white transparent;
 }
@@ -47,4 +59,13 @@
 .otherParticipants {
   margin-left: 6px;
   color: #858E98;
+}
+
+@media screen and (max-width: 450px) {
+  .container {
+    margin-left: calc(
+      0px - var(--left-bar-width-mobile) - (var(--container-width) / 2) - 40px
+    );
+    margin-top: calc(var(--container-height) / 2 - 60px);
+  }
 }
