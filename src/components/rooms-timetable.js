@@ -15,6 +15,8 @@ import RemoveEventConfirm from './remove-event-confirm'
 import Modal from './modal'
 import Spin from './spin'
 
+import { isMobile } from '../utils'
+
 import s from '../styles/rooms-timetable.css'
 
 import { range, compose, prepend, toString, map, append } from 'ramda'
@@ -24,7 +26,8 @@ const ArrayFrom8AM = compose(
   map(toString))(range(9, 24)
 )
 
-const LEFT_BAR_WIDTH = 180
+const LEFT_BAR_WIDTH = 260
+const LEFT_BAR_WIDTH_MOBILE = 194
 
 const floorStyles = state => ({})
 const Floor = connect({
@@ -120,7 +123,9 @@ class RoomsTimetable extends Component<Props> {
 
   componentDidMount() {
     window.container = this.container
-    const eventsScrollWidth = this.container.scrollWidth - LEFT_BAR_WIDTH
+    // const eventsScrollWidth = this.container.scrollWidth - (isMobile()
+    //   ? LEFT_BAR_WIDTH_MOBILE : LEFT_BAR_WIDTH)
+    const eventsScrollWidth = 1040 - 18
     const containerHeight = this.container.clientHeight
     this.setState({eventsScrollWidth, containerHeight})
     console.log(eventsScrollWidth)
@@ -144,7 +149,6 @@ class RoomsTimetable extends Component<Props> {
               </div>
             </div>
             <div className={s.timetable}>
-              <EventTooltip />
               <CurrentTime
                 eventsScrollWidth={this.state.eventsScrollWidth}
                 containerHeight={this.state.containerHeight}
@@ -152,6 +156,7 @@ class RoomsTimetable extends Component<Props> {
               {ArrayFrom8AM.map(time => (
                 <div className={s.time}>{time}</div>
               ))}
+              <EventTooltip />
             </div>
             <div className={s.wrapper}>
               {this.renderRooms()}

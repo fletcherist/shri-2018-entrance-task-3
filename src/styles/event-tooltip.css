@@ -69,3 +69,27 @@
     margin-top: calc(var(--container-height) / 2 - 60px);
   }
 }
+
+@keyframes onShowAnimation {
+  from {
+    transform: translate(0, -5px);
+  } to {
+    transform: translate(0, 0px);
+  }
+}
+
+.isVisible {
+  animation-name: onShowAnimation;
+  animation-duration: .5s;
+  animation-iteration-count: 1;
+  visibility: visible;
+}
+
+.isHidden {
+  visibility: hidden;
+}
+
+
+.isContainerHidden {
+  height: 0px;
+}

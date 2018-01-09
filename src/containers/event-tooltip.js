@@ -1,5 +1,6 @@
 import { connect } from 'preact-redux'
 import EventTooltip from '../components/event-tooltip'
+import { hideModal } from '../actions/modals'
 
 const mapStateToProps = state => {
   const currentEvent = state.app.currentEvent
@@ -11,6 +12,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
+  hideModal: () => dispatch(hideModal('EventTooltip'))
   // createEvent: input => dispatch(createEvent(input))
 })
 

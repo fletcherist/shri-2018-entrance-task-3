@@ -5,8 +5,9 @@ import { getRecommendation } from '../utils/getRecommendation'
 
 const mapStateToProps = state => {
   const { rooms, users, events } = state
+  const recommendedRooms = getRecommendation(rooms, users, events)
   return {
-
+    recommendedRooms: recommendedRooms
   }
 }
 

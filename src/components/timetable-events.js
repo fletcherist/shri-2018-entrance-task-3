@@ -10,6 +10,7 @@ import {
   MINUTES_BETWEEN_8_AND_24
 } from '../utils'
 import { EMPTY_EVENT, REAL_EVENT } from '../actions/actionTypes'
+import s from '../styles/timetable-events.css'
 
 type timetableEventType = {
   width: number,
@@ -27,12 +28,13 @@ const timetableEventStyles = (state: timetableEventType) => {
     alignItems: 'center',
     justifyContent: 'center',
     height: '28px',
-    backgroundColor: isBooked
-      ? selected ? '#99A9B9' : 'rgba(213,223,233,1)'
-      : selected ? '#2F57F9' : 'white',
+    backgroundColor: isBooked ? '#99A9B9' : 'rgba(213,223,233,1)',
     borderRadius: (!isBooked && selected) ? '2px' : '0px',
     '@media (max-width: 500px) ': {
       height: '58px'
+    },
+    ':hover': {
+      backgroundColor: !isBooked ? '#2F57F9' : null
     }
   }
 }
@@ -45,9 +47,6 @@ const TimetableEvent = connect({
 })(class extends Component<TimetableEventProps> {
   constructor(props) {
     super(props)
-    this.state = {
-      isTooltipOpened: false
-    }
     this.handleClick = this.handleClick.bind(this)
   }
 
@@ -56,12 +55,6 @@ const TimetableEvent = connect({
       event, /* that is browser click event */
       this.props.event /* room event, sorry for that naming */
     )
-    console.log(this.props)
-    if (this.props.isBooked) {
-      this.setState({
-        isTooltipOpened: true
-      })
-    }
   }
 
   render({ styles, selected, isBooked, event }) {
@@ -69,7 +62,7 @@ const TimetableEvent = connect({
       <div className={styles.timetableEventStyles}
         onClick={this.handleClick}>
         {(!isBooked && selected) && (
-          <div>+</div>
+          <div className={s.notBookedEvent}>+</div>
         )}
       </div>
     )
@@ -100,7 +93,9 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
   handleEventClick(mouseEvent, roomEvent) {
     console.log('handleEventClick', mouseEvent, roomEvent)
     this.props.setCurrentEvent(roomEvent)
-    this.props.handleEventTooltipModal(mouseEvent)
+    setTimeout(() => {
+      this.props.handleEventTooltipModal(mouseEvent)
+    }, 50)
   }
 
   render({ styles, events }) {
@@ -115,7 +110,7 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
           <TimetableEvent
             width={durationInPixels}
             isBooked={false}
-            selected={true}
+            selected={false}
             onClick={this.handleEventClick}
           />
         </div>
@@ -138,7 +133,7 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
         <TimetableEvent
           width={durationInPixels}
           isBooked={event.type === REAL_EVENT}
-          selected={false}
+          selected={true}
           type={event.type}
           event={event}
           onClick={this.handleEventClick}

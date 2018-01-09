@@ -19,9 +19,6 @@ import BookRoom from './containers/book-room'
 
 import MainLayout from './containers/main-layout'
 
-import CreateEventConfirm from './containers/create-event-confirm'
-import RemoveEventConfirm from './containers/remove-event-confirm'
-
 import createStore from './createStore'
 
 const renderer = createRenderer()
@@ -66,18 +63,6 @@ const App = () => (
 const CreatePage = () => (
   <div>
     <BookRoom />
-  </div>
-)
-
-const Main = () => (
-  <div>
-    <ButtonCreateMeeting />
-    <ButtonCancel />
-    <div>
-      <a href='#/create'>create</a>
-      <br/>
-      <a href='#/timetable'>timetable</a>
-    </div>
   </div>
 )
 

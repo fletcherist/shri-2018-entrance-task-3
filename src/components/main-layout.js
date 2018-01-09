@@ -1,6 +1,10 @@
 import { h, Component } from 'preact'
 import RoomsTimetable from '../containers/rooms-timetable'
 import Spin from './spin'
+
+import CreateEventConfirm from '../containers/create-event-confirm'
+import RemoveEventConfirm from '../containers/remove-event-confirm'
+
 import s from '../styles/main-layout.css'
 
 import {
@@ -35,6 +39,8 @@ class MainLayout extends Component {
     return (
       <div>
         {this.renderContainer()}
+        <CreateEventConfirm />
+        <RemoveEventConfirm />
       </div>
     )
   }

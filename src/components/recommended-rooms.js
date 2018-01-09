@@ -1,28 +1,32 @@
+// @flow
+
 import { h, Component } from 'preact'
 import RecommendedRoom from './recommended-room'
 
-class RecommendedRooms extends Component {
+type Props = {
+  recommendedRooms: Array<Object>
+};
+
+const formatMinutes = minutes => minutes >= 10
+  ? minutes
+  : `0${minutes}`
+const formatTime = (time) => [time.getHours(), formatMinutes(time.getMinutes())].join(':')
+class RecommendedRooms extends Component<Props> {
+  renderRooms() {
+    return this.props.recommendedRooms.map(room => {
+      console.log(room)
+      return <RecommendedRoom
+        floor={room.floor}
+        // timeStart={formatTime(room.dateStart)}
+        // timeEnd={formatTime(room.dateEnd)}
+        name={room.title}
+      />
+    })
+  }
   render() {
     return (
       <div>
-        <RecommendedRoom
-          floor='4'
-          timeStart='16:00'
-          timeEnd='16:30'
-          name='Готем'
-        />
-        <RecommendedRoom
-          floor='4'
-          timeStart='16:00'
-          timeEnd='16:30'
-          name='Готем'
-        />
-        <RecommendedRoom
-          floor='4'
-          timeStart='16:00'
-          timeEnd='16:30'
-          name='Готем'
-        />
+        {this.renderRooms()}
       </div>
     )
   }

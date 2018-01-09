@@ -1,4 +1,4 @@
-import { put, call, fork, takeEvery } from 'redux-saga/effects'
+import { put, call, fork, takeEvery, select } from 'redux-saga/effects'
 import {
   handleEventTooltipModal,
   setModalData,
@@ -12,6 +12,11 @@ export default function * modalsSaga() {
   yield takeEvery(handleEventTooltipModal().type, function * (action) {
     const clickedElement = action.payload.target
 
+    const previousClickedElement = yield select(state => state.modals.EventTooltip.data.targetElement)
+    if (!previousClickedElement) {
+      
+    }
+
     const elementCoordinates = getRelativeCoordinates(clickedElement)
     const elementProperties = clickedElement.getBoundingClientRect()
 
@@ -23,7 +28,8 @@ export default function * modalsSaga() {
         x: elementCoordinates.x,
         y: elementCoordinates.y,
         width: elementProperties.width,
-        height: elementProperties.height
+        height: elementProperties.height,
+        targetElement: clickedElement.outerHTML
       }
     }))
 

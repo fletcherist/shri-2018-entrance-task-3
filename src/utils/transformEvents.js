@@ -9,7 +9,7 @@ export const getEventDurationInMinutes =
     (endTime - startTime) / 1000 / 60
 export const getEventDurationInPixels =
   (eventDurationInMinutes: number, eventsScrollWidth: number) =>
-    eventDurationInMinutes * eventsScrollWidth / MINUTES_BETWEEN_8_AND_24
+    Math.round(eventDurationInMinutes * eventsScrollWidth / MINUTES_BETWEEN_8_AND_24)
 
 export const sortEventsByDate = events => sort(
   (event1, event2) =>
@@ -69,6 +69,18 @@ export function transformEvents(events) {
     if (index === events.length - 1) {
       /* e.g 26.12.2017 0:00 */
       const dayEnding = getDayEnding(dateStart)
+      let nextHour = getNextHour(dateStart)
+
+      // ??? Bad code
+
+      // while (nextHour < dayEnding) {
+      //   newEvents.push({
+      //     type: EMPTY_EVENT,
+      //     dateStart: nextHour,
+      //     dateEnd: getNextHour(nextHour)
+      //   })
+      //   nextHour = getNextHour(nextHour)
+      // }
       if (dateEnd < dayEnding) {
         newEvents.push({
           type: EMPTY_EVENT,
@@ -95,6 +107,14 @@ export function getDayEnding(date) {
   newDate.setMinutes(0)
   newDate.setSeconds(0)
   newDate.setDate(newDate.getDate() + 1)
+  return newDate
+}
+
+export function getNextHour(date) {
+  const newDate = new Date(date)
+  newDate.setHours(newDate.getHours() + 1)
+  newDate.setMinutes(0)
+  newDate.setSeconds(0)
   return newDate
 }
 

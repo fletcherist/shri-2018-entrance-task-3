@@ -1,0 +1,8 @@
+.notBookedEvent {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.notBookedEvent:hover {
+  opacity: 1;
+}
