@@ -12,6 +12,7 @@
   grid-template-columns: 245px auto;
   max-width: 100vw;
   min-width: 100vw;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .dateSwitcher {
@@ -53,12 +54,17 @@
   min-width: 49px;
   /*padding: 9px 0px 10px 0;*/
   font-size: 11px;
-  color: #858E98;
+  color: black;
   letter-spacing: 0.4px;
+  transform: translate(10px, 0);
 }
 
 .time:nth-child(2) {
   opacity: 0;
+}
+
+.timeInactive {
+  color: #858E98;
 }
 
 .eventsArea::before {

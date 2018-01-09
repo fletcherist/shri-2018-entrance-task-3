@@ -18,13 +18,38 @@ import Spin from './spin'
 import { isMobile } from '../utils'
 
 import s from '../styles/rooms-timetable.css'
+import cx from 'classnames'
 
 import { range, compose, prepend, toString, map, append } from 'ramda'
+
+const throttle = (ms, func) => {
+  let wait = false,
+    savedThis,
+    savedArgs
+
+  return function wrapper() {
+    if (wait) {
+      savedThis = this
+      savedArgs = arguments
+      return
+    }
+
+    func.apply(this, arguments)
+    wait = true
+
+    setTimeout(() => {
+      wait = false
+      wrapper.apply(savedThis, savedArgs)
+    }, ms)
+  }
+}
 
 const ArrayFrom8AM = compose(
   prepend('8:00'),
   map(toString))(range(9, 24)
 )
+
+const NUMBERS_FROM_8AM = range(8, 24)
 
 const LEFT_BAR_WIDTH = 260
 const LEFT_BAR_WIDTH_MOBILE = 194
@@ -66,7 +91,7 @@ type Props = {
 class RoomsTimetable extends Component<Props> {
   constructor() {
     super()
-    this.handleScroll = this.handleScroll.bind(this)
+    this.handleScroll = throttle(1000, this.handleScroll.bind(this))
     this.state = {
       isRoomsCollapsed: false,
       eventsScrollWidth: 0,
@@ -81,6 +106,7 @@ class RoomsTimetable extends Component<Props> {
   }
 
   handleScroll(event) {
+    console.log('handling scroll')
     window.requestAnimationFrame(() => {
       if (this.container.scrollLeft > 170 && !this.state.isRoomsCollapsed) {
         this.toggleRoomsCollapsed()
@@ -88,7 +114,6 @@ class RoomsTimetable extends Component<Props> {
       if (this.container.scrollLeft < 170 && this.state.isRoomsCollapsed) {
         this.toggleRoomsCollapsed()
       }
-      this.blocks.style.transform = `translate(${-this.container.scrollLeft}px, 0px)`
     })
   }
 
@@ -123,8 +148,6 @@ class RoomsTimetable extends Component<Props> {
 
   componentDidMount() {
     window.container = this.container
-    // const eventsScrollWidth = this.container.scrollWidth - (isMobile()
-    //   ? LEFT_BAR_WIDTH_MOBILE : LEFT_BAR_WIDTH)
     const eventsScrollWidth = 1040 - 18
     const containerHeight = this.container.clientHeight
     this.setState({eventsScrollWidth, containerHeight})
@@ -142,7 +165,8 @@ class RoomsTimetable extends Component<Props> {
             <DateSwitcher />
           </div>
           <div className={s.container}
-            ref={(ref) => this.container = ref}>
+            ref={(ref) => this.container = ref}
+            onScroll={this.handleScroll}>
             <div className={s.dateSwitcher}>
               <div className={s.dateSwitcherMobileInner}>
                 <DateSwitcher />
@@ -153,8 +177,11 @@ class RoomsTimetable extends Component<Props> {
                 eventsScrollWidth={this.state.eventsScrollWidth}
                 containerHeight={this.state.containerHeight}
               />
-              {ArrayFrom8AM.map(time => (
-                <div className={s.time}>{time}</div>
+              {ArrayFrom8AM.map((time, index) => (
+                <div className={cx({
+                  [s.time]: true,
+                  [s.timeInactive]: new Date().getHours() > NUMBERS_FROM_8AM[index]
+                })}>{time}</div>
               ))}
               <EventTooltip />
             </div>

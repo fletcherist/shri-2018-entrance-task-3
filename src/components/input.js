@@ -42,8 +42,6 @@ const Input = connect({
           </TextLabel>
         </div>
       )}
-
-        
       <input className={styles.inputRule} placeholder={placeholder} value={value}
         onInput={onInput} onClick={onClick} ref={ref} onFocusOut={onFocusOut}
         onFocus={onFocus} />

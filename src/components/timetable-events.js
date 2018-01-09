@@ -28,13 +28,17 @@ const timetableEventStyles = (state: timetableEventType) => {
     alignItems: 'center',
     justifyContent: 'center',
     height: '28px',
-    backgroundColor: isBooked ? '#99A9B9' : 'rgba(213,223,233,1)',
+    color: 'transparent',
+    cursor: 'pointer',
+    backgroundColor: isBooked ? 'rgba(213,223,233,1)' : 'white',
     borderRadius: (!isBooked && selected) ? '2px' : '0px',
+    transition: 'background-color .1s',
     '@media (max-width: 500px) ': {
       height: '58px'
     },
     ':hover': {
-      backgroundColor: !isBooked ? '#2F57F9' : null
+      backgroundColor: isBooked ? '#99A9B9' : '#2F57F9',
+      color: 'white'
     }
   }
 }
@@ -62,7 +66,7 @@ const TimetableEvent = connect({
       <div className={styles.timetableEventStyles}
         onClick={this.handleClick}>
         {(!isBooked && selected) && (
-          <div className={s.notBookedEvent}>+</div>
+          '+'
         )}
       </div>
     )
@@ -70,9 +74,7 @@ const TimetableEvent = connect({
 })
 
 const timetableEventsContainerStyles = state => ({
-  display: 'flex',
-  // paddingLeft: '14px',
-  maxWidth: '1120px'
+  display: 'flex'
 })
 
 type TimetableEventsProps = {
@@ -110,7 +112,7 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
           <TimetableEvent
             width={durationInPixels}
             isBooked={false}
-            selected={false}
+            selected={true}
             onClick={this.handleEventClick}
           />
         </div>

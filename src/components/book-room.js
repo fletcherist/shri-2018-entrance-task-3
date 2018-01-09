@@ -32,7 +32,7 @@ const BookRoom = connect({
         title: '123',
         date: '2017-10-10',
         timeStart: '13:00',
-        timeEnd: '13:30',
+        timeEnd: '13:30'
       },
       usersIds: [],
       isReadyForCreating: false
