@@ -1,0 +1,13 @@
+.footer {
+  text-align: right;
+  line-height: 2rem;
+  color: rgba(0, 0, 0, .2);
+  padding: 10px;
+  padding-right: 30px;
+  font-size: 13px;
+}
+
+.footer a {
+  color: #0070E0;
+  text-decoration: none;
+}

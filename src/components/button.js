@@ -12,18 +12,17 @@ const rule = (state) => {
     padding: '5px 10px',
     backgroundColor: normal,
     cursor: 'pointer',
-    height: '44px',
+    height: '36px',
     width: width
       ? `${width}px`
       : type === 'create' ? '172px' : '103px',
-    fontSize: '15px',
+    fontSize: '13px',
     borderRadius: '5px',
     color: type === 'create'
       ? !state.disabled ? 'white' : '#3300000'
       : !state.disabled ? 'black' : '#3300000',
     border: 0,
     ':hover': {
-      // boxShadow: '0 0 2px rgb(70, 70, 70)'
     },
     ':disabled': {
       background: disabled
@@ -31,6 +30,10 @@ const rule = (state) => {
     ':focus': {
       backgroundColor: pressed,
       outline: 'rgba(0, 0, 0, 1)'
+    },
+    '@media (max-width: 700px)': {
+      height: '44px',
+      fontSize: '15px'
     }
   }
 }

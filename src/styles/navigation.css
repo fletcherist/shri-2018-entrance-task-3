@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  padding: 15.8px 20.5px 11.3px;
+  align-items: center;
+}
+
+.createMeetingBtn {
+  margin-left: auto;
+  /*justify-content: flex-end;*/
+}

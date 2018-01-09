@@ -9,7 +9,7 @@ export const getEventDurationInMinutes =
     (endTime - startTime) / 1000 / 60
 export const getEventDurationInPixels =
   (eventDurationInMinutes: number, eventsScrollWidth: number) =>
-    Math.round(eventDurationInMinutes * eventsScrollWidth / MINUTES_BETWEEN_8_AND_24)
+    eventDurationInMinutes * eventsScrollWidth / MINUTES_BETWEEN_8_AND_24
 
 export const sortEventsByDate = events => sort(
   (event1, event2) =>

@@ -1,6 +1,7 @@
 import { h, Component } from 'preact'
 import RoomsTimetable from '../containers/rooms-timetable'
 import Spin from './spin'
+import Navigation from './navigation'
 
 import CreateEventConfirm from '../containers/create-event-confirm'
 import RemoveEventConfirm from '../containers/remove-event-confirm'
@@ -38,6 +39,7 @@ class MainLayout extends Component {
   render() {
     return (
       <div>
+        <Navigation withCreateEventButton />
         {this.renderContainer()}
         <CreateEventConfirm />
         <RemoveEventConfirm />

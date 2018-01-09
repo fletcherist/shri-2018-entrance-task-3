@@ -1,27 +1,38 @@
+// @flow
+
 import { h } from 'preact'
 import YandexLogo from '../assets/logo.svg'
-import { connect } from 'preact-fela'
 import Divider from './divider'
+import s from '../styles/navigation.css'
+import { ButtonCreateMeeting } from './button'
+import { isMobile } from '../utils'
 
-const style = state => {
-  return {
-    padding: '15.8px 20.5px 11.3px'
-  }
+type propTypes = {
+  withCreateEventButton: boolean
+};
+const Navigation = (props: propTypes) => {
+  console.log(props)
+  return (
+    <div>
+      <nav className={s.container}>
+        <div>
+          <a href='#/'>
+            <img src={`dist/${YandexLogo}`}
+              aria-label='Яндекс.Переговорки'
+              title='Яндекс.Переговорки' />
+          </a>
+        </div>
+        {props.withCreateEventButton && !isMobile() && (
+          <div className={s.createMeetingBtn}>
+            <a href='#/create'>
+              <ButtonCreateMeeting />
+            </a>
+          </div>
+        )}
+      </nav>
+      <Divider />
+    </div>
+  )
 }
 
-const Navigation = ({styles}) => (
-  <div>
-    <nav className={styles.style}>
-      <a href='#/'>
-        <img src={`dist/${YandexLogo}`}
-          aria-label='Яндекс.Переговорки'
-          title='Яндекс.Переговорки' />
-      </a>
-    </nav>
-    <Divider />
-  </div>
-)
-
-export default connect({
-  style
-})(Navigation)
+export default Navigation
