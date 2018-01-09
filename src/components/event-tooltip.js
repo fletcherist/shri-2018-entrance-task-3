@@ -15,7 +15,8 @@ type Props = {
   targetElementData: Object,
   isVisible: boolean,
   event: Object,
-  hideModal: Function
+  hideModal: Function,
+  editEvent: Function
 };
 class EventTooltip extends Component<Props> {
   componentDidMount() {
@@ -35,8 +36,9 @@ class EventTooltip extends Component<Props> {
     })
   }
 
-  handleClickOutside() {
-
+  handleEditButtonClick() {
+    this.props.editEvent()
+    window.location.hash = '#/create'
   }
 
   renderInnerData() {
@@ -44,13 +46,14 @@ class EventTooltip extends Component<Props> {
     if (!event.room) {
       return null
     }
+    if (event.users.length === 0) return null
     return (
       <div className={cx({
         [s.wrapper]: true,
         [s.isVisible]: this.props.isVisible,
         [s.isHidden]: !this.props.isVisible
       })}>
-        <div className={s.editButton}>
+        <div className={s.editButton} onClick={() => this.handleEditButtonClick()}>
           <img src={`dist/${EditIcon}`} />
         </div>
         <TextHeadline marginTop={8} marginBottom={8}>{event.title}</TextHeadline>

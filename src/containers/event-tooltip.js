@@ -2,6 +2,11 @@ import { connect } from 'preact-redux'
 import EventTooltip from '../components/event-tooltip'
 import { hideModal } from '../actions/modals'
 
+import { setBookingRoomType } from '../actions/app'
+import {
+  BOOKING_ROOM_TYPE_EDITING
+} from '../actions/actionTypes'
+
 const mapStateToProps = state => {
   const currentEvent = state.app.currentEvent
   return {
@@ -12,8 +17,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  hideModal: () => dispatch(hideModal('EventTooltip'))
-  // createEvent: input => dispatch(createEvent(input))
+  hideModal: () => dispatch(hideModal('EventTooltip')),
+  editEvent: () => dispatch(setBookingRoomType(BOOKING_ROOM_TYPE_EDITING))
 })
 
 export default connect(

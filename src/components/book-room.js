@@ -1,7 +1,6 @@
 // @flow
 
 import { h, Component } from 'preact'
-import { connect } from 'preact-fela'
 import { merge } from 'ramda'
 import Button, { ButtonCreateMeeting, ButtonCancel } from './button'
 import { BigDivider, EmptyDivider } from './divider'
@@ -12,25 +11,43 @@ import { formatDateTime, isMobile } from '../utils'
 import AutocompleteUsers from '../containers/autocomplete-users'
 import RecommendedRooms from '../containers/recommended-rooms'
 
-import cx from 'classnames'
+import {
+  BOOKING_ROOM_TYPE_EDITING,
+  BOOKING_ROOM_TYPE_CREATING
+} from '../actions/actionTypes'
 
+import cx from 'classnames'
 import s from '../styles/book-room.css'
+
+import type { appBookingRoomType } from '../actions/app'
 
 type Props = {
   createEvent: Function,
-  handleTitleInput: Function
+  handleTitleInput: Function,
+  currentEvent: Object,
+  bookingRoomType: appBookingRoomType
 };
 
-const BookRoom = connect({
+const formatMonthMinutes = time => time >= 10
+  ? time
+  : `0${time}`
 
-})
-(class BookRoom extends Component<Props> {
-  constructor() {
-    super()
+const convertDateToInputDatetime = date =>
+  [
+    date.getFullYear(),
+    formatMonthMinutes(date.getMonth() + 1),
+    formatMonthMinutes(date.getDate())
+  ].join('-')
+  // year-month-date
+
+class BookRoom extends Component<Props> {
+  constructor(props) {
+    super(props)
+    console.log('lol', convertDateToInputDatetime(props.currentEvent.dateStart))
     this.state = {
       values: {
-        title: '123',
-        date: '2017-10-10',
+        title: props.currentEvent.title || '',
+        date: convertDateToInputDatetime(props.currentEvent.dateStart),
         timeStart: '13:00',
         timeEnd: '13:30'
       },
@@ -121,7 +138,9 @@ const BookRoom = connect({
           </div>
           <div className={s.infoBlock__participants}>
             <div className={s.content}>
-              <AutocompleteUsers setParticipants={this.setParticipants} />
+              <AutocompleteUsers
+                setParticipants={this.setParticipants}
+              />
             </div>
             <div className={s.mobileDivider}><BigDivider /></div>
           </div>
@@ -145,6 +164,6 @@ const BookRoom = connect({
       </div>
     )
   }
-})
+}
 
 export default BookRoom

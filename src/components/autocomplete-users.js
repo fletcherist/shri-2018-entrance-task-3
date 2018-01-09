@@ -1,7 +1,7 @@
 // @flow
 import { h, Component } from 'preact'
 import fuzzysearch from 'fuzzysearch'
-import { filter, uniq } from 'ramda'
+import { filter, uniq, merge } from 'ramda'
 import Input from './input'
 import User, { UserSelect, UserParticipant } from './user'
 
@@ -10,6 +10,7 @@ import s from '../styles/autocomplete-users.css'
 type Props = {
   users: Object,
   usersArray: Array<Object>,
+  initialParticipants: Array<Object>,
   setParticipants: Function
 };
 
@@ -25,9 +26,11 @@ const filterUsersByAlreadySelected =
   (users: array, alreadySelectedUsers: array) =>
     users.filter(user => !alreadySelectedUsers.includes(user.id))
 
+const setInitialUsers = (users) => users.map(user => user.id)
+
 class AutocompleteUsers extends Component<Props> {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.handleInputFocus = this.handleInputFocus.bind(this)
     this.handleInputFocusOut = this.handleInputFocusOut.bind(this)
     this.handleInput = this.handleInput.bind(this)
@@ -37,7 +40,7 @@ class AutocompleteUsers extends Component<Props> {
     this.state = {
       clickedOnInput: false,
       searchQuery: '',
-      selectedUsers: []
+      selectedUsers: [...setInitialUsers(this.props.initialParticipants)]
     }
   }
 

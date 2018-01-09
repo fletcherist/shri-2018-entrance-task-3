@@ -5,7 +5,8 @@ const mapStateTopProps = state => {
   const usersArray = Object.values(state.users)
   return {
     users: state.users,
-    usersArray: usersArray
+    usersArray: usersArray,
+    initialParticipants: state.app.currentEvent.users
   }
 }
 

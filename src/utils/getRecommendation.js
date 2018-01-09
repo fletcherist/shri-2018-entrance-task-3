@@ -323,7 +323,6 @@ export function getRecommendation(
   const roomsIndexes = sortEffects
     .map(sortEffect => sortEffect(rooms))
     .map(createRoomsIndexes)
-  console.log(roomsIndexes)
 
   const sortedRoomsIndexes = compose(
     sortRoomsIndexes,

@@ -5,11 +5,18 @@ import { showModal, setModalData } from '../actions/modals'
 import { fetchUsers } from '../actions/users'
 import { fetchRooms } from '../actions/rooms'
 
-import { setAppStatus } from '../actions/app'
+import {
+  setAppStatus,
+  resetCurrentEvent,
+  setBookingRoomType
+} from '../actions/app'
 import {
   APP_STATUS_LOADING,
   APP_STATUS_LOADED,
-  APP_STATUS_FETCHING_FAILED
+  APP_STATUS_FETCHING_FAILED,
+
+  BOOKING_ROOM_TYPE_EDITING,
+  BOOKING_ROOM_TYPE_CREATING
 } from '../actions/actionTypes'
 
 import eventsSaga from './eventsSaga'
@@ -39,7 +46,12 @@ function * roomsSaga() {
 }
 
 function * appSaga() {
-
+  yield takeEvery(setBookingRoomType().type, function * (action) {
+    console.log(action)
+    if (action.payload === BOOKING_ROOM_TYPE_CREATING) {
+      yield put(resetCurrentEvent())
+    }
+  })
 }
 
 function * mainSaga() {

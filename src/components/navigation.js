@@ -4,8 +4,9 @@ import { h } from 'preact'
 import YandexLogo from '../assets/logo.svg'
 import Divider from './divider'
 import s from '../styles/navigation.css'
-import { ButtonCreateMeeting } from './button'
 import { isMobile } from '../utils'
+
+import CreateEventButton from '../containers/create-event-button'
 
 type propTypes = {
   withCreateEventButton: boolean
@@ -25,7 +26,7 @@ const Navigation = (props: propTypes) => {
         {props.withCreateEventButton && !isMobile() && (
           <div className={s.createMeetingBtn}>
             <a href='#/create'>
-              <ButtonCreateMeeting />
+              <CreateEventButton />
             </a>
           </div>
         )}

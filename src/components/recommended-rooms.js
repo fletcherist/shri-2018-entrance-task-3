@@ -14,7 +14,6 @@ const formatTime = (time) => [time.getHours(), formatMinutes(time.getMinutes())]
 class RecommendedRooms extends Component<Props> {
   renderRooms() {
     return this.props.recommendedRooms.map(room => {
-      console.log(room)
       return <RecommendedRoom
         floor={room.floor}
         // timeStart={formatTime(room.dateStart)}
