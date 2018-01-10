@@ -14,6 +14,7 @@
 * `preact-redux` мост.
 * `preact-router`
 * `ramda` — фп, куда же без него в 2018.
+* `css com`
 
 
 > Стоит отметить, что заиспользовать новые хипстерские штуки было довольно опрометчивой идеей: в `parcel` на тот момент не работал `import .css`, а `preact-fela` вообще не собирался, так что пришлось закинуть им `PR` с фиксом. В этот раз я решил не использовать `boilerplate`, а собирал архитектуру руками.
@@ -34,18 +35,41 @@
 
 На десктопах рабочий день начинается с девяти. На мобильных — с восьми.
 
+## Компоненты
+  Я разберу самые интересные.
+
 ### event-tooltip
-[component](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/components/event-tooltip.js)
-[container](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/containers/event-tooltip.js)
-[управление поведением](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/sagas/modalsSaga.js#L12)
++ [component](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/components/event-tooltip.js)
++ [container](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/containers/event-tooltip.js)
++ [управление поведением](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/sagas/modalsSaga.js#L12)
 
 Наверное, самый сложный элемент интерфейса. Я делал такой первый раз.
 
-#### как
+#### Как
+
 На каждое событие не свой отдельный `event-tooltip`, а он один на всё приложение. При клике на событие вычисляет абсолютные координаты ивента на сетке, и вычисляет такое положение тултипа, чтобы он всегда оказывался посередине ивента (см. гифку).
 
-#### почему
-Использование данного подхода было оправдано тем, что вариант, где много на каждое событие своя модалка некорректно отображался на пересечении со списком комнат (транзитивно: `z-index` `списка` > `диаграммы`, поэтому всё, что находится в диаграмме, будет находиться за списком, сколько бы девяток мы там не писали)
+#### Почему
+
+Использование данного подхода было оправдано тем, что вариант, где много на каждое событие своя модалка некорректно отображался на пересечении со списком комнат (транзитивно: `z-index` `списка` **>** `диаграммы`, поэтому всё, что находится в диаграмме, будет находиться **за списком**, сколько бы девяток мы там не писали)
+
+
+<img height=300 src='https://i.imgur.com/7RBHJGn.gif'/>
+
+
+### datepicker
++ [component](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/components/date-switcher.js)
+
++ [формат даты](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/utils/formatTimeIntoDateSwitcher.js)
+
+#### Почему
+
+Я намеренно использовал здесь нативный календарь, чтобы показать, что мы должны пользоваться нативными браузерными средствами, потому что они ничуть не хуже кастомных, а даже лучше, отзывчивее и доступнее.
+
+
+<img height=300 src='https://i.imgur.com/tOeZsRo.gif'/>
+
+
 
 
 

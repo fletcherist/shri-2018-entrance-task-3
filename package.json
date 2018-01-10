@@ -42,7 +42,6 @@
     "postcss-modules": "^1.1.0",
     "preact": "^8.2.7",
     "preact-compat": "^3.17.0",
-    "preact-datepicker": "^0.1.0",
     "preact-fela": "^6.2.1",
     "preact-redux": "^2.0.3",
     "preact-router": "^2.6.0",
