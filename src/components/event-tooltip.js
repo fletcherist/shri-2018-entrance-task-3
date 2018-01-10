@@ -28,7 +28,7 @@ class EventTooltip extends Component<Props> {
       if (!this.props.isVisible) return false
 
       /* check for click for event-tooltip */
-      if (this.eventTooltipDOM.contains(event.target)) {
+      if (this.eventTooltipDOM && this.eventTooltipDOM.contains(event.target)) {
         return
       } else {
         this.props.hideModal()
