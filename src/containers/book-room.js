@@ -1,5 +1,5 @@
 import { connect } from 'preact-redux'
-import { createEvent } from '../actions/events'
+import { createEvent, editEvent } from '../actions/events'
 import BookRoom from '../components/book-room'
 
 const mapStateToProps = (state) => {
@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  createEvent: input => dispatch(createEvent(input))
+  createEvent: input => dispatch(createEvent(input)),
+  editEvent: input => dispatch(editEvent(input))
 })
 
 export default connect(

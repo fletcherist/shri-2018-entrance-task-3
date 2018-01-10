@@ -127,10 +127,6 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
       const durationInPixels =
         getEventDurationInPixels(eventDuration, this.props.eventsScrollWidth)
 
-      // console.log('room id', event.room)
-      // console.log('eventDuration', eventDuration)
-      // console.log('from', dateStart.getHours(), dateStart.getMinutes())
-      // console.log('till', dateEnd.getHours(), dateEnd.getMinutes())
       return (
         <TimetableEvent
           width={durationInPixels}

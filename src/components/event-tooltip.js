@@ -36,6 +36,11 @@ class EventTooltip extends Component<Props> {
     })
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('click', this.listener)
+    this.listener = null
+  }
+
   handleEditButtonClick() {
     this.props.editEvent()
     window.location.hash = '#/create'

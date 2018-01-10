@@ -108,6 +108,7 @@ class RoomsTimetable extends Component<Props> {
   handleScroll(event) {
     console.log('handling scroll')
     window.requestAnimationFrame(() => {
+      if (!this.container) return false
       if (this.container.scrollLeft > 170 && !this.state.isRoomsCollapsed) {
         this.toggleRoomsCollapsed()
       }

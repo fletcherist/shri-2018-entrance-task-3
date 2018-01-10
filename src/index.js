@@ -19,6 +19,7 @@ import BookRoom from './containers/book-room'
 import Footer from './components/footer'
 
 import MainLayout from './containers/main-layout'
+import BookRoomLayout from './components/book-room-layout'
 
 import createStore from './createStore'
 
@@ -51,20 +52,13 @@ const App = () => (
             <Router history={createHashHistory()}>
               <MainLayout path='/' />
               <MainLayout path='/timetable' />
-              <CreatePage path='/create' />
+              <BookRoomLayout path='/create' />
             </Router>
             <Footer />
           </div>
         </ThemeProvider>
       </FelaProvider>
     </Provider>
-  </div>
-)
-
-const CreatePage = () => (
-  <div>
-    <Navigation />
-    <BookRoom />
   </div>
 )
 

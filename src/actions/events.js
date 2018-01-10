@@ -1,6 +1,7 @@
 import {
   FETCH_EVENTS,
-  CREATE_EVENT
+  CREATE_EVENT,
+  EDIT_EVENT
 } from './actionTypes'
 
 export const fetchEvents = (events) => ({
@@ -10,5 +11,10 @@ export const fetchEvents = (events) => ({
 
 export const createEvent = (input) => ({
   type: CREATE_EVENT,
+  payload: input
+})
+
+export const editEvent = input => ({
+  type: EDIT_EVENT,
   payload: input
 })

@@ -2,7 +2,7 @@
 
 import { put, call, fork, takeEvery } from 'redux-saga/effects'
 import { showModal, setModalData } from '../actions/modals'
-import { fetchEvents, createEvent } from '../actions/events'
+import { fetchEvents, createEvent, editEvent } from '../actions/events'
 import { setAppStatus } from '../actions/app'
 import {
   APP_STATUS_LOADING,
@@ -48,5 +48,9 @@ export default function * eventsSaga() {
     } catch (error) {
       throw new Error(error)
     }
+  })
+
+  yield takeEvery(editEvent().type, function * (action) {
+    console.log('editing event', action)
   })
 }

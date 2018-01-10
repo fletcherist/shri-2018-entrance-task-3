@@ -19,41 +19,58 @@ import {
 import cx from 'classnames'
 import s from '../styles/book-room.css'
 
+import {
+  formatMinutes,
+  formatHours,
+  formatMonths,
+  formatDate
+} from '../utils/formatTimeIntoEventTooltip'
+
 import type { appBookingRoomType } from '../actions/app'
 
 type Props = {
   createEvent: Function,
+  editEvent: Function,
   handleTitleInput: Function,
   currentEvent: Object,
   bookingRoomType: appBookingRoomType
 };
 
-const formatMonthMinutes = time => time >= 10
-  ? time
-  : `0${time}`
-
 const convertDateToInputDatetime = date =>
   [
     date.getFullYear(),
-    formatMonthMinutes(date.getMonth() + 1),
-    formatMonthMinutes(date.getDate())
+    formatMonths(date.getMonth() + 1),
+    formatDate(date.getDate())
   ].join('-')
   // year-month-date
+const convertHoursMinutesToInputDatetime = time =>
+  [time.getHours(), formatMinutes(time.getMinutes())].join(':')
+
+const getDateEndTypeCreating = time => {
+  const newDate = new Date(time)
+  newDate.setHours(newDate.getHours() + 1)
+  return convertHoursMinutesToInputDatetime(newDate)
+}
 
 class BookRoom extends Component<Props> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
     console.log('lol', convertDateToInputDatetime(props.currentEvent.dateStart))
     this.state = {
       values: {
         title: props.currentEvent.title || '',
         date: convertDateToInputDatetime(props.currentEvent.dateStart),
-        timeStart: '13:00',
-        timeEnd: '13:30'
+        timeStart: convertHoursMinutesToInputDatetime(props.currentEvent.dateStart),
+        timeEnd: convertHoursMinutesToInputDatetime(props.currentEvent.dateEnd)
       },
       usersIds: [],
       isReadyForCreating: false
     }
+
+    this.state.values.timeEnd = props.bookingRoomType === BOOKING_ROOM_TYPE_CREATING
+      ? getDateEndTypeCreating(props.currentEvent.dateEnd)
+      : convertHoursMinutesToInputDatetime(props.currentEvent.dateEnd)
+
     this.handleTitleInput = this.handleTitleInput.bind(this)
     this.handleDateInput = this.handleDateInput.bind(this)
     this.handleTimeStartInput = this.handleTimeStartInput.bind(this)
@@ -84,27 +101,40 @@ class BookRoom extends Component<Props> {
 
   handleSubmit() {
     const { title, timeStart, timeEnd, date } = this.state.values
-    this.props.createEvent({
-      title: title,
-      dateStart: formatDateTime(date, timeStart),
-      dateEnd: formatDateTime(date, timeEnd),
-      usersIds: this.state.usersIds
-    })
+
+    if (this.props.bookingRoomType === BOOKING_ROOM_TYPE_CREATING) {
+      this.props.createEvent({
+        title: title,
+        dateStart: formatDateTime(date, timeStart),
+        dateEnd: formatDateTime(date, timeEnd),
+        usersIds: this.state.usersIds
+      })
+    } else if (this.props.bookingRoomType === BOOKING_ROOM_TYPE_EDITING) {
+      this.props.editEvent({
+        title: title,
+        dateStart: formatDateTime(date, timeStart),
+        dateEnd: formatDateTime(date, timeEnd),
+        usersIds: this.state.usersIds
+      })
+    }
   }
 
   setParticipants(participants) {
-    console.log('setting participants', participants)
     this.setState({
       usersIds: participants
     })
   }
+
 
   render() {
     const { title, date, timeStart, timeEnd } = this.state.values
     return (
       <div>
         <div className={s.headline}>
-          <TextHeadline>Новая встреча</TextHeadline>
+          <TextHeadline>
+            {this.props.bookingRoomType === BOOKING_ROOM_TYPE_CREATING && 'Новая встреча'}
+            {this.props.bookingRoomType === BOOKING_ROOM_TYPE_EDITING && 'Редактирование встречи'}
+          </TextHeadline>
         </div>
         <div className={s.container}>
           <div className={s.infoBlock__title}>
@@ -119,7 +149,6 @@ class BookRoom extends Component<Props> {
             <div className={cx(s.content, s.infoBlock__datetime_wrapper)}>
               <DateInput label='Дата и время' value={date}
                 onInput={this.handleDateInput} />
-              {/*<EmptyDivider height={8} />*/}
               <div className={s.timeInput}>
                 <Input onInput={this.handleTimeStartInput}
                   label='Начало'
@@ -153,14 +182,14 @@ class BookRoom extends Component<Props> {
           </div>
         </div>
         <div className={s.footer}>
-            <div className={s.footerNotification}>Выберите переговорку</div>
-            <div className={s.footerCreateRoom}>
-              <div className={s.footerCreateRommWrapper}>
-                <ButtonCreateMeeting disabled={!this.state.isReadyForCreating}
-                  onClick={this.handleSubmit} />
-              </div>
+          <div className={s.footerNotification}>Выберите переговорку</div>
+          <div className={s.footerCreateRoom}>
+            <div className={s.footerCreateRommWrapper}>
+              <ButtonCreateMeeting disabled={!this.state.isReadyForCreating}
+                onClick={this.handleSubmit} />
             </div>
           </div>
+        </div>
       </div>
     )
   }

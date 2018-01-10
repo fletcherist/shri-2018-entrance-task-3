@@ -4,6 +4,15 @@ const MONTHS = [
   'июля', 'августа', 'сентября',
   'октября', 'ноября', 'декабря'
 ]
+
+export const formatMinutes = time => time >= 10
+  ? time
+  : `0${time}`
+
+export const formatHours = formatMinutes
+export const formatMonths = formatMinutes
+export const formatDate = formatMinutes
+
 export function formatTimeIntoEventTooltip(dateStart, dateEnd) {
   console.log(dateStart)
   const newDateStart = new Date(dateStart)
@@ -11,6 +20,6 @@ export function formatTimeIntoEventTooltip(dateStart, dateEnd) {
   return [
     newDateStart.getDate(),
     `${MONTHS[newDateStart.getMonth()]},`,
-    `${newDateStart.getHours()}:00—${newDateEnd.getHours()}:00`
+    `${newDateStart.getHours()}:${formatMinutes(newDateStart.getMinutes())}—${newDateEnd.getHours()}:${formatHours(newDateEnd.getMinutes())}`
   ].join(' ')
 }
