@@ -1,7 +1,5 @@
 # Яндекс.Переговорки
 
-----------------------------------------------
-
 В **«Переговорках»** следующие зависимости:
 
 * `preact` — просто попробовал
@@ -10,11 +8,11 @@
 * `fela` (css in js), плохой выбор — совершенно неуместно
 * `redux` — must have
 * `redux-saga` — потому что это лучшая реализация для работы асинхронными событиями в `redux`
-* `lokka` (graphql client)
-* `preact-redux` мост.
+* `lokka` — graphql client
+* `preact-redux`
 * `preact-router`
-* `ramda` — фп, куда же без него в 2018.
-* `css com`
+* `ramda` — фп
+* `css modules`
 
 
 > Стоит отметить, что заиспользовать новые хипстерские штуки было довольно опрометчивой идеей: в `parcel` на тот момент не работал `import .css`, а `preact-fela` вообще не собирался, так что пришлось закинуть им `PR` с фиксом. В этот раз я решил не использовать `boilerplate`, а собирал архитектуру руками.
@@ -35,7 +33,7 @@
 
 На десктопах рабочий день начинается с девяти. На мобильных — с восьми.
 
-## Компоненты
+# Компоненты
   Я разберу самые интересные.
 
 ### event-tooltip
@@ -57,7 +55,7 @@
 <img height=300 src='https://i.imgur.com/7RBHJGn.gif'/>
 
 
-### datepicker
+### date-swticher
 + [component](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/components/date-switcher.js)
 
 + [формат даты](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/utils/formatTimeIntoDateSwitcher.js)
@@ -74,7 +72,7 @@
 
 
 
-### Благодарность
+# Благодарность
 
 Спасибо за по-настоящему сложное и интересное задание. Я с одной стороны был удивлён, а с другой — обрадовался, когда мне не удалось сделать его за выходные. 
 

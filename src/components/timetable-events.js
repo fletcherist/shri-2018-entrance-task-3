@@ -139,7 +139,6 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
       )
     })
 
-    console.log(proccessedEvents)
     return (
       <div className={styles.timetableEventsContainerStyles}
         ref={(ref) => this.container = ref}>

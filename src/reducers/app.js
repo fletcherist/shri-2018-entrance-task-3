@@ -13,6 +13,11 @@ import {
   RESET_CURRENT_EVENT
 } from '../actions/actionTypes'
 
+import {
+  getNextDate,
+  getPreviousDate
+} from '../utils'
+
 import { merge } from 'ramda'
 
 const initialCurrentEvent = {
@@ -34,8 +39,6 @@ const initialState = {
   bookingRoomType: BOOKING_ROOM_TYPE_CREATING
 }
 
-const ONE_HOUR = 1000 * 60 * 60
-const ONE_DAY = ONE_HOUR * 24
 export default function appReducer(state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_DATE:
@@ -44,15 +47,11 @@ export default function appReducer(state = initialState, action) {
       })
     case SET_NEXT_DATE:
       return merge(state, {
-        currentDate: new Date(
-          state.currentDate.getTime() + ONE_DAY
-        )
+        currentDate: getNextDate(state.currentDate)
       })
     case SET_PREVIOUS_DATE:
       return merge(state, {
-        currentDate: new Date(
-          state.currentDate.getTime() - ONE_DAY
-        )
+        currentDate: getPreviousDate(state.currentDate)
       })
     case SET_APP_STATUS:
       return merge(state, {

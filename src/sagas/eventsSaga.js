@@ -1,9 +1,14 @@
 // @flow
 
-import { put, call, fork, takeEvery } from 'redux-saga/effects'
+import { put, call, fork, takeEvery, select } from 'redux-saga/effects'
 import { showModal, setModalData } from '../actions/modals'
 import { fetchEvents, createEvent, editEvent } from '../actions/events'
-import { setAppStatus } from '../actions/app'
+import {
+  setAppStatus,
+  setNextDay,
+  setPreviousDay,
+  setCurrentDate
+} from '../actions/app'
 import {
   APP_STATUS_LOADING,
   APP_STATUS_LOADED,
@@ -12,17 +17,28 @@ import {
 import Api from '../api'
 import { delay } from '../utils'
 
-export default function * eventsSaga() {
-  yield put(setAppStatus(APP_STATUS_LOADING))
+import {
+  currentDateSelector
+} from './selectors'
+
+function * getEvents() {
   let events
   try {
-    events = yield call(Api.events.get)
+    const currentDate = yield select(currentDateSelector)
+    events = yield call(Api.events.getByDate, new Date(currentDate))
   } catch (error) {
+    console.error(error)
     yield delay(1000)
     yield put(setAppStatus(APP_STATUS_FETCHING_FAILED))
     return
   }
   yield put(fetchEvents(events))
+}
+
+export default function * eventsSaga() {
+  yield put(setAppStatus(APP_STATUS_LOADING))
+
+  yield getEvents()
 
   /* turning off the preloader */
   yield put(setAppStatus(APP_STATUS_LOADED))
@@ -48,6 +64,19 @@ export default function * eventsSaga() {
     } catch (error) {
       throw new Error(error)
     }
+  })
+
+  // Handling nextDate/previousDate/setCurrentDate events and fetching events
+  yield takeEvery(setNextDay().type, function * (action) {
+    yield getEvents()
+  })
+
+  yield takeEvery(setPreviousDay().type, function * (action) {
+    yield getEvents()
+  })
+
+  yield takeEvery(setCurrentDate().type, function * (action) {
+    yield getEvents()
   })
 
   yield takeEvery(editEvent().type, function * (action) {

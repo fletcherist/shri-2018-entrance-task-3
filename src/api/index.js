@@ -2,7 +2,10 @@
 
 import client from './graphql-client'
 import { roomInfo, userInfo } from './fragments'
-import { convertArrayToObject } from '../utils'
+import {
+  convertArrayToObject,
+  getNextDate
+} from '../utils'
 
 export const fetchUsers = async () => {
   const usersArray = await client.query(`
@@ -36,6 +39,34 @@ export const fetchEvents = async () => {
       }
     }
   `)
+  if (eventsArray.events.length === 0) return {}
+  /* transforming evenys array to events object */
+  return convertArrayToObject(eventsArray.events)
+}
+
+export const fetchEventsByDate = async (dateStart: Date, dateEnd: Date) => {
+  if (!dateEnd) {
+    dateEnd = getNextDate(dateStart)
+  }
+  const eventsArray = await client.query(`
+    {
+      events(dateStart: "${dateStart.toISOString()}", dateEnd: "${dateEnd.toISOString()}") {
+        id
+        title
+        dateStart
+        dateEnd
+        users {
+          id
+          username
+          avatarUrl
+        }
+        room {
+          ...${roomInfo}
+        }
+      }
+    }
+  `)
+
   if (eventsArray.events.length === 0) return {}
   /* transforming evenys array to events object */
   return convertArrayToObject(eventsArray.events)
@@ -84,6 +115,7 @@ export default {
   },
   events: {
     get: fetchEvents,
+    getByDate: fetchEventsByDate,
     create: createEvent
   },
   rooms: {

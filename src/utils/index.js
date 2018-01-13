@@ -1,3 +1,5 @@
+// @flow
+
 import { merge } from 'ramda'
 import {
   transformEvents,
@@ -68,4 +70,14 @@ export function ending (iNumber, aEndings) {
     }
   }
   return sEnding
+}
+
+const ONE_HOUR = 1000 * 60 * 60
+const ONE_DAY = ONE_HOUR * 24
+export function getNextDate(date: Date) {
+  return new Date(date.getTime() + ONE_DAY)
+}
+
+export function getPreviousDate(date: Date) {
+  return new Date(date.getTime() - ONE_DAY)
 }
