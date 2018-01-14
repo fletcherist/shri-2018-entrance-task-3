@@ -32,8 +32,16 @@ const initialCurrentEvent = {
   }
 }
 
+const getCurrentDate = () => {
+  const date = new Date()
+  date.setHours(6)
+  date.setMinutes(0)
+  date.setSeconds(0)
+  return date
+}
+
 const initialState = {
-  currentDate: new Date(),
+  currentDate: getCurrentDate(),
   currentEvent: initialCurrentEvent,
   appStatus: APP_STATUS_LOADING,
   bookingRoomType: BOOKING_ROOM_TYPE_CREATING

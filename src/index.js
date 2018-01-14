@@ -16,7 +16,6 @@ import Button, { ButtonCreateMeeting, ButtonCancel } from './components/button'
 import Navigation from './components/navigation'
 import RoomsTimetable from './containers/rooms-timetable'
 import BookRoom from './containers/book-room'
-import Footer from './components/footer'
 
 import MainLayout from './containers/main-layout'
 import BookRoomLayout from './components/book-room-layout'
@@ -54,7 +53,6 @@ const App = () => (
               <MainLayout path='/timetable' />
               <BookRoomLayout path='/create' />
             </Router>
-            <Footer />
           </div>
         </ThemeProvider>
       </FelaProvider>

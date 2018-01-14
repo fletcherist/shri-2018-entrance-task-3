@@ -22,14 +22,20 @@ const reducers = combineReducers({
 })
 const sagaMiddleware = createSagaMiddleware()
 
+const reduxDevtools = window.__REDUX_DEVTOOLS_EXTENSION__
+  ? window.__REDUX_DEVTOOLS_EXTENSION__()
+  : null
+
+const middlewares = [
+  applyMiddleware(sagaMiddleware),
+  reduxDevtools
+].filter(Boolean)
+
 export default function createAppStore() {
   const store = createStore(
     reducers,
     {},
-    compose(
-      applyMiddleware(sagaMiddleware),
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
+    compose(...middlewares)
   )
 
   sagaMiddleware.run(mainSaga)

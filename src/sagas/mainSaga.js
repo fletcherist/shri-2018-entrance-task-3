@@ -8,7 +8,8 @@ import { fetchRooms } from '../actions/rooms'
 import {
   setAppStatus,
   resetCurrentEvent,
-  setBookingRoomType
+  setBookingRoomType,
+  setCurrentEvent
 } from '../actions/app'
 import {
   APP_STATUS_LOADING,
@@ -16,7 +17,10 @@ import {
   APP_STATUS_FETCHING_FAILED,
 
   BOOKING_ROOM_TYPE_EDITING,
-  BOOKING_ROOM_TYPE_CREATING
+  BOOKING_ROOM_TYPE_CREATING,
+
+  EMPTY_EVENT,
+  REAL_EVENT
 } from '../actions/actionTypes'
 
 import eventsSaga from './eventsSaga'
@@ -50,6 +54,21 @@ function * appSaga() {
     console.log(action)
     if (action.payload === BOOKING_ROOM_TYPE_CREATING) {
       yield put(resetCurrentEvent())
+    }
+  })
+
+  yield takeEvery(setCurrentEvent().type, function * (action) {
+    const currentEvent = action.payload
+
+    switch (currentEvent.type) {
+      case EMPTY_EVENT:
+        yield put(setBookingRoomType(BOOKING_ROOM_TYPE_CREATING))
+        window.location.hash = '#/create'
+        break
+      case REAL_EVENT:
+        break
+      default:
+        throw new Error('Event type is not defined')
     }
   })
 }

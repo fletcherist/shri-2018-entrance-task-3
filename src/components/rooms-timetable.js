@@ -51,8 +51,10 @@ const ArrayFrom8AM = compose(
 
 const NUMBERS_FROM_8AM = range(8, 24)
 
-const LEFT_BAR_WIDTH = 260
-const LEFT_BAR_WIDTH_MOBILE = 194
+// const LEFT_BAR_WIDTH = 260
+// const LEFT_BAR_WIDTH_MOBILE = 194
+
+const EVENTS_SCROLL_WIDTH = 1040 - 3
 
 const floorStyles = state => ({})
 const Floor = connect({
@@ -91,7 +93,7 @@ type Props = {
 class RoomsTimetable extends Component<Props> {
   constructor() {
     super()
-    this.handleScroll = throttle(1000, this.handleScroll.bind(this))
+    this.handleScroll = throttle(500, this.handleScroll.bind(this))
     this.state = {
       isRoomsCollapsed: false,
       eventsScrollWidth: 0,
@@ -106,9 +108,9 @@ class RoomsTimetable extends Component<Props> {
   }
 
   handleScroll(event) {
-    console.log('handling scroll')
     window.requestAnimationFrame(() => {
       if (!this.container) return false
+
       if (this.container.scrollLeft > 170 && !this.state.isRoomsCollapsed) {
         this.toggleRoomsCollapsed()
       }
@@ -149,10 +151,36 @@ class RoomsTimetable extends Component<Props> {
 
   componentDidMount() {
     window.container = this.container
-    const eventsScrollWidth = 1040 - 18
+    const eventsScrollWidth = EVENTS_SCROLL_WIDTH
     const containerHeight = this.container.clientHeight
     this.setState({eventsScrollWidth, containerHeight})
     console.log(eventsScrollWidth)
+  }
+
+  renderHiddenRooms() {
+    const renderedRooms = []
+    const rooms = this.props.rooms.forEach((room, index, rooms) => {
+      const isNeededToRenderFloor =
+        index > 0 && (rooms[index - 1].floor !== room.floor) ||
+        index === 0
+
+      renderedRooms.push(
+        <div>
+          {isNeededToRenderFloor &&
+            <Floor level={room.floor} />
+          }
+          <RoomCollapsed name={room.title} capacity={room.capacity} />
+        </div>
+      )
+    })
+    return (
+      <div className={cx({
+        [s.roomsCollapsed]: true,
+        [s.roomsCollapsedHidden]: !this.state.isRoomsCollapsed
+      })}>
+        {renderedRooms}
+      </div>
+    )
   }
 
   render() {

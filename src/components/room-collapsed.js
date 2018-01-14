@@ -8,15 +8,14 @@ const roomNameStyles = state => ({
   fontWeight: 'bold',
   fontSize: '11px',
   color: '#858E98',
-  display: 'block',
-  position: 'absolute',
   letterSpacing: '0.4px',
+  display: 'inline-block'
   // minWidth: '80px'
 })
 const RoomName = connect({
   roomNameStyles
-})(({ children, styles }) => (
-  <div className={styles.roomNameStyles}>{children}</div>
+})(({ children, styles, name }) => (
+  <div className={styles.roomNameStyles}>{name}</div>
 ))
 
 export const RoomNameBlock = (props) => (

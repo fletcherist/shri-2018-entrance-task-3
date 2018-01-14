@@ -68,6 +68,29 @@
 <img height=300 src='https://i.imgur.com/tOeZsRo.gif'/>
 
 
+### Баги (чтобы не искать)
+
+1. В Сафари неправильно отображаются линии-разделители на сетке.
+
+```css
+  .eventsArea::before {
+    ...
+    background-image: repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent 64px,
+      rgba(19,100,205,0.1) 64px,
+      rgba(19,100,205,0.1) 65px
+    );
+    ...
+  }
+```
+
+<img height=700 src='https://pp.userapi.com/c830709/v830709984/3eb39/vyETirJ9IuU.jpg'/>
+
+2. В Сафари не работает нативный дейтпикер.
+
+
 
 
 

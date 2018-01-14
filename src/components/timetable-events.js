@@ -22,7 +22,6 @@ const timetableEventStyles = (state: timetableEventType) => {
   const { width, isBooked, selected } = state
   return {
     position: 'relative',
-    cursor: isBooked ? 'pointer' : null,
     width: width ? `${width}px` : '20px',
     display: 'flex',
     alignItems: 'center',
@@ -93,7 +92,6 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
   }
 
   handleEventClick(mouseEvent, roomEvent) {
-    console.log('handleEventClick', mouseEvent, roomEvent)
     this.props.setCurrentEvent(roomEvent)
     setTimeout(() => {
       this.props.handleEventTooltipModal(mouseEvent)
