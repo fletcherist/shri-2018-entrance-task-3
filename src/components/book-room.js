@@ -32,6 +32,7 @@ type Props = {
   createEvent: Function,
   editEvent: Function,
   handleTitleInput: Function,
+  tryRemoveEvent: Function,
   currentEvent: Object,
   bookingRoomType: appBookingRoomType
 };
@@ -55,7 +56,6 @@ const getDateEndTypeCreating = time => {
 class BookRoom extends Component<Props> {
   constructor(props: Props) {
     super(props)
-    console.log('lol', convertDateToInputDatetime(props.currentEvent.dateStart))
     this.state = {
       values: {
         title: props.currentEvent.title || '',
@@ -75,6 +75,7 @@ class BookRoom extends Component<Props> {
     this.handleDateInput = this.handleDateInput.bind(this)
     this.handleTimeStartInput = this.handleTimeStartInput.bind(this)
     this.handleTimeEndInput = this.handleTimeEndInput.bind(this)
+    this.handleRemoveEvent = this.handleRemoveEvent.bind(this)
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.setParticipants = this.setParticipants.bind(this)
@@ -117,6 +118,10 @@ class BookRoom extends Component<Props> {
         usersIds: this.state.usersIds
       })
     }
+  }
+
+  handleRemoveEvent() {
+    this.props.tryRemoveEvent()
   }
 
   setParticipants(participants) {
@@ -171,6 +176,7 @@ class BookRoom extends Component<Props> {
                 setParticipants={this.setParticipants}
               />
             </div>
+            <button onClick={this.handleRemoveEvent}>Удалить</button>
             <div className={s.mobileDivider}><BigDivider /></div>
           </div>
 

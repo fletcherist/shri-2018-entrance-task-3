@@ -1,8 +1,15 @@
 // @flow
 
 import { put, call, fork, takeEvery, select } from 'redux-saga/effects'
-import { showModal, setModalData } from '../actions/modals'
-import { fetchEvents, createEvent, editEvent } from '../actions/events'
+import { showModal, setModalData, hideModal } from '../actions/modals'
+import {
+  fetchEvents,
+  createEvent,
+  editEvent,
+  removeEvent,
+  tryRemoveEvent,
+  storeClearEvents
+} from '../actions/events'
 import {
   setAppStatus,
   setNextDay,
@@ -18,7 +25,8 @@ import Api from '../api'
 import { delay } from '../utils'
 
 import {
-  currentDateSelector
+  currentDateSelector,
+  currentEventIdSelector
 } from './selectors'
 
 function * getEvents() {
@@ -32,6 +40,7 @@ function * getEvents() {
     yield put(setAppStatus(APP_STATUS_FETCHING_FAILED))
     return
   }
+  console.log('got events:', events)
   yield put(fetchEvents(events))
 }
 
@@ -81,5 +90,34 @@ export default function * eventsSaga() {
 
   yield takeEvery(editEvent().type, function * (action) {
     console.log('editing event', action)
+  })
+
+  yield takeEvery(tryRemoveEvent().type, function * (action) {
+    const currentEventId = yield select(currentEventIdSelector)
+    if (!currentEventId) {
+      console.error('[tryRemoveEvent]: no current event id')
+      return false
+    }
+    yield put(setModalData({
+      modalName: 'RemoveEventConfirm',
+      data: {
+        eventId: currentEventId
+      }
+    }))
+
+    yield put(showModal('RemoveEventConfirm'))
+  })
+
+  yield takeEvery(removeEvent().type, function * (action) {
+    const currentEventId = yield select(currentEventIdSelector)
+    if (!currentEventId) {
+      console.error('[tryRemoveEvent]: no current event id')
+      return false
+    }
+    yield call(Api.events.remove, currentEventId)
+    yield put(hideModal('RemoveEventConfirm'))
+    yield put(storeClearEvents())
+    yield getEvents()
+    window.location.hash = '#/'
   })
 }

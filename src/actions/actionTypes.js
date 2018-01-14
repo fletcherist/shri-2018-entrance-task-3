@@ -7,6 +7,9 @@ export const FETCH_USERS = 'FETCH_USERS'
 export const FETCH_EVENTS = 'FETCH_EVENTS'
 export const CREATE_EVENT = 'CREATE_EVENT'
 export const EDIT_EVENT = 'EDIT_EVENT'
+export const REMOVE_EVENT = 'REMOVE_EVENT'
+export const TRY_REMOVE_EVENT = 'TRY_REMOVE_EVENT'
+export const STORE_CLEAR_EVENTS = 'STORE_CLEAR_EVENTS'
 
 export const FETCH_ROOMS = 'FETCH_ROOMS'
 
