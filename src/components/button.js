@@ -60,6 +60,14 @@ export const ButtonRemove = (props) => (
   <ButtonWrapped type='cancel' {...props}>Удалить</ButtonWrapped>
 )
 
+export const ButtonRemoveEvent = (props) => (
+  <ButtonWrapped type='cancel' {...props}>Удалить встречу</ButtonWrapped>
+)
+
+export const ButtonSave = (props) => (
+  <ButtonWrapped type='cancel' {...props}>Сохранить</ButtonWrapped>
+)
+
 export const ButtonOkay = (props) => (
   <ButtonWrapped type='create' {...props} width={120}>
     Хорошо

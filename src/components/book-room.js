@@ -2,8 +2,13 @@
 
 import { h, Component } from 'preact'
 import { merge } from 'ramda'
-import Button, { ButtonCreateMeeting, ButtonCancel } from './button'
-import { BigDivider, EmptyDivider } from './divider'
+import Button, {
+  ButtonCreateMeeting,
+  ButtonCancel,
+  ButtonRemoveEvent,
+  ButtonSave
+} from './button'
+import { BigDivider, EmptyDivider, HorizontalDivider } from './divider'
 
 import Input, { DateInput } from './input'
 import { TextLabel, TextHeadline } from './text'
@@ -176,7 +181,6 @@ class BookRoom extends Component<Props> {
                 setParticipants={this.setParticipants}
               />
             </div>
-            <button onClick={this.handleRemoveEvent}>Удалить</button>
             <div className={s.mobileDivider}><BigDivider /></div>
           </div>
 
@@ -191,8 +195,19 @@ class BookRoom extends Component<Props> {
           <div className={s.footerNotification}>Выберите переговорку</div>
           <div className={s.footerCreateRoom}>
             <div className={s.footerCreateRommWrapper}>
-              <ButtonCreateMeeting disabled={!this.state.isReadyForCreating}
+              {this.props.bookingRoomType === BOOKING_ROOM_TYPE_CREATING && (
+                <ButtonCreateMeeting disabled={!this.state.isReadyForCreating}
                 onClick={this.handleSubmit} />
+              )}
+              {this.props.bookingRoomType === BOOKING_ROOM_TYPE_EDITING && (
+                <div>
+                  <ButtonCancel onClick={() => window.location.hash = '#/'} />
+                  <HorizontalDivider width={10} />
+                  <ButtonRemoveEvent onClick={this.handleRemoveEvent} width={180} />
+                  <HorizontalDivider width={10} />
+                  <ButtonSave />
+                </div>
+              )}
             </div>
           </div>
         </div>
