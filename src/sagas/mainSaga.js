@@ -51,10 +51,10 @@ function * roomsSaga() {
 
 function * appSaga() {
   yield takeEvery(setBookingRoomType().type, function * (action) {
-    console.log(action)
-    if (action.payload === BOOKING_ROOM_TYPE_CREATING) {
-      yield put(resetCurrentEvent())
-    }
+    // console.log(action)
+    // if (action.payload === BOOKING_ROOM_TYPE_CREATING) {
+    //   yield put(resetCurrentEvent())
+    // }
   })
 
   yield takeEvery(setCurrentEvent().type, function * (action) {

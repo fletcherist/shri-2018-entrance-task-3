@@ -12,7 +12,6 @@ type propTypes = {
   withCreateEventButton: boolean
 };
 const Navigation = (props: propTypes) => {
-  console.log(props)
   return (
     <div>
       <nav className={s.container}>

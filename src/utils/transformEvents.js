@@ -2,6 +2,7 @@
 
 import { merge, sort } from 'ramda'
 import { EMPTY_EVENT, REAL_EVENT } from '../actions/actionTypes'
+import { initialCurrentEvent } from '../reducers/app'
 
 export const MINUTES_BETWEEN_8_AND_24 = 960
 export const getEventDurationInMinutes =
@@ -21,10 +22,12 @@ export function transformEvents(events) {
   events.forEach((event, index) => {
     let { dateStart, dateEnd } = event
 
-    if (typeof dateStart === 'string')
-        dateStart = new Date(dateStart)
-    if (typeof dateEnd === 'string')
-        dateEnd = new Date(dateEnd)
+    if (typeof dateStart === 'string') {
+      dateStart = new Date(dateStart)
+    }
+    if (typeof dateEnd === 'string') {
+      dateEnd = new Date(dateEnd)
+    }
 
     /*
      * filling the gap before first event
@@ -33,11 +36,11 @@ export function transformEvents(events) {
       /* e.g 25.12.2017 8:00 AM */
       const dayBeginning = getDayBeginning(dateStart)
       if (dayBeginning < dateStart) {
-        newEvents.push({
+        newEvents.push(merge(initialCurrentEvent, {
           type: EMPTY_EVENT,
           dateStart: dayBeginning,
           dateEnd: dateStart
-        })
+        }))
       }
     }
 
@@ -48,11 +51,11 @@ export function transformEvents(events) {
        */
       if (new Date(previousEvent.dateEnd).getTime() <
           new Date(dateStart).getTime()) {
-        newEvents.push({
+        newEvents.push(merge(initialCurrentEvent, {
           type: EMPTY_EVENT,
           dateStart: previousEvent.dateEnd,
           dateEnd: dateStart
-        })
+        }))
       }
     }
 
@@ -93,7 +96,7 @@ export function transformEvents(events) {
   return newEvents
 }
 
-export function getDayBeginning(date) {
+export function getDayBeginning(date: Date) {
   const newDate = new Date(date)
   newDate.setHours(8)
   newDate.setMinutes(0)
@@ -101,7 +104,7 @@ export function getDayBeginning(date) {
   return newDate
 }
 
-export function getDayEnding(date) {
+export function getDayEnding(date: Date) {
   const newDate = new Date(date)
   newDate.setHours(0)
   newDate.setMinutes(0)
@@ -110,28 +113,10 @@ export function getDayEnding(date) {
   return newDate
 }
 
-export function getNextHour(date) {
+export function getNextHour(date: Date) {
   const newDate = new Date(date)
   newDate.setHours(newDate.getHours() + 1)
   newDate.setMinutes(0)
   newDate.setSeconds(0)
   return newDate
 }
-
-/*
- *  Some test cases
- */ 
-const events = [
-  {
-    title: 'greetings',
-    dateStart: new Date(1514201642802),
-    dateEnd: new Date(1514208851959)
-  },
-  {
-    dateStart: new Date(1514208851959),
-    dateEnd: new Date(1514216051959)
-  }, {
-    dateStart: new Date(1514226851959),
-    dateEnd: new Date(1514230451959)
-  }
-]

@@ -92,10 +92,14 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
   }
 
   handleEventClick(mouseEvent, roomEvent) {
-    this.props.setCurrentEvent(roomEvent)
-    setTimeout(() => {
-      this.props.handleEventTooltipModal(mouseEvent)
-    }, 50)
+    if (roomEvent.type === EMPTY_EVENT) {
+      this.props.setCurrentEvent(roomEvent)
+    } else if (roomEvent.type === REAL_EVENT) {
+      this.props.setCurrentEvent(roomEvent)
+      setTimeout(() => {
+        this.props.handleEventTooltipModal(mouseEvent)
+      }, 50)
+    }
   }
 
   render({ styles, events }) {

@@ -20,7 +20,7 @@ import {
 
 import { merge } from 'ramda'
 
-const initialCurrentEvent = {
+export const initialCurrentEvent = {
   title: '',
   dateStart: new Date(),
   dateEnd: new Date(),

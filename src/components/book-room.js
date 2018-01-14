@@ -42,15 +42,19 @@ type Props = {
   bookingRoomType: appBookingRoomType
 };
 
-const convertDateToInputDatetime = date =>
-  [
+const convertDateToInputDatetime = date => {
+  date = new Date(date)
+  return [
     date.getFullYear(),
     formatMonths(date.getMonth() + 1),
     formatDate(date.getDate())
   ].join('-')
   // year-month-date
-const convertHoursMinutesToInputDatetime = time =>
-  [time.getHours(), formatMinutes(time.getMinutes())].join(':')
+}
+const convertHoursMinutesToInputDatetime = time => {
+  time = new Date(time)
+  return [time.getHours(), formatMinutes(time.getMinutes())].join(':')
+}
 
 const getDateEndTypeCreating = time => {
   const newDate = new Date(time)
@@ -134,7 +138,6 @@ class BookRoom extends Component<Props> {
       usersIds: participants
     })
   }
-
 
   render() {
     const { title, date, timeStart, timeEnd } = this.state.values

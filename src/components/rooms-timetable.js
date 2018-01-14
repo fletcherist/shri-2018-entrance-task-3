@@ -194,8 +194,7 @@ class RoomsTimetable extends Component<Props> {
             <DateSwitcher />
           </div>
           <div className={s.container}
-            ref={(ref) => this.container = ref}
-            onScroll={this.handleScroll}>
+            ref={(ref) => this.container = ref}>
             <div className={s.dateSwitcher}>
               <div className={s.dateSwitcherMobileInner}>
                 <DateSwitcher />
