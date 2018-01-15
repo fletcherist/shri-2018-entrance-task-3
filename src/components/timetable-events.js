@@ -79,7 +79,8 @@ const timetableEventsContainerStyles = state => ({
 type TimetableEventsProps = {
   setCurrentEvent: Function,
   handleEventTooltipModal: Function,
-  eventsScrollWidth: number
+  eventsScrollWidth: number,
+  room: Object
 };
 
 const TimetableEvents = connect({timetableEventsContainerStyles})
@@ -121,7 +122,7 @@ const TimetableEvents = connect({timetableEventsContainerStyles})
         </div>
       )
     }
-    const proccessedEvents = transformEvents(events)
+    const proccessedEvents = transformEvents(events, this.props.room)
     const eventsMarkup = proccessedEvents.map((event, index, eventsArray) => {
       const dateStart = new Date(event.dateStart)
       const dateEnd = new Date(event.dateEnd)

@@ -242,12 +242,18 @@ class BookRoom extends Component<Props> {
           </div>
         </div>
         <div className={s.footer}>
-          <div className={s.footerNotification}>Выберите переговорку</div>
+          {!this.state.hasSelectedRoom &&
+            <div className={s.footerNotification}>Выберите переговорку</div>
+          }
           <div className={s.footerCreateRoom}>
             <div className={s.footerCreateRommWrapper}>
               {this.props.bookingRoomType === BOOKING_ROOM_TYPE_CREATING && (
-                <ButtonCreateMeeting disabled={!this.state.isReadyForCreating}
-                onClick={this.handleSubmit} />
+                <div>
+                  <ButtonCancel onClick={() => window.location.hash = '#/'} />
+                  <HorizontalDivider width={10} />
+                  <ButtonCreateMeeting disabled={!this.state.isReadyForCreating}
+                    onClick={this.handleSubmit} />
+                </div>
               )}
               {this.props.bookingRoomType === BOOKING_ROOM_TYPE_EDITING && (
                 <div>

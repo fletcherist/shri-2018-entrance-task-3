@@ -142,7 +142,8 @@ class RoomsTimetable extends Component<Props> {
             events={this.props.eventsInRoom[room.id]}
             eventsScrollWidth={this.state.eventsScrollWidth}
             setCurrentEvent={this.props.setCurrentEvent}
-            handleEventTooltipModal={this.props.handleEventTooltipModal} />
+            handleEventTooltipModal={this.props.handleEventTooltipModal}
+            room={room} />
         </div>
       )
     })
@@ -202,7 +203,7 @@ class RoomsTimetable extends Component<Props> {
             </div>
             <div className={s.timetable}>
               <CurrentTime
-                eventsScrollWidth={1000000}
+                eventsScrollWidth={1001010101000}
                 containerHeight={this.state.containerHeight}
               />
               {ArrayFrom8AM.map((time, index) => (

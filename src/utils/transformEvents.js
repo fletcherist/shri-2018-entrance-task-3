@@ -16,7 +16,10 @@ export const sortEventsByDate = events => sort(
   (event1, event2) =>
     (new Date(event1.dateStart) > new Date(event2.dateStart)),
   events)
-export function transformEvents(events: Array<Object>) {
+export function transformEvents(
+  events: Array<Object>,
+  room: Object = initialCurrentEvent.room
+) {
   events = sortEventsByDate(events)
   if (events.length === 0) return []
 
@@ -41,7 +44,8 @@ export function transformEvents(events: Array<Object>) {
         newEvents.push(merge(initialCurrentEvent, {
           type: EMPTY_EVENT,
           dateStart: dayBeginning,
-          dateEnd: dateStart
+          dateEnd: dateStart,
+          room: room
         }))
       }
     }
@@ -56,7 +60,8 @@ export function transformEvents(events: Array<Object>) {
         newEvents.push(merge(initialCurrentEvent, {
           type: EMPTY_EVENT,
           dateStart: previousEvent.dateEnd,
-          dateEnd: dateStart
+          dateEnd: dateStart,
+          room: room
         }))
       }
     }
@@ -90,7 +95,8 @@ export function transformEvents(events: Array<Object>) {
         newEvents.push({
           type: EMPTY_EVENT,
           dateStart: dateEnd,
-          dateEnd: dayEnding
+          dateEnd: dayEnding,
+          room: room
         })
       }
     }

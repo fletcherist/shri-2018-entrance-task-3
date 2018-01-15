@@ -116,8 +116,14 @@
 
 ### Редактирование и создание встреч
 
+#### Редактирование встречи
 <img height=300 src='https://i.imgur.com/B7SNXOB.gif' />
+
+#### Удаление встречи
 <img height=300 src='https://i.imgur.com/cOPzz7q.gif' />
+
+#### Создание встречи на пустом месте
+<img height=300 src='https://i.imgur.com/0R4RD7C.gif' />
 
 
 ### Баги (чтобы не искать)

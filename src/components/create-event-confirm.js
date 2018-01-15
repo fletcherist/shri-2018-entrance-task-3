@@ -5,6 +5,8 @@ import { TextHeadline, Text, TextBlock } from './text'
 import { ButtonOkay } from './button'
 import { HorizontalDivider, EmptyDivider } from './divider'
 
+import { formatTimeIntoEventTooltip } from '../utils'
+
 const containerStyles = state => ({
   width: '100%'
 })
@@ -28,7 +30,7 @@ const CreateEventConfirm = ({
     <TextHeadline center>
       Встреча создана!
     </TextHeadline>
-    <TextBlock center>14 декабря, {data.dateStart}—{data.dateEnd}</TextBlock>
+    <TextBlock center>{formatTimeIntoEventTooltip(data.dateStart, data.dateEnd)}</TextBlock>
     <TextBlock center>{data.room.title} · {data.room.floor} этаж</TextBlock>
     <EmptyDivider height={31} />
     <div className={styles.centerBlockStyles}>
