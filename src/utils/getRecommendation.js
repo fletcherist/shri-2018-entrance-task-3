@@ -7,8 +7,11 @@ import {
   reduce,
   merge,
   mergeWith,
-  sum
+  sum,
+  groupBy
 } from 'ramda'
+import { transformEvents } from './transformEvents'
+import { EMPTY_EVENT } from '../actions/actionTypes'
 
 const rooms = {
   "1": {
@@ -47,7 +50,7 @@ const events = {
   "1": {
     "id": "1",
     "title": "ШРИ 2018 - начало",
-    "dateStart": "2017-12-24T18:08:17.911Z",
+    "dateStart": "2018-01-26T14:21:31.726Z",
     "dateEnd": "2017-12-24T19:08:17.911Z",
     "users": [
       {
@@ -157,7 +160,7 @@ const events = {
   "6": {
     "id": "6",
     "title": "123",
-    "dateStart": "2017-12-29T05:00:00.000Z",
+    "dateStart": "2018-01-26T14:21:31.726Z",
     "dateEnd": "2017-12-29T06:00:00.000Z",
     "users": [
       {
@@ -292,22 +295,40 @@ const sortRoomsIndexes = (roomsIndexes) => sort(
 
 const findRoomById = curry((rooms, id) => rooms.filter(room => room.id === id)[0])
 
+const groupEventsByRoom = events => groupBy(event => event.room.id)(events)
+
+const excludeRealEvents = events => filter(event => event.type === EMPTY_EVENT)(events)
+const filterEventsByDateStart = (events, dateStart) =>
+  filter(event => new Date(event.dateStart) > new Date(dateStart))(events)
+
 /*
  * This function finds most suitable rooms for booking
  *
  * rooms All available rooms
  * users Event's participants
  * events All events on that particular date
+ * dateStart
  */
 export function getRecommendation(
   rooms: roomsType,
   users: usersType,
-  events: eventsType
+  events: eventsType,
+  dateStart: Date = new Date()
 ): Array<roomType> {
   /* transforming rooms object to rooms array */
   rooms = Object.values(rooms)
   /* transforming users object to users array */
   users = Object.values(users)
+
+  const eventsArray = Object.values(events)
+  const eventsInRooms = groupEventsByRoom(eventsArray)
+  /* both REAL_EVENT and EMPTY_EVENT */
+  const emptyEventsInRooms = {}
+
+  Object.keys(eventsInRooms).map(key => {
+    const emptyEvents = compose(excludeRealEvents, transformEvents)(eventsInRooms[key])
+    emptyEventsInRooms[key] = filterEventsByDateStart(emptyEvents, dateStart)
+  })
 
   const getRoom = findRoomById(rooms)
 
@@ -330,7 +351,18 @@ export function getRecommendation(
     mergeRoomsIndexes
   )(roomsIndexes)
 
-  return sortedRoomsIndexes.map(index => getRoom(index.key))
+  const finalSortedRooms = sortedRoomsIndexes.map(index => {
+    console.log(emptyEventsInRooms[index.key])
+    const timeAvailable = emptyEventsInRooms[index.key] && emptyEventsInRooms[index.key].length > 0
+      ? {
+        dateStart: emptyEventsInRooms[index.key][0].dateStart,
+        dateEnd: emptyEventsInRooms[index.key][0].dateEnd
+      }
+      : {}
+    return merge(getRoom(index.key), timeAvailable)
+  })
+  console.log(finalSortedRooms)
+  return finalSortedRooms
 }
 
 getRecommendation(rooms, users, events)

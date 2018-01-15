@@ -16,7 +16,7 @@ export const sortEventsByDate = events => sort(
   (event1, event2) =>
     (new Date(event1.dateStart) > new Date(event2.dateStart)),
   events)
-export function transformEvents(events) {
+export function transformEvents(events: Array<Object>) {
   events = sortEventsByDate(events)
   const newEvents = []
   events.forEach((event, index) => {
