@@ -49,14 +49,15 @@
 
 ### rooms-timetable
 
-<img height=300 src='https://pp.userapi.com/c841229/v841229659/59e7f/1YTDcAeScdc.jpg'/>
-
 + [component](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/components/rooms-timetable.js)
 + [container](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/containers/rooms-timetable.js)
 + [алгоритм, который определяет свободное время](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/utils/transformEvents.js)
 + [функция, которая считает длительность ивента в пикселах](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/utils/transformEvents.js#L11)
 
 Я решил отказаться от 15-минутных интервалов, это было бы очень просто. Все события располагаются на сетке с точностью до минуты.
+
+
+<img height=300 src='https://pp.userapi.com/c841229/v841229659/59e89/dg77_ePG6t0.jpg'/>
 
 
 #### Как
