@@ -174,24 +174,13 @@
 
 # Parcel `¯\_(ツ)_/¯` WONTFIX
 
-Только в продакшене такое веселье, это не задумка автора. Вот, как должно работать.
+Только в продакшене такое веселье, это не задумка автора.
 
-```css
-@keyframes onShowAnimation {
-  from {
-    transform: translate(0, -5px);
-  } to {
-    transform: translate(0, 0px);
-  }
-}
 
-.isVisible {
-  animation-name: onShowAnimation;
-  animation-duration: .5s;
-  animation-iteration-count: 1;
-  visibility: visible;
-}
-```
+За что люблю **Parcel**, так это за его юмор:
+
+<img height=360 src='https://pp.userapi.com/c841229/v841229922/5e06f/vmuXatlxDV4.jpg'/>
+
 
 <img height=500 src='https://i.imgur.com/H7hgyrh.gif'/>
 
