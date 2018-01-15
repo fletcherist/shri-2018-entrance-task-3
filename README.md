@@ -48,6 +48,9 @@
   Я разберу самые интересные.
 
 ### rooms-timetable
+
+<img height=300 src='https://pp.userapi.com/c841229/v841229659/59e7f/1YTDcAeScdc.jpg'/>
+
 + [component](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/components/rooms-timetable.js)
 + [container](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/containers/rooms-timetable.js)
 + [алгоритм, который определяет свободное время](https://github.com/fletcherist/shri-2018-entrance-task-3/blob/master/src/utils/transformEvents.js)
