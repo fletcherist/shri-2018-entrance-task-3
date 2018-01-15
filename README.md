@@ -3,6 +3,7 @@
 
 <img height=500 src='https://pp.userapi.com/c621707/v621707431/5486e/0IIzkYfp0k0.jpg'/>
 
+## [DEMO on Github Pages](https://fletcherist.github.io/shri-2018-entrance-task-3)
 
 В **«Переговорках»** следующие зависимости:
 
@@ -151,6 +152,31 @@
 2. В Сафари не работает нативный дейтпикер.
 
 3. На десктопах рабочий день начинается с девяти. На мобильных — с восьми. Это связано с тем, что я не смог нормально это сверстать, у меня отметка в восемь часов накладывалась на `DateSwitcher`, поэтому я скрываю её на десктопе.
+
+4.
+
+`Parcel ¯\_(ツ)_/¯` wontfix
+
+Только в продакшене такое веселье, это не задумка автора.
+
+```css
+@keyframes onShowAnimation {
+  from {
+    transform: translate(0, -5px);
+  } to {
+    transform: translate(0, 0px);
+  }
+}
+
+.isVisible {
+  animation-name: onShowAnimation;
+  animation-duration: .5s;
+  animation-iteration-count: 1;
+  visibility: visible;
+}
+```
+
+<img height=700 src='https://i.imgur.com/H7hgyrh.gif'/>
 
 # Запустить локально
 
