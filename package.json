@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "parcel local.html",
+    "build": "parcel build local.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
