@@ -202,7 +202,7 @@ class RoomsTimetable extends Component<Props> {
             </div>
             <div className={s.timetable}>
               <CurrentTime
-                eventsScrollWidth={this.state.eventsScrollWidth}
+                eventsScrollWidth={1000000}
                 containerHeight={this.state.containerHeight}
               />
               {ArrayFrom8AM.map((time, index) => (

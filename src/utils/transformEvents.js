@@ -18,6 +18,8 @@ export const sortEventsByDate = events => sort(
   events)
 export function transformEvents(events: Array<Object>) {
   events = sortEventsByDate(events)
+  if (events.length === 0) return []
+
   const newEvents = []
   events.forEach((event, index) => {
     let { dateStart, dateEnd } = event

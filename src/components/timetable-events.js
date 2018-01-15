@@ -78,7 +78,8 @@ const timetableEventsContainerStyles = state => ({
 
 type TimetableEventsProps = {
   setCurrentEvent: Function,
-  handleEventTooltipModal: Function
+  handleEventTooltipModal: Function,
+  eventsScrollWidth: number
 };
 
 const TimetableEvents = connect({timetableEventsContainerStyles})

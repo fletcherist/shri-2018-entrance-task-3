@@ -4,8 +4,9 @@ import { connect } from 'preact-fela'
 const rule = state => ({
   padding: '13px 12px 14px',
   marginBottom: '8px',
-  backgroundColor: '#E9ECEF',
-  borderRadius: '4px'
+  backgroundColor: '#007DFF',
+  borderRadius: '4px',
+  color: 'white'
 })
 
 const formatMinutes = minutes => minutes >= 10
@@ -16,19 +17,13 @@ const formatTime = (time) => {
   return [time.getHours(), formatMinutes(time.getMinutes())].join(':')
 }
 
-const RecommendedRoom = ({
-  floor, title, dateStart, dateEnd, styles, onSelect, id
+const SelectedRoom = ({
+  floor, title, dateStart, dateEnd, styles
 }) => (
-  <div className={styles.rule} onClick={() => onSelect({
-    floor: floor,
-    title: title,
-    dateStart: dateStart,
-    dateEnd: dateEnd,
-    id: id
-  })}>
+  <div className={styles.rule}>
     <b>{formatTime(dateStart)} — {formatTime(dateEnd)}</b>
     <span style={{paddingLeft: '12px'}}>{title} · {floor} этаж</span>
   </div>
 )
 
-export default connect({rule})(RecommendedRoom)
+export default connect({rule})(SelectedRoom)

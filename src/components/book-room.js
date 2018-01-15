@@ -9,6 +9,7 @@ import Button, {
   ButtonSave
 } from './button'
 import { BigDivider, EmptyDivider, HorizontalDivider } from './divider'
+import SelectedRoom from './selected-room'
 
 import Input, { DateInput } from './input'
 import { TextLabel, TextHeadline } from './text'
@@ -73,18 +74,30 @@ class BookRoom extends Component<Props> {
         timeEnd: convertHoursMinutesToInputDatetime(props.currentEvent.dateEnd)
       },
       usersIds: [],
-      isReadyForCreating: false
+      isReadyForCreating: false,
     }
 
     this.state.values.timeEnd = props.bookingRoomType === BOOKING_ROOM_TYPE_CREATING
       ? getDateEndTypeCreating(props.currentEvent.dateEnd)
       : convertHoursMinutesToInputDatetime(props.currentEvent.dateEnd)
 
+    this.state.hasSelectedRoom = props.currentEvent.room.id ? true : false
+    this.state.selectedRoom = this.state.hasSelectedRoom
+      ? {
+        id: props.currentEvent.room.id,
+        floor: props.currentEvent.room.floor,
+        title: props.currentEvent.room.title,
+        dateStart: props.currentEvent.dateStart,
+        dateEnd: props.currentEvent.dateEnd
+      }
+      : {}
+
     this.handleTitleInput = this.handleTitleInput.bind(this)
     this.handleDateInput = this.handleDateInput.bind(this)
     this.handleTimeStartInput = this.handleTimeStartInput.bind(this)
     this.handleTimeEndInput = this.handleTimeEndInput.bind(this)
     this.handleRemoveEvent = this.handleRemoveEvent.bind(this)
+    this.handleSelectRoom = this.handleSelectRoom.bind(this)
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.setParticipants = this.setParticipants.bind(this)
@@ -109,6 +122,23 @@ class BookRoom extends Component<Props> {
     console.log(type, event.target.value)
   }
 
+  handleSelectRoom(room) {
+    this.setState({
+      selectedRoom: {
+        id: room.id,
+        floor: room.floor,
+        title: room.title,
+        dateStart: room.dateStart,
+        dateEnd: room.dateEnd
+      },
+      hasSelectedRoom: true,
+      values: merge(this.state.values, {
+        timeStart: convertHoursMinutesToInputDatetime(room.dateStart),
+        timeEnd: convertHoursMinutesToInputDatetime(room.dateEnd)
+      })
+    })
+  }
+
   handleSubmit() {
     const { title, timeStart, timeEnd, date } = this.state.values
 
@@ -117,7 +147,8 @@ class BookRoom extends Component<Props> {
         title: title,
         dateStart: formatDateTime(date, timeStart),
         dateEnd: formatDateTime(date, timeEnd),
-        usersIds: this.state.usersIds
+        usersIds: this.state.usersIds,
+        roomId: this.state.selectedRoom.id
       })
     } else if (this.props.bookingRoomType === BOOKING_ROOM_TYPE_EDITING) {
       this.props.editEvent({
@@ -189,8 +220,24 @@ class BookRoom extends Component<Props> {
 
           <div className={s.infoBlock__rooms}>
             <div className={s.content}>
-              <TextLabel>Рекомендованные переговорки</TextLabel>
-              <RecommendedRooms />
+              {
+                this.state.hasSelectedRoom && (
+                  <div>
+                    <TextLabel>Ваша переговорка</TextLabel>
+                    <SelectedRoom
+                      {...this.state.selectedRoom}
+                    />
+                  </div>
+                )
+              }
+              {
+                !this.state.hasSelectedRoom && (
+                  <div>
+                    <TextLabel>Рекомендованные переговорки</TextLabel>
+                    <RecommendedRooms onSelect={this.handleSelectRoom} />
+                  </div>
+                )
+              }
             </div>
           </div>
         </div>
@@ -208,7 +255,7 @@ class BookRoom extends Component<Props> {
                   <HorizontalDivider width={10} />
                   <ButtonRemoveEvent onClick={this.handleRemoveEvent} width={180} />
                   <HorizontalDivider width={10} />
-                  <ButtonSave />
+                  <ButtonSave onClick={this.handleSubmit} />
                 </div>
               )}
             </div>

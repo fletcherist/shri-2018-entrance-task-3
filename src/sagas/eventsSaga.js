@@ -1,5 +1,5 @@
 // @flow
-
+import { merge } from 'ramda'
 import { put, call, fork, takeEvery, select } from 'redux-saga/effects'
 import { showModal, setModalData, hideModal } from '../actions/modals'
 import {
@@ -26,7 +26,8 @@ import { delay } from '../utils'
 
 import {
   currentDateSelector,
-  currentEventIdSelector
+  currentEventIdSelector,
+  currentEventSelector
 } from './selectors'
 
 function * getEvents() {
@@ -54,7 +55,8 @@ export default function * eventsSaga() {
 
   // Handling booking room event
   yield takeEvery(createEvent().type, function * (action) {
-    const { title, dateStart, dateEnd, usersIds } = action.payload
+    const { title, dateStart, dateEnd, usersIds, roomId } = action.payload
+    console.log('room id ', roomId)
     try {
       const newEvent = yield call(Api.events.create, {
         input: {
@@ -62,14 +64,17 @@ export default function * eventsSaga() {
           dateStart,
           dateEnd
         },
-        roomId: 1,
+        roomId: roomId,
         usersIds: usersIds
       })
       yield put(setModalData({
         modalName: 'CreateEventConfirm',
         data: newEvent.newEvent
       }))
+      window.location.hash = '#/'
       yield put(showModal('CreateEventConfirm'))
+      yield put(storeClearEvents())
+      yield getEvents()
     } catch (error) {
       throw new Error(error)
     }
@@ -89,7 +94,18 @@ export default function * eventsSaga() {
   })
 
   yield takeEvery(editEvent().type, function * (action) {
-    console.log('editing event', action)
+    const currentEventStore = yield select(currentEventSelector)
+    const modifiedEvent = merge(currentEventStore, action.payload)
+
+    yield call(Api.events.update, modifiedEvent.id, {
+      title: modifiedEvent.title,
+      dateStart: modifiedEvent.dateStart,
+      dateEnd: modifiedEvent.dateEnd
+    })
+
+    yield put(storeClearEvents())
+    yield getEvents()
+    console.log('editing event', modifiedEvent)
   })
 
   yield takeEvery(tryRemoveEvent().type, function * (action) {

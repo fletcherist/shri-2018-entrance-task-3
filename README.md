@@ -114,6 +114,11 @@
 
 <img height=300 src='https://i.imgur.com/3AJbDd9.gif'/>
 
+### Редактирование и создание встреч
+
+<img height=300 src='https://i.imgur.com/B7SNXOB.gif' />
+<img height=300 src='https://i.imgur.com/cOPzz7q.gif' />
+
 
 ### Баги (чтобы не искать)
 
@@ -133,7 +138,9 @@
   }
 ```
 
+
 <img height=700 src='https://pp.userapi.com/c830709/v830709984/3eb39/vyETirJ9IuU.jpg'/>
+
 
 2. В Сафари не работает нативный дейтпикер.
 

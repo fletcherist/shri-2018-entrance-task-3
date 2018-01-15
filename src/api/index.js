@@ -118,6 +118,28 @@ export const removeEvent = async (eventId: number) => {
   return await client.mutate(mutationQuery, { eventId })
 }
 
+type updateEventDataType = {
+  title: string,
+  dateStart: Date,
+  dateEnd: Date
+};
+export const updateEvent = async (eventId: number, data: updateEventDataType) => {
+  const mutationQuery = `($input: EventInput!, $id: ID!){
+    newEvent: updateEvent(input: $input, id: $id) {
+      title
+      dateStart
+      dateEnd
+      room {
+        ...${roomInfo}
+      }
+    }
+  }`
+  return await client.mutate(mutationQuery, {
+    id: eventId,
+    input: data
+  })
+}
+
 export default {
   users: {
     get: fetchUsers
@@ -126,7 +148,8 @@ export default {
     get: fetchEvents,
     getByDate: fetchEventsByDate,
     create: createEvent,
-    remove: removeEvent
+    remove: removeEvent,
+    update: updateEvent
   },
   rooms: {
     get: fetchRooms

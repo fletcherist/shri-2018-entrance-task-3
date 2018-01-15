@@ -172,6 +172,6 @@ export function getRecommendation(
       : {}
     return merge(getRoom(index.key), timeAvailable)
   })
-  console.log(finalSortedRooms)
+  // console.log(finalSortedRooms)
   return finalSortedRooms
 }
